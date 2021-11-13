@@ -6,7 +6,7 @@ class lotto:
     bonus = 0
     def startlotto():
         user = []
-        lotto.compare = 0
+        lotto.compare = 0 #반복되면 compare가 늘어서 초기화 시켜줌
         while len(user) < 6:
             try:
                 value = int(input("{} 번째 로또 번호를 입력해주세요.".format(len(user)+1)))
@@ -34,7 +34,7 @@ class lotto:
                 computer.append(value)
         computer.sort()
         for i in range(0,len(user)):
-            if user[i] in computer[:6]:
+            if user[i] in computer[:6]: #[:6]은 0~5까지 표시해주는거임
                 lotto.compare += 1
             elif user[i] == computer[6]:
                 lotto.bonus += 1
@@ -63,25 +63,24 @@ class lotto:
             lotto.winmoney += 500000000
 
       
-#lotto.startlotto()
-#lotto.calculate()
 
 class mywallet:
-    print('-------------------------------')
-    print("로또 판매처에 오신걸 환영합니다")
-    print('-------------------------------')
+    
     balance = 0
     haslotto = 0
-    def __init__(self,name,balance):
+    def __init__(self,name,balance): #입력 받은 이름과 돈을 클래스에 넣음
+        print('-------------------------------')
+        print("로또 판매처에 오신걸 환영합니다")
+        print('-------------------------------')
         self.name = name
         self.balance = balance
         mywallet.balance = balance
-        print('현재 {}님의 잔고는 {}원 입니다.'.format(name,mywallet.balance))
-    def deposit(self,amount):
+        print('[현재 {}님의 잔고는 {}원 입니다.]'.format(name,mywallet.balance))
+    def deposit(self,amount): #입금 함수
         if amount >= 1:
             mywallet.balance += amount
         print('잔액:{}원'.format(mywallet.balance))
-    def buylotto(self):
+    def buylotto(self): #로또 구매 함수
         print('잔액 {}원'.format(mywallet.balance))
         print("로또를 몇개 구매하시겠습니까?" )
         flag = True
@@ -102,7 +101,7 @@ class mywallet:
             elif mywallet.balance < 5000:
                 print("잔액이 부족합니다. 돈을 충전하고 와주세요")
                 break
-    def info(self):
+    def info(self): #정보 함수
         print("{}님의 잔고는 {}원이며 현재 로또는 {}개 보유중입니다.".format(self.name,mywallet.balance,mywallet.haslotto))
 
 name = input('이름을 입력해주세요: ')
