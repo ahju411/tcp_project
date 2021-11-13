@@ -14,7 +14,7 @@ class mywallet:
         print(mywallet.balance)
         print("로또를 몇개 구매하시겠습니까?")
         while(1):
-            choice = int(input('개수'))
+            choice = int(input('개수: '))
             if mywallet.balance >= 5000:
                 if(mywallet.balance - int(choice * 5000) < 0 ):
                     print('무리하지마세요...')
@@ -22,13 +22,18 @@ class mywallet:
                 mywallet.balance -= int(choice * 5000)
                 print("로또를 {}개 구매하셨습니다.".format(choice))
                 print('남은 잔액은 {}원입니다.'.format(mywallet.balance))
+                if mywallet.balance <= 5000:
+                    mywallet.haslotto += choice
+                    break
                 mywallet.haslotto += choice
             elif mywallet.balance < 5000:
-                print("잔액이 부족합니다.")
+                print("잔액이 부족합니다. 돈을 충전하고 와주세요")
                 break
     def info(self):
         print("{}님의 잔고는 {}원이며 현재 로또는 {}개 보유중입니다.".format(self.name,mywallet.balance,mywallet.haslotto))
-kim = mywallet("혜성",10000)
+name = input('이름을 입력해주세요: ')
+money = int(input('잔고를 입력해주세요: '))
+kim = mywallet(name,money)
 kim.deposit(5000)
 kim.buylotto()
 kim.info()
