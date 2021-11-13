@@ -19,3 +19,11 @@ class MenuClass:
             i = i+1    
 menu = MenuClass()
 menu.menu_print()
+
+import socket
+host = '127.0.0.1'
+port = 9999
+server_socket = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
+server_socket.setsockopt(socket.SOL_SOCKET,socket.SO_REUSEADDR,1)
+server_socket.bind(host,port)
+server_socket.listen()
