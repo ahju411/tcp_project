@@ -8,7 +8,7 @@ import os
 #cursor = conn.cursor()
 
 def select(): #정보 보여주기
-    conn = cx_Oracle.connect("comet/1234@192.168.35.245:1521/XE")
+    conn = cx_Oracle.connect("comet/1234@118.217.168.174:1521/XE")
     cursor = conn.cursor()
     sql = "select mem_id,mem_name, mem_phone, from member"
     cursor.execute(sql)
@@ -23,7 +23,7 @@ def select(): #정보 보여주기
     conn.close()
 
 def insert(t): #회원 가입하기
-    conn = cx_Oracle.connect("comet/1234@192.168.35.245:1521/XE")
+    conn = cx_Oracle.connect("comet/1234@118.217.168.174:1521/XE")
     cursor = conn.cursor()
     sql = "insert into member values(:1,:2,:3,:4)"
     cursor.execute(sql,t)
@@ -32,7 +32,7 @@ def insert(t): #회원 가입하기
     conn.close()
 
 def update(t): #정보 수정하기
-    conn = cx_Oracle.connect("comet/1234@192.168.35.245:1521/XE")
+    conn = cx_Oracle.connect("comet/1234@118.217.168.174:1521/XE")
     cursor = conn.cursor()
     sql = "update member set name=:1 where id=:2"
     cursor.execute(sql,t)
@@ -41,7 +41,7 @@ def update(t): #정보 수정하기
     conn.close()
 
 def delete(t): #탈퇴하기
-    conn = cx_Oracle.connect("comet/1234@192.168.35.245:1521/XE")
+    conn = cx_Oracle.connect("comet/1234@118.217.168.174:1521/XE")
     cursor = conn.cursor()
     sql ="delete from member where mem_id=:1 mem_pw=:2"
     cursor.execute(sql,t)
@@ -50,7 +50,7 @@ def delete(t): #탈퇴하기
     conn.close()
 
 def confrimid(id):
-    conn = cx_Oracle.connect("comet/1234@192.168.35.245:1521/XE")
+    conn = cx_Oracle.connect("comet/1234@118.217.168.174:1521/XE")
     cursor = conn.cursor()
     sql ="select * from member where mem_id=:1"
     check = cursor.execute(sql,id)

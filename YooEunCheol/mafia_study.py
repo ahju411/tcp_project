@@ -74,7 +74,8 @@ class Ui_MainWindow(object):
         self.statusbar.setObjectName("statusbar")
         MainWindow.setStatusBar(self.statusbar)
 
-        self.retranslateUi(MainWindow)
+        self.retranslateUi(MainWindow) # 이벤트 부여하기인거같은데
+        self.use_to_user1.clicked.connect(self.click) # type: ignore
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
@@ -101,6 +102,9 @@ class Ui_MainWindow(object):
     
     def chatbtnClicked(self):
         self.inputchatting.get
+
+    def click(self):
+       self.chatting.setText("유저 1을 지목하셨습니다.\n")
         
 
 
