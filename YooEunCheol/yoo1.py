@@ -30,6 +30,7 @@ class Ui_Form(object):
 
     def click(self):
         print("버튼이 눌려짐")
+        
 if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
