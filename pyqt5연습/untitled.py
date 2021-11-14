@@ -59,3 +59,13 @@ class Ui_MainWindow(object):
         self.menuasdasd.setTitle(_translate("MainWindow", "asdasd"))
         self.menuasds.setTitle(_translate("MainWindow", "asds"))
         self.actionasdasd.setText(_translate("MainWindow", "asdasd"))
+
+
+if __name__ == "__main__":
+    import sys
+    app = QtWidgets.QApplication(sys.argv)
+    MainWindow = QtWidgets.QMainWindow()
+    ui = Ui_MainWindow()
+    ui.setupUi(MainWindow)
+    MainWindow.show()
+    sys.exit(app.exec_())

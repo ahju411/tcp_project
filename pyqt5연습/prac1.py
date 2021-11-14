@@ -1,6 +1,6 @@
 import sys
 from PyQt5.QtWidgets import QApplication, QWidget, QPushButton
-
+import os
 class Exam(QWidget):
     def __init__(self):
         super().__init__()
@@ -10,11 +10,12 @@ class Exam(QWidget):
         btn.resize(btn.sizeHint())
         btn.setToolTip('툴팁입니다.<b>안녕하세요.</b>')
         btn.move(20,30)
+        btn.clicked()
 
         self.setGeometry(300,300,400,500)
         self.setWindowTitle('첫 번째 연습')
         self.show()
-
+os.getcwd()
 app = QApplication(sys.argv)
 w = Exam()
 sys.exit(app.exec_())
