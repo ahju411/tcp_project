@@ -8,7 +8,7 @@ id = input('아이디를 입력해주세요')
 pw = input('비밀번호를 입력해주세요')
 value = (id,pw)
 #chkedid,chkedpw = dao.login(value)
-#if (dao.login(value)) is not False:
+#f (dao.login(value)) is not False:
 if dao.login(value) is False:
     print("뭘봐")
 else :
