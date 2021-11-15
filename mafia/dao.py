@@ -1,8 +1,8 @@
 import cx_Oracle
 import os
 
-# LOCATION = r"C:\instantclient_21_3"
-# os.environ["PATH"] = LOCATION + ";" + os.environ["PATH"]
+#LOCATION = r"C:\instantclient_21_3"
+#os.environ["PATH"] = LOCATION + ";" + os.environ["PATH"]
 
 #conn = cx_Oracle.connect("comet/1234@192.168.35.245:1521/XE")
 #cursor = conn.cursor()
