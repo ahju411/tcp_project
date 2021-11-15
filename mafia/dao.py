@@ -6,6 +6,13 @@ import os
 
 #conn = cx_Oracle.connect("comet/1234@192.168.35.245:1521/XE")
 #cursor = conn.cursor()
+def makeDict(cursor):
+    columnNames = [d[0] for d in cursor.description]
+
+    def createRow(*args):
+        return dict(zip(columnNames, args))
+    
+    return createRow
 
 def select(): #정보 보여주기
     conn = cx_Oracle.connect("comet/1234@118.217.168.174:1521/XE")
@@ -53,7 +60,7 @@ def confrimid(id):
     conn = cx_Oracle.connect("comet/1234@118.217.168.174:1521/XE")
     cursor = conn.cursor()
     sql ="select * from member where mem_id=:1"
-    check = cursor.execute(sql,id)
+    cursor.execute(sql,id)
     for i in cursor:
         if len(i) > 0:
             print("존재합니다")
@@ -61,3 +68,33 @@ def confrimid(id):
     cursor.close()
     conn.close()
     return False
+
+def login(inform):
+    conn = cx_Oracle.connect("comet/1234@118.217.168.174:1521/XE")
+    cursor = conn.cursor()
+    sql ="select mem_name from member where mem_id=:1 and mem_pw=:2"
+    id = inform[0]
+    #pw = inform[1]
+    cursor.execute(sql,inform)
+    #cursor.rowfactory = makeDict(cursor)
+    rows = (cursor.fetchall())
+    #print(rows[0])
+    if not rows :
+        print('please register first')
+        return False
+    else:
+        name = rows[0]
+        #print('exist')
+        return id,name
+
+    # for i in cursor:
+    #     if len(i) > 0:
+    #         print("존재합니다")
+    #         return id
+    # for row in rows:
+    #     print(row)
+    #     print(row['MEM_PW'])
+    cursor.close()
+    conn.close()
+    
+
