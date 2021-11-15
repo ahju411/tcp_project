@@ -2,7 +2,7 @@ import random
 
 ## 게임 들어오면 직업을 부여, 8명될경우 게임 시작ㅁㄴㅇㅁㄴㅇ
 
-player = ["","","","","","","",""]
+player = ["","","","","",""]
 count = 0
 for i in player:
     num = random.sample(range(0,1))
