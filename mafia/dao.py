@@ -38,14 +38,13 @@ def insert(t): #회원 가입하기
     cursor.close()
     conn.close()
 
-def update(t): #이름 수정하기
+def update(t): #닉넴 수정하기
     conn = cx_Oracle.connect("comet/1234@118.217.168.174:1521/XE")
     cursor = conn.cursor()
-    sql = "update member set mem_name=:1 where nickname=:2"
+    sql = "update member set nickname=:1 where mem_id=:2"
     cursor.execute(sql,t)
     cursor.close()
-    result= conn.commit()
-    print(result)
+    conn.commit()
     conn.close()
 
 def delete(t): #탈퇴하기
