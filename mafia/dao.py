@@ -6,7 +6,7 @@ import os
 
 #conn = cx_Oracle.connect("comet/1234@192.168.35.245:1521/XE")
 #cursor = conn.cursor()
-def makeDict(cursor):
+def makeDict(cursor): #sql실행된거 딕셔너리 만들기
     columnNames = [d[0] for d in cursor.description]
 
     def createRow(*args):
@@ -17,7 +17,7 @@ def makeDict(cursor):
 def select(): #정보 보여주기
     conn = cx_Oracle.connect("comet/1234@118.217.168.174:1521/XE")
     cursor = conn.cursor()
-    sql = "select mem_id,mem_name, mem_phone, from member"
+    sql = "select mem_id,mem_name, mem_phone,nickname from member"
     cursor.execute(sql)
 
     for row in cursor:
@@ -32,68 +32,78 @@ def select(): #정보 보여주기
 def insert(t): #회원 가입하기
     conn = cx_Oracle.connect("comet/1234@118.217.168.174:1521/XE")
     cursor = conn.cursor()
-    sql = "insert into member values(:1,:2,:3,:4)"
+    sql = "insert into member values(:1,:2,:3,:4,:5)"
     cursor.execute(sql,t)
     conn.commit()
     cursor.close()
     conn.close()
 
-def update(t): #정보 수정하기
+def update(t): #이름 수정하기
     conn = cx_Oracle.connect("comet/1234@118.217.168.174:1521/XE")
     cursor = conn.cursor()
-    sql = "update member set name=:1 where id=:2"
+    sql = "update member set mem_name=:1 where nickname=:2"
     cursor.execute(sql,t)
     cursor.close()
-    conn.commit()
+    result= conn.commit()
+    print(result)
     conn.close()
 
 def delete(t): #탈퇴하기
     conn = cx_Oracle.connect("comet/1234@118.217.168.174:1521/XE")
     cursor = conn.cursor()
-    sql ="delete from member where mem_id=:1 mem_pw=:2"
+    sql ="delete from member where mem_id=:1 and mem_pw=:2"
     cursor.execute(sql,t)
     cursor.close()
     conn.commit()
     conn.close()
 
-def confrimid(id):
+def confrimid(id): #아이디 중복확인
     conn = cx_Oracle.connect("comet/1234@118.217.168.174:1521/XE")
     cursor = conn.cursor()
     sql ="select * from member where mem_id=:1"
     cursor.execute(sql,id)
     for i in cursor:
         if len(i) > 0:
-            print("존재합니다")
+            print("이미 사용중인 아이디입니다.")
             return True
     cursor.close()
     conn.close()
     return False
 
-def login(inform):
+def confirmnickname(nickname): #닉네임 중복확인
+    conn = cx_Oracle.connect("comet/1234@118.217.168.174:1521/XE")
+    cursor = conn.cursor()
+    sql ="select * from member where nickname=:1"
+    cursor.execute(sql,nickname)
+    for i in cursor:
+        if len(i) > 0:
+            print("닉네임이 사용중입니다.")
+            return True
+    cursor.close()
+    conn.close()
+    return False
+
+
+def login(inform): #로그인 구현
     conn = cx_Oracle.connect("comet/1234@118.217.168.174:1521/XE")
     cursor = conn.cursor()
     sql ="select mem_name from member where mem_id=:1 and mem_pw=:2"
+    #전달된 id 값 읽기
     id = inform[0]
     #pw = inform[1]
     cursor.execute(sql,inform)
     #cursor.rowfactory = makeDict(cursor)
+
+    #sql 실행문이 있는지 확인하기 
     rows = (cursor.fetchall())
-    #print(rows[0])
     if not rows :
         print('please register first')
         return False
     else:
         name = rows[0]
-        #print('exist')
         return id,name
 
-    # for i in cursor:
-    #     if len(i) > 0:
-    #         print("존재합니다")
-    #         return id
-    # for row in rows:
-    #     print(row)
-    #     print(row['MEM_PW'])
+    
     cursor.close()
     conn.close()
     
