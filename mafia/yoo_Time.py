@@ -61,7 +61,8 @@ class SET_USER_JOB:
 
 ## 직업 랜덤부여  
 # 들어온 유저들을 받았다고 가정시
-user = ["a","b","c","d","e","f","g","h"]
+user = ["철철철철철철","뭘까이기분은","김민꾜우","감스트입니다"
+,"페이커","hide on bush","skt t1 faker","쇼메이커"]
 
 joblist = [1,2,3,4,5,6,7,8]  
 joblist = random.sample(joblist,8) # joblist 숫자 랜덤으로 섞기
