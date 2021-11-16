@@ -28,7 +28,7 @@ def Recv(client_sock,user):
 
 if __name__=='__main__':
     client_sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    Host = '192.168.35.245'
+    Host = '118.217.168.174'
     Port = 9090
     user = input('닉네임: ')
     client_sock.connect((Host,Port))
