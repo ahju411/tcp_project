@@ -13,8 +13,9 @@ while 1:
         chkid = (input('다른 아이디를 입력해주세요: '),)
 id = ''.join(chkid)
 pw = (input('비밀번호를 입력해주세요: '))
-encode_pw = bytes(pw,'utf-8')
-hash_pw = bcrypt.hashpw(encode_pw,salt=bcrypt.gensalt())
+#비밀번호 암호화 과정 
+encode_pw = bytes(pw,'utf-8') #입력된 pw 값을 utf 8 로 인코딩하고 부호화함 
+hash_pw = bcrypt.hashpw(encode_pw,salt=bcrypt.gensalt()) #hashpw를 통해서 랜덤 해쉬값을 부여함
 
 name =input('이름을 입력해주세요: ')
 phone = input('전화번호를 입력해주세요: ')
@@ -26,7 +27,7 @@ while 1:
     else:
         chknickname = (input('다른 닉네임을 입력해주세요: '),)
 nickname = ''.join(chknickname)
-value = (id,hash_pw.decode('utf-8'),name,phone,nickname)
+value = (id,hash_pw.decode('utf-8'),name,phone,nickname) #해쉬 값은 꼭 utf-8로 디코딩해서 넣어야함 
 
 #dao.insert(value)
 #dao.select()
