@@ -13,9 +13,9 @@ def Recv(client_sock):
 
 if __name__=='__main__':
     client_sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    Host = '127.0.0.1'
+    Host = '118.217.168.174' #192.168.35.245 118.217.168.174
     Port = 9000
-    client_sock.connect(('127.0.0.1',9000))
+    client_sock.connect((Host,Port))
     print('Connecting to',Host,Port)
 
     thread1 = threading.Thread(target=Send,args=(client_sock,))
