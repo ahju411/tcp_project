@@ -35,7 +35,7 @@ def start_timer(count):
 
 
 
-# 0 게임 대기중 1.2 마피아 3 경찰 4 의사 5 시민
+# 1.2 마피아 3 경찰 4 의사 5 시민
 # 게임 시작시 유저의 직업 랜덤 부여
 class SET_USER_JOB:
     def __init__(self,nickname,job) :
