@@ -21,7 +21,7 @@ phone = input('전화번호를 입력해주세요: ')
 chknickname = (input('닉네임을 입력해주세요: '),)
 while 1:
     if dao.confirmnickname(chknickname) == False:
-        print('사용 가능한 닉네임입니다.')
+        print('가입 되었습니다~')
         break
     else:
         chknickname = (input('다른 닉네임을 입력해주세요: '),)
