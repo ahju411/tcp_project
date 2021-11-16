@@ -86,7 +86,7 @@ def confirmnickname(nickname): #닉네임 중복확인
 def login(inform): #로그인 구현
     conn = cx_Oracle.connect("comet/1234@118.217.168.174:1521/XE")
     cursor = conn.cursor()
-    sql ="select mem_name from member where mem_id=:1 and mem_pw=:2"
+    sql ="select mem_name from member where mem_id=:1"
     #전달된 id 값 읽기
     id = inform[0]
     #pw = inform[1]
@@ -101,9 +101,27 @@ def login(inform): #로그인 구현
     else:
         name = rows[0]
         return id,name
-
-    
     cursor.close()
     conn.close()
+
+def chkpwlogin(chkpw):
+    conn = cx_Oracle.connect("comet/1234@118.217.168.174:1521/XE")
+    cursor = conn.cursor()
+    sql ="select mem_pw from member where mem_id=:1"
+    #chkpw = pw[0]
+    cursor.execute(sql,chkpw)
+    #cursor.rowfactory = makeDict(cursor)
+
+    #sql 실행문이 있는지 확인하기 
+    rows = (cursor.fetchall())
+    if not rows :
+        print('아이디 또는 비밀번호가 틀렸습니다.')
+        return False
+    else:
+        pw = rows[0]
+        return pw
+    cursor.close()
+    conn.close()
+
     
 
