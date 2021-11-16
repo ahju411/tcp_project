@@ -37,7 +37,7 @@ def start_timer(count):
 
 # 0 게임 대기중 1.2 마피아 3 경찰 4 의사 5 시민
 # 게임 시작시 유저의 직업 랜덤 부여
-class USER_GAMEINFO:
+class SET_USER_JOB:
     def __init__(self,nickname,job) :
         self.nickname = nickname
         if job == 1 :
@@ -60,24 +60,23 @@ class USER_GAMEINFO:
 
 
 ## 직업 랜덤부여  
-
+# 들어온 유저들을 받았다고 가정시
 user = ["a","b","c","d","e","f","g","h"]
 
-joblist = [1,2,3,4,5,6,7,8]
-joblist = random.sample(joblist,8)
-i=0
+joblist = [1,2,3,4,5,6,7,8]  
+joblist = random.sample(joblist,8) # joblist 숫자 랜덤으로 섞기
 
-user1 = USER_GAMEINFO(user[0],joblist[0])
-user2 = USER_GAMEINFO(user[1],joblist[1])
-user3 = USER_GAMEINFO(user[2],joblist[2])
-user4 = USER_GAMEINFO(user[3],joblist[3])
-user5 = USER_GAMEINFO(user[4],joblist[4])
-user6 = USER_GAMEINFO(user[5],joblist[5])
-user7 = USER_GAMEINFO(user[6],joblist[6])
-user8 = USER_GAMEINFO(user[7],joblist[7])
+# 섞은번호랑 유저별로 합체~
+user1 = SET_USER_JOB(user[0],joblist[0])
+user2 = SET_USER_JOB(user[1],joblist[1])
+user3 = SET_USER_JOB(user[2],joblist[2])
+user4 = SET_USER_JOB(user[3],joblist[3])
+user5 = SET_USER_JOB(user[4],joblist[4])
+user6 = SET_USER_JOB(user[5],joblist[5])
+user7 = SET_USER_JOB(user[6],joblist[6])
+user8 = SET_USER_JOB(user[7],joblist[7])
 
-# 게임 시작시
-
+# 한번 확인용
 
 print(user1.nickname ," , " , user1.job)
 print(user2.nickname ," , " , user2.job)
@@ -88,4 +87,3 @@ print(user6.nickname ," , " , user6.job)
 print(user7.nickname ," , " , user7.job)
 print(user8.nickname ," , " , user8.job)
 
-print(user1.nickname)
