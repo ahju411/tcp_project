@@ -59,18 +59,13 @@ class USER_GAMEINFO:
 
 
 
-## 직업 랜덤부여 
+## 직업 랜덤부여  
 
-user = ["","","","","","","",""]
+user = ["a","b","c","d","e","f","g","h"]
+
 joblist = [1,2,3,4,5,6,7,8]
 joblist = random.sample(joblist,8)
 i=0
-while(i<8):
-    nickname = (input('닉네임 입력: '))
-    user[i] = USER_GAMEINFO(nickname,joblist)
-    i=i+1
-
-
 
 user1 = USER_GAMEINFO(user[0],joblist[0])
 user2 = USER_GAMEINFO(user[1],joblist[1])
@@ -92,3 +87,5 @@ print(user5.nickname ," , " , user5.job)
 print(user6.nickname ," , " , user6.job)
 print(user7.nickname ," , " , user7.job)
 print(user8.nickname ," , " , user8.job)
+
+print(user1.nickname)
