@@ -33,9 +33,10 @@ def start_timer(count):
 
 #################################################################
 
-# 0 게임 대기중 1.2 마피아 3 경찰 4 의사 5 시민
 
-# 게임 대기중일때
+
+# 0 게임 대기중 1.2 마피아 3 경찰 4 의사 5 시민
+# 게임 시작시 유저의 직업 랜덤 부여
 class USER_GAMEINFO:
     def __init__(self,nickname,job) :
         self.nickname = nickname
