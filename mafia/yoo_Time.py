@@ -57,11 +57,14 @@ class USER_GAMEINFO:
             self.job = "시민4"
 
 
-user = ["","","","",""]
-joblist = [1,2,3,4,5]
-joblist = random.sample(joblist,5)
+
+## 직업 랜덤부여 
+
+user = ["","","","","","","",""]
+joblist = [1,2,3,4,5,6,7,8]
+joblist = random.sample(joblist,8)
 i=0
-while(i<5):
+while(i<8):
     nickname = (input('닉네임 입력: '))
     user[i] = USER_GAMEINFO(nickname,joblist)
     i=i+1
@@ -73,6 +76,9 @@ user2 = USER_GAMEINFO(user[1],joblist[1])
 user3 = USER_GAMEINFO(user[2],joblist[2])
 user4 = USER_GAMEINFO(user[3],joblist[3])
 user5 = USER_GAMEINFO(user[4],joblist[4])
+user6 = USER_GAMEINFO(user[5],joblist[5])
+user7 = USER_GAMEINFO(user[6],joblist[6])
+user8 = USER_GAMEINFO(user[7],joblist[7])
 
 # 게임 시작시
 
@@ -82,4 +88,6 @@ print(user2.nickname ," , " , user2.job)
 print(user3.nickname ," , " , user3.job)
 print(user4.nickname ," , " , user4.job)
 print(user5.nickname ," , " , user5.job)
-
+print(user6.nickname ," , " , user6.job)
+print(user7.nickname ," , " , user7.job)
+print(user8.nickname ," , " , user8.job)
