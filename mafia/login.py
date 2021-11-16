@@ -2,11 +2,11 @@ import dao
 import bcrypt
 #아이디와 비밀번호를 입력 후 테이블과 비교
 
-forchkpwID = (input('아이디를 입력해주세요'),)
+forchkpwID = (input('아이디를 입력해주세요: '),)
 id = ''.join(forchkpwID) 
 #if dao.confrimid(forchkpw) == False:
     #print('아이디 또는 비밀번호가 틀렸습니다')
-pw = input('비밀번호를 입력해주세요')
+pw = input('비밀번호를 입력해주세요: ')
 
 # hash_pw = bcrypt.hashpw(encode_pw,salt=bcrypt.gensalt())
 # print(hash_pw)
@@ -24,6 +24,6 @@ else :
         else :
             chkedid,chkedname = dao.login(value)
             name = chkedname[0]
-            print(name)
+            print('당신의 닉네임은: ',name)
     else:
         print("아이디 또는 비밀번호가 틀렸습니다.")
