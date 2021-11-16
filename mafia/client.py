@@ -28,11 +28,11 @@ def Recv(client_sock,user):
 
 if __name__=='__main__':
     client_sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-<<<<<<< HEAD
-    Host = '118.217.168.174' #192.168.35.245 118.217.168.174
-    Port = 9000
+    Host = '192.168.35.245'
+    Port = 9090
+    user = input('닉네임: ')
     client_sock.connect((Host,Port))
->>>>>>> 0c9852769702e324459d4233f5c1ce96cf78f569
+    client_sock.send(user.encode('utf-8'))
     print('Connecting to',Host,Port)
 
     thread2 = threading.Thread(target=Recv, args=(client_sock,user))
