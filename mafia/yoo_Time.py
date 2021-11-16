@@ -1,40 +1,75 @@
 
-import random
-import threading
+import time
 
-count=0
-Date=0
-i=0
-# 타이머
-def start_timer(count):
-    num=count
-    if num == 25 :
-        print("밤입니다.")
-    elif num == 120:
-        print("아침입니다")
-    elif num == 15:
-        print("투표시간입니다")
-    elif num == 17:
+mafia_su=2
+citizen_su=4
+
+def timer(sec):
+    temp=sec
+    global gamemode
+
+  
+
+    if temp == 5 :
+        print("밤입니다. 스킬을 사용하세요.")
+    elif temp == 6:
+        print("아침입니다. 임무목표를 수행하세요.")
+    elif temp == 16:
+        print("투표시간입니다.")
+    elif temp == 17:
         print(" 최후의 반론")
-    elif num == 10:
+    elif temp == 10:
         print(" 최종 투표")
-
-    count-=1
-    print(count)
-    timer=threading.Timer(1,start_timer,args=[count])
-    timer.start()
-
-    if count ==0 :
-        print('시간이 지났습니다.')
-        timer.cancel()
     
+    while (sec !=0):
+        sec = sec-1
+        time.sleep(1)
+        print(sec)
+    
+    
+
+while(1): # 타이머 주기
+
+    timer(5) # 밤 실행
+
+    
+    if mafia_su==0 or mafia_su==citizen_su: #밤 끝나고 마피아수, 시민수 체크해서 동일하면 타이머 주기 끝
+        gamemode = 0
+        break
    
+    timer(6) # 아침 실행
 
-# 타이머 주기 계획
-# start_timer(25)   25초 타이머 <밤>
-# start_timer(30) 30초 타이머 < 아침 >
-# start_timer(15) 15초 타이머 < 투표시간 >
-# start_timer(17) 17초 타이머 < 최후의 반론 >
-# start_timer(10) 10초 타이머 < 최후의 투표 >
+    
+    if mafia_su==0 or mafia_su==citizen_su :#아침 끝나고 마피아수, 시민수 체크해서 동일하면 타이머 주기 끝
+        gamemode = 0
+        break
 
-start_timer(25)
+    timer(16) # 투표 실행
+
+    if mafia_su==0 or mafia_su==citizen_su: #투표 끝나고 마피아수, 시민수 체크해서 동일하면 타이머 주기 끝
+        gamemode = 0
+        break
+
+    timer(17) # 반론 실행
+
+    if mafia_su==0 or mafia_su==citizen_su: #반론 끝나고 마피아수, 시민수 체크해서 동일하면 타이머 주기 끝
+        gamemode = 0
+        break
+
+    timer(10) # 최종투표 실행
+
+    if mafia_su==0 or mafia_su==citizen_su: #최종투표 끝나고 마피아수, 시민수 체크해서 동일하면 타이머 주기 끝
+        gamemode = 0
+        break
+
+
+if(mafia_su==0):
+    print("시민팀 승리")
+
+elif mafia_su==citizen_su:
+    print("마피아팀 승리")
+
+
+
+
+
