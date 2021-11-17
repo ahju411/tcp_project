@@ -27,6 +27,7 @@ def timer(sec):
         print(sec)
     
     
+#######
 
 while(1): # 타이머 주기
 
@@ -62,6 +63,7 @@ while(1): # 타이머 주기
         gamemode = 0
         break
 
+###########
 
 if(mafia_su==0):
     print("시민팀 승리")
