@@ -33,7 +33,7 @@ def timer(sec,myjob):
     global gamemode
 
 
-    if temp == 5 :
+    if temp == 60 :
         print("밤입니다. ")
         i=0
         if myjob == 1 or myjob == 2 : ## 마피아 능력
