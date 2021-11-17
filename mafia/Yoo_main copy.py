@@ -50,7 +50,7 @@ mafia_su=2
 citizen_su=4
 
 ## 직업 랜덤부여  
-# 들어온 유저들을 받았다고 가정시
+# 들어온 유저들을 순서대로받았다고 가정시
 user = ["철철철철철철","뭘까이기분은","김민꾜우","감스트입니다"
 ,"페이커","hide on bush","skt t1 faker","쇼메이커"]
 
@@ -86,18 +86,42 @@ while(i<8):
 
 
 
-
+## 이 while(1) 타이머 주기로 밤 > 아침 > 투표시간 >반론 > 최후의투표 반복할거임.
 while(1):
     th1=Thread(target=startTimer)
     i=5
     print("밤 입니다.")
     th1.start()
+    skill = input("누구한테 스킬쓰실래요? ex) 페이커 \n")
     time.sleep(8)
+    
+    for i in usersetlist:
+        if i == skill:
+            print(i , " 사 망")
+            break
 
     th2=Thread(target=startTimer)
     i=5
     print("아침 입니다.")
     th2.start()
+    time.sleep(8)
+
+    th3=Thread(target=startTimer)
+    i=5
+    print("투표시간 입니다.")
+    th3.start()
+    time.sleep(8)
+
+    th4=Thread(target=startTimer)
+    i=5
+    print("최후의 반론 입니다.")
+    th4.start()
+    time.sleep(8)
+
+    th5=Thread(target=startTimer)
+    i=5
+    print("최후의 투표 입니다.")
+    th5.start()
     time.sleep(8)
 
 

@@ -45,7 +45,41 @@ user6 = SET_USER_JOB(user[5],joblist[5])
 user7 = SET_USER_JOB(user[6],joblist[6])
 user8 = SET_USER_JOB(user[7],joblist[7])
 
-# 한번 확인용
-
+# 한번 확인용 1빠따로 들어온 사람이 너라면 
 print("당신은 " , user1.nickname ," , " , user1.job)
 
+
+
+
+## MAIN함수으로 쓸 파트 타이머주기
+
+while(1):
+    th1=Thread(target=startTimer)
+    i=5
+    print("밤 입니다.")
+    th1.start()
+    time.sleep(8)
+
+    th2=Thread(target=startTimer)
+    i=5
+    print("아침 입니다.")
+    th2.start()
+    time.sleep(8)
+
+    th3=Thread(target=startTimer)
+    i=5
+    print("투표시간 입니다.")
+    th3.start()
+    time.sleep(8)
+
+    th4=Thread(target=startTimer)
+    i=5
+    print("최후의 반론 입니다.")
+    th4.start()
+    time.sleep(8)
+
+    th5=Thread(target=startTimer)
+    i=5
+    print("최후의 투표 입니다.")
+    th5.start()
+    time.sleep(8)
