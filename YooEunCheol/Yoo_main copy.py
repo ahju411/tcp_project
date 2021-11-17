@@ -15,11 +15,8 @@ def startTimer():
     if i==0 :
         timer.cancel()
         return i
+ 
 i=3
-th1 = Thread(target=startTimer)
-th1.start()
-time.sleep(4)
-print("I값 :",i)
-
+startTimer()
 
     
