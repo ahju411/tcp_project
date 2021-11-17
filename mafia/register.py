@@ -3,7 +3,6 @@ import dao
 import bcrypt
 
 #아이디 비번 이름 전화번호 순 
-
 chkid = (input('아이디를 입력해주세요: '),)
 while 1:
     if dao.confrimid(chkid) == False:
@@ -32,6 +31,7 @@ value = (id,hash_pw.decode('utf-8'),name,phone,nickname) #해쉬 값은 꼭 utf-
 #dao.insert(value)
 #dao.select()
 dao.insert(value)
+
 
 
 

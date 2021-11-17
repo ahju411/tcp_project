@@ -1,9 +1,26 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-import sys,res
+import sys,res,login
+from registerUi import Ui_registerUi
 
-
-class Ui_Form(object):
+class Ui_Form(QtWidgets.QWidget):
+    def __init__(self):
+            super(Ui_Form,self).__init__()
+            self.openWindow()
+            self.show()
+    def openWindow(self):
+        self.setupUi(self)
+        
+        self.pushButton_2.clicked.connect(self.register) # type: ignore
+        #Form.hide()
+       # Form.ui = Ui_registerUi()
+        #Form.ui.setupUi(self.window)
+        #Form.ui.exec_()
+       # Form.show()
+        #self.window = QtWidgets.QMainWindow()
+        #self.ui = Ui_registerUi()
+        #self.ui.setupUi(self.window)
+        #self.window.show()
     def setupUi(self, Form):
         Form.setObjectName("Form")
         Form.resize(450, 550)
@@ -120,15 +137,37 @@ class Ui_Form(object):
         self.pushButton.setGraphicsEffect(QtWidgets.QGraphicsDropShadowEffect(blurRadius=25, xOffset=3, yOffset=3, color=QtGui.QColor(105, 118, 132, 100)))
         self.retranslateUi(Form)
         QtCore.QMetaObject.connectSlotsByName(Form)
+        self.lineEdit_2.returnPressed.connect(self.login)
         self.pushButton.clicked.connect(self.login) # type: ignore
         self.pushButton_2.clicked.connect(self.register) # type: ignore
     def login(self):
-            print('로그인버튼')
+           #print('로그인버튼')
             id = self.lineEdit.text()
             pw = self.lineEdit_2.text()
-            print(id,pw)
+            value = (id,pw)
+            myname,myid = login.login(value)
+            if myname == 1:
+                    QtWidgets.QMessageBox.about(self,"알림","아이디 또는 비밀번호가 틀립니다.")
+                    self.lineEdit.clear()
+                    self.lineEdit_2.clear()
+            else:
+                    #myname,myid = login.login(value)
+                    QtWidgets.QMessageBox.about(self,"알림","로그인 성공.")
+                    print(myname,myid)
+
+            #print(id,pw)
     def register(self):
-            print('회원가입버튼')
+            
+        self.hide()
+        self.second = Ui_registerUi()
+        self.second.e
+        self.show()
+       # self.second.show()
+        #self.show()
+          #self.openWindow()
+            
+
+            
     def retranslateUi(self, Form):
         _translate = QtCore.QCoreApplication.translate
         Form.setWindowTitle(_translate("Form", "Form"))
@@ -143,5 +182,5 @@ if __name__=='__main__':
         Form = QtWidgets.QWidget()
         ui = Ui_Form()
         ui.setupUi(Form)
-        Form.show()
+        #Form.show()
         sys.exit(app.exec_())

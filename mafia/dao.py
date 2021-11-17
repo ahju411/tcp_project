@@ -37,6 +37,7 @@ def insert(t): #회원 가입하기
     conn.commit()
     cursor.close()
     conn.close()
+    return True
 
 def update(t): #닉넴 수정하기
     conn = cx_Oracle.connect("comet/1234@118.217.168.174:1521/XE")
@@ -86,7 +87,7 @@ def confirmnickname(nickname): #닉네임 중복확인
 def login(inform): #로그인 구현
     conn = cx_Oracle.connect("comet/1234@118.217.168.174:1521/XE")
     cursor = conn.cursor()
-    sql ="select mem_name from member where mem_id=:1"
+    sql ="select nickname from member where mem_id=:1"
     #전달된 id 값 읽기
     id = inform[0]
     #pw = inform[1]
@@ -99,8 +100,8 @@ def login(inform): #로그인 구현
         print('please register first')
         return False
     else:
-        name = rows[0]
-        return id,name
+        nickname = rows[0]
+        return id,nickname
     cursor.close()
     conn.close()
 
