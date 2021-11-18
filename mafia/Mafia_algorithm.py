@@ -31,7 +31,7 @@ class SET_USER_JOB:
 
 def startTimer():
     global i
-    print(i)
+    print(i,"초 남았습니다.")
     i-=1
     timer = threading.Timer(1,startTimer)
     timer.start()
@@ -91,6 +91,7 @@ while(i<8):
 # 게임 초기세팅
 mafia_su = 2
 citizen_su = 6
+Night_counter=0
 
 
 
@@ -111,17 +112,23 @@ while(1):
 
     ###############
     # 밤에 가능한 모든 경우의수 테스트..
-    myjob=""
+    print(userjobsetlist)
+    myname=""
+    myjob="경찰"
     mafia_su=2
+    citizen_su = 6
     kill_1_user="A"
     kill_2_user="A"
     arrest_user=""
     heal_user="B"
     ##
-    th1=Thread(target=startTimer) 
-    i=3
-    print("밤 입니다.")
-    th1.start()
+
+    ## 밤시작
+    th1=Thread(target=startTimer) # 타이머생성
+    i=3 # 밤 시간 3초라고 잡음
+    Night_counter+=1
+    print(Night_counter,"번째 밤 입니다.")
+    th1.start() # 타이머 시작
     if myjob=="마피아1" :
         kill_1_user=input("마피아1 죽일 사람을 선택하세요. : ")
     elif myjob=="마피아2":
@@ -153,6 +160,8 @@ while(1):
                         if userjobsetlist[p] == "마피아1" or userjobsetlist[p] == "마피아2":
                             usersetlist[p]="마피아죽음"
                             mafia_su-=1
+                        else:
+                            citizen_su-=1
                     else:
                         p+=1
              
@@ -163,7 +172,7 @@ while(1):
             print("밤에 아무런 일이 없었습니다.")
     
 
-    elif mafia_su==1: # 마피아 한명 생존시
+    elif mafia_su==1: # 마피아 한명 생존시 코드 짧게할수있을거같은데  빡대가리라 못하겠내
        
         mafia_live_flag=0
         for k in userjobsetlist:
@@ -201,35 +210,124 @@ while(1):
                         print("누군가가 마피아의 공격으로부터 살아남았습니다.")
                 else:
                     p=p+1            
-
+    
+    if mafia_su==0 or citizen_su==mafia_su:
+        break
   
     
-    time.sleep(1)
+    time.sleep(1) ## 이건 아침되고나서 위의 코드들이 동작하는것을 방지하기위해 씀.  위의 코드가 끝날때까지 대기
     
-
+    ## 아침 시작
     th2=Thread(target=startTimer)
-    i=5
+    i=2
     print("아침 입니다.")
     th2.start()
-    time.sleep(8)
+    time.sleep(4)
 
+    #투표시간
+
+    
+    #투표 기능 구현
+    ## 투표 초기데이터 구현
+    uservotesetlist=[0,0,4,0,0,0,0,0]
+    vote_equ_flag=0
+    
+   ##
     th3=Thread(target=startTimer)
-    i=5
+    i=3
     print("투표시간 입니다.")
     th3.start()
-    time.sleep(8)
+    vote_user=input("투표 지목할 사람을 고르세요.")
+  
+    time.sleep(5)
 
-    th4=Thread(target=startTimer)
-    i=5
-    print("최후의 반론 입니다.")
-    th4.start()
-    time.sleep(8)
+    ## 투표 결과
+    p=0
+    for k in usersetlist: 
+        if k==vote_user:
+            uservotesetlist[p] = uservotesetlist[p] +1
+          
+        else:
+            p+=1
+        
+    p=0
+    max=-1
+    for k in uservotesetlist:
+        if max < k:
+            max = k
+        elif max == k:
+            vote_equ_flag = 1
+            equ_num=k
+        else:
+            p+=1
+    if vote_equ_flag==max:
+        vote_equ_flag=1
+    else:
+        vote_equ_flag=0
+    p=0
+    for k in uservotesetlist:
+        if k==max and vote_equ_flag==1:
+            print("투표 결과 동률 입니다.")
+            print(uservotesetlist)
+        elif k==max and vote_equ_flag==0:
+            print(usersetlist[p]," 님이 가장 많은 투표를 받았습니다.")
+            FinalSub=p 
+        else:
+            p+=1
 
-    th5=Thread(target=startTimer)
-    i=5
-    print("최후의 투표 입니다.")
-    th5.start()
-    time.sleep(8)
+    time.sleep(1)
+    ##
+
+
+    if vote_equ_flag==0:
+        
+        th4=Thread(target=startTimer)
+        i=3
+        print(userjobsetlist)
+        print("최후의 반론 입니다.")
+        th4.start()
+        time.sleep(5)
+
+
+        th5=Thread(target=startTimer)
+        i=3
+        print("최후의 투표 입니다. ")
+        th5.start()
+        FinalVote = input("투표로 조져버리겠습니까? Y / N")
+
+        time.sleep(5)
+
+    ## 최후의 투표 결과 코드
+        FinalVote_Y_count=0
+        FinalVote_N_count=0
+        if FinalVote=="Y":
+            FinalVote_Y_count=FinalVote_Y_count+1
+        if FinalVote=="N":
+            FinalVote_N_count=FinalVote_N_count+1
+
+        if FinalVote_Y_count > FinalVote_N_count:
+            print(userjobsetlist)
+            print(usersetlist[FinalSub],"은(는) 죽었습니다. 직업은 ",userjobsetlist[FinalSub] ," 입니다.")
+            if userjobsetlist[FinalSub] == "마피아1" or userjobsetlist[FinalSub] == "마피아2":
+                mafia_su-=1
+            elif userjobsetlist[FinalSub] != "마피아1" and userjobsetlist[FinalSub] != "마피아2":
+                citizen_su-=1
+            
+            if mafia_su==0 or citizen_su==mafia_su:
+                print("마피아수는 : ",mafia_su,"시티즌 수는:",citizen_su)
+                break
+            
+
+            
+    
+        else:
+            print("투표 결과 아무일이 일어나지 않았습니다.")
+
+        
+
+
+    
+
 
 
 
