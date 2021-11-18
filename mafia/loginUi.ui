@@ -48,6 +48,10 @@ QPushButton#pushButton_2:pressed{
 	padding-left:5px;
 	padding-top:5px;
 	background-color:rgba(105,118,132,200);
+}
+QPushButton#pushButton_3{
+	color:rgba(255,255,255,140);
+	border: 0px;
 }</string>
    </property>
    <widget class="QLabel" name="label">
@@ -221,6 +225,19 @@ padding-bottom:7px</string>
      <string>Join In</string>
     </property>
    </widget>
+   <widget class="QPushButton" name="pushButton_3">
+    <property name="geometry">
+     <rect>
+      <x>140</x>
+      <y>390</y>
+      <width>91</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>비밀 번호 찾기</string>
+    </property>
+   </widget>
    <zorder>label_2</zorder>
    <zorder>label</zorder>
    <zorder>label_3</zorder>
@@ -229,6 +246,7 @@ padding-bottom:7px</string>
    <zorder>lineEdit_2</zorder>
    <zorder>pushButton</zorder>
    <zorder>pushButton_2</zorder>
+   <zorder>pushButton_3</zorder>
   </widget>
  </widget>
  <resources>

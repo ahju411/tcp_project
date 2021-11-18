@@ -47,6 +47,14 @@ def update(t): #닉넴 수정하기
     cursor.close()
     conn.commit()
     conn.close()
+def changepw(pw):
+    conn = cx_Oracle.connect("comet/1234@118.217.168.174:1521/XE")
+    cursor = conn.cursor()
+    sql ="update member set mem_pw=:1 where mem_id=:2"
+    cursor.execute(sql,pw)
+    cursor.close()
+    conn.commit()
+    conn.close()
 
 def delete(t): #탈퇴하기
     conn = cx_Oracle.connect("comet/1234@118.217.168.174:1521/XE")
@@ -120,6 +128,21 @@ def chkpwlogin(chkpw):
         return pw
     cursor.close()
     conn.close()
+
+def chkuser(userinfo):
+    conn = cx_Oracle.connect("comet/1234@118.217.168.174:1521/XE")
+    cursor = conn.cursor()
+    sql ="select mem_pw from member where mem_id=:1 and mem_phone=:2"
+    cursor.execute(sql,userinfo)
+
+    rows = (cursor.fetchall())
+    if not rows :
+        return 1
+    else:
+        return 0
+    cursor.close()
+    conn.close()
+
 
     
 

@@ -2,6 +2,7 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 import sys,res,login
 from registerUi import Ui_registerUi
+from chkuser import Ui_chkuser
 
 class Ui_Form(QtWidgets.QWidget):
     def __init__(self):
@@ -43,6 +44,10 @@ class Ui_Form(QtWidgets.QWidget):
 "    padding-left:5px;\n"
 "    padding-top:5px;\n"
 "    background-color:rgba(105,118,132,200);\n"
+"}\n"
+"QPushButton#pushButton_3{\n"
+"    color:rgba(255,255,255,140);\n"
+"    border: 0px;\n"
 "}")
         self.widget.setObjectName("widget")
         self.label = QtWidgets.QLabel(self.widget)
@@ -113,6 +118,9 @@ class Ui_Form(QtWidgets.QWidget):
         self.pushButton_2.setFont(font)
         self.pushButton_2.setStyleSheet("")
         self.pushButton_2.setObjectName("pushButton_2")
+        self.pushButton_3 = QtWidgets.QPushButton(self.widget)
+        self.pushButton_3.setGeometry(QtCore.QRect(140, 390, 91, 23))
+        self.pushButton_3.setObjectName("pushButton_3")
         self.label_2.raise_()
         self.label.raise_()
         self.label_3.raise_()
@@ -121,7 +129,9 @@ class Ui_Form(QtWidgets.QWidget):
         self.lineEdit_2.raise_()
         self.pushButton.raise_()
         self.pushButton_2.raise_()
-
+        self.pushButton_3.raise_()
+        
+        
         self.label.setGraphicsEffect(QtWidgets.QGraphicsDropShadowEffect(blurRadius=25, xOffset=0, yOffset=0, color=QtGui.QColor(234, 221, 186, 100)))
         self.label_3.setGraphicsEffect(QtWidgets.QGraphicsDropShadowEffect(blurRadius=25, xOffset=0, yOffset=0, color=QtGui.QColor(105, 118, 132, 100)))
         self.pushButton.setGraphicsEffect(QtWidgets.QGraphicsDropShadowEffect(blurRadius=25, xOffset=3, yOffset=3, color=QtGui.QColor(105, 118, 132, 100)))
@@ -130,6 +140,8 @@ class Ui_Form(QtWidgets.QWidget):
         self.lineEdit_2.returnPressed.connect(self.login)
         self.pushButton.clicked.connect(self.login) # type: ignore
         self.pushButton_2.clicked.connect(self.register) # type: ignore
+        self.pushButton_3.clicked.connect(self.resetpw)
+       
     def login(self):
             id = self.lineEdit.text()
             pw = self.lineEdit_2.text()
@@ -148,8 +160,13 @@ class Ui_Form(QtWidgets.QWidget):
         self.join = Ui_registerUi()
         self.join.close()
         self.join.show()
-        
-            
+    def resetpw(self):
+        #어떤 ui가 떠야지 본인 확인 ui 그리고 비번 재설정 ui 
+        self.this = Ui_Form()
+        self.chk = Ui_chkuser()
+        self.chk.show()
+        self.this.close()
+        #self.this.show()
 
 
     def retranslateUi(self, Form):
@@ -160,6 +177,7 @@ class Ui_Form(QtWidgets.QWidget):
         self.lineEdit_2.setPlaceholderText(_translate("Form", "Password"))
         self.pushButton.setText(_translate("Form", "Log In"))
         self.pushButton_2.setText(_translate("Form", "Join In"))
+        self.pushButton_3.setText(_translate("Form", "비밀 번호 찾기"))
 if __name__=='__main__':
         QtWidgets.QApplication.processEvents()
         app = QtWidgets.QApplication(sys.argv)
