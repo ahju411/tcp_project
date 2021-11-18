@@ -31,7 +31,7 @@ class SET_USER_JOB:
 
 def startTimer():
     global i
-    print(i)
+    print(i,"초 남았습니다.")
     i-=1
     timer = threading.Timer(1,startTimer)
     timer.start()
@@ -91,6 +91,7 @@ while(i<8):
 # 게임 초기세팅
 mafia_su = 2
 citizen_su = 6
+Night_counter=0
 
 
 
@@ -122,7 +123,8 @@ while(1):
     ## 밤시작
     th1=Thread(target=startTimer) # 타이머생성
     i=3 # 밤 시간 3초라고 잡음
-    print("밤 입니다.")
+    Night_counter+=1
+    print(Night_counter,"번째 밤 입니다.")
     th1.start() # 타이머 시작
     if myjob=="마피아1" :
         kill_1_user=input("마피아1 죽일 사람을 선택하세요. : ")
