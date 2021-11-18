@@ -153,6 +153,8 @@ while(1):
                         if userjobsetlist[p] == "마피아1" or userjobsetlist[p] == "마피아2":
                             usersetlist[p]="마피아죽음"
                             mafia_su-=1
+                        else:
+                            citizen_su-=1
                     else:
                         p+=1
              
@@ -163,7 +165,7 @@ while(1):
             print("밤에 아무런 일이 없었습니다.")
     
 
-    elif mafia_su==1: # 마피아 한명 생존시
+    elif mafia_su==1: # 마피아 한명 생존시 코드 짧게할수있을거같은데  빡대가리라 못하겠내
        
         mafia_live_flag=0
         for k in userjobsetlist:
