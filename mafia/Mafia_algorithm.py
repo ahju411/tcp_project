@@ -118,10 +118,12 @@ while(1):
     arrest_user=""
     heal_user="B"
     ##
-    th1=Thread(target=startTimer) 
-    i=3
+
+    ## 밤시작
+    th1=Thread(target=startTimer) # 타이머생성
+    i=3 # 밤 시간 3초라고 잡음
     print("밤 입니다.")
-    th1.start()
+    th1.start() # 타이머 시작
     if myjob=="마피아1" :
         kill_1_user=input("마피아1 죽일 사람을 선택하세요. : ")
     elif myjob=="마피아2":
@@ -206,20 +208,25 @@ while(1):
 
   
     
-    time.sleep(1)
+    time.sleep(1) ## 이건 아침되고나서 위의 코드들이 동작하는것을 방지하기위해 씀.  위의 코드가 끝날때까지 대기
     
-
+    ## 아침 시작
     th2=Thread(target=startTimer)
     i=5
     print("아침 입니다.")
     th2.start()
     time.sleep(8)
 
+    #투표시간
     th3=Thread(target=startTimer)
     i=5
     print("투표시간 입니다.")
     th3.start()
     time.sleep(8)
+
+    #투표 기능 구현
+
+
 
     th4=Thread(target=startTimer)
     i=5
