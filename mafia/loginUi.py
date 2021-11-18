@@ -10,17 +10,7 @@ class Ui_Form(QtWidgets.QWidget):
             self.show()
     def openWindow(self):
         self.setupUi(self)
-        
         self.pushButton_2.clicked.connect(self.register) # type: ignore
-        #Form.hide()
-       # Form.ui = Ui_registerUi()
-        #Form.ui.setupUi(self.window)
-        #Form.ui.exec_()
-       # Form.show()
-        #self.window = QtWidgets.QMainWindow()
-        #self.ui = Ui_registerUi()
-        #self.ui.setupUi(self.window)
-        #self.window.show()
     def setupUi(self, Form):
         Form.setObjectName("Form")
         Form.resize(450, 550)
@@ -141,7 +131,6 @@ class Ui_Form(QtWidgets.QWidget):
         self.pushButton.clicked.connect(self.login) # type: ignore
         self.pushButton_2.clicked.connect(self.register) # type: ignore
     def login(self):
-           #print('로그인버튼')
             id = self.lineEdit.text()
             pw = self.lineEdit_2.text()
             value = (id,pw)
@@ -155,19 +144,14 @@ class Ui_Form(QtWidgets.QWidget):
                     QtWidgets.QMessageBox.about(self,"알림","로그인 성공.")
                     print(myname,myid)
 
-            #print(id,pw)
     def register(self):
-            
-        self.hide()
-        self.second = Ui_registerUi()
-        self.second.e
-        self.show()
-       # self.second.show()
-        #self.show()
-          #self.openWindow()
+        self.join = Ui_registerUi()
+        self.join.close()
+        self.join.show()
+        
             
 
-            
+
     def retranslateUi(self, Form):
         _translate = QtCore.QCoreApplication.translate
         Form.setWindowTitle(_translate("Form", "Form"))
@@ -179,8 +163,6 @@ class Ui_Form(QtWidgets.QWidget):
 if __name__=='__main__':
         QtWidgets.QApplication.processEvents()
         app = QtWidgets.QApplication(sys.argv)
-        Form = QtWidgets.QWidget()
-        ui = Ui_Form()
-        ui.setupUi(Form)
-        #Form.show()
+        logui = Ui_Form()
+        logui.show()
         sys.exit(app.exec_())

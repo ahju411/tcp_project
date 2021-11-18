@@ -3,8 +3,6 @@ import bcrypt
 #아이디와 비밀번호를 입력 후 테이블과 비교
 
 def login(inform):
-    # forchkpwID = (input('아이디를 입력해주세요: '),)
-    # chkid = ''.join(id) 
     id , pw = inform
     print('값을 받긴함',id,pw)
     chkid = (id,)

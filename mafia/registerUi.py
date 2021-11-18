@@ -1,19 +1,10 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 import sys,res,dao,bcrypt,chkid,chknickname
-#from loginUi import Form
 
 
 
-class Ui_registerUi(QtWidgets.QWidget):
-    #def __init__(self):
-         #   super().__init__
-#     def openWindow(self):
-#         from loginUi import Ui_Form
-#         self.window = QtWidgets.QWidget()
-#         self.ui = Ui_Form()
-#         self.ui.setupUi(self.window)
-#         self.window.show()
+class Ui_registerUi(QtWidgets.QWidget):   
     def __init__(self):
             super(Ui_registerUi,self).__init__()
             self.openWindow()
@@ -269,7 +260,7 @@ class Ui_registerUi(QtWidgets.QWidget):
         self.retranslateUi(registerUi)
         QtCore.QMetaObject.connectSlotsByName(registerUi)
         self.joinbtn.setDisabled(True)
-        #self.backbtn.clicked.connect(self.pushback) # type : ignore
+        self.backbtn.clicked.connect(self.pushback) # type : ignore
         self.chkid.clicked.connect(self.chkidbtn) # type: ignore
         self.chknickname.clicked.connect(self.chknicknamebtn) # type: ignore
         self.joinbtn.clicked.connect(self.getjoinbtn) # type: ignore
@@ -278,7 +269,6 @@ class Ui_registerUi(QtWidgets.QWidget):
 
 
     def chkidbtn(self):
-            #print("아이디중복확인")
             chkided = self.id.text()
             chkided1 = (chkided,)
             if chkid.login(chkided1) == True:
@@ -313,11 +303,16 @@ class Ui_registerUi(QtWidgets.QWidget):
             value = (id,hash_pw.decode('utf-8'),name,tel,nickname)
             if dao.insert(value) == True:
                     QtWidgets.QMessageBox.about(self,"알림","회원가입이 성공하였습니다.")
+                    self.close()
                     
             else:
                     QtWidgets.QMessageBox.about(self,"알림","회원가입이 실패하였습니다.")
+                    self.close()
     def showModal(self):
             return super().__init__
+    def closeEvent(self, event):
+            
+            event.accept()
 
 
     def retranslateUi(self, registerUi):
@@ -339,11 +334,8 @@ class Ui_registerUi(QtWidgets.QWidget):
         self.name.setPlaceholderText(_translate("registerUi", "name"))
         self.backbtn.setText(_translate("registerUi", "←"))
 if __name__=='__main__':
-        #QtWidgets.QApplication.processEvents()
         app = QtWidgets.QApplication(sys.argv)
-        #registerUi = QtWidgets.QWidget()
-        ui = Ui_registerUi()
-      #  ui.setupUi(registerUi)
-        #registerUi.show()
+        regui = Ui_registerUi()
+        regui.show()
         app.exec()
         sys.exit(app.exec_())
