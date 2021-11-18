@@ -40,14 +40,5 @@ user8 = SET_USER_JOB(user[7],joblist[7])
 usersetlist = [user1.nickname,user2.nickname,user3.nickname,user4.nickname,user5.nickname,user6.nickname,user7.nickname,user8.nickname]
 userjobsetlist = [user1.job,user2.job,user3,user4.job,user5.job,user6.job,user7.job,user8.job]
 
- 
- 
-skill = input("누구한테 스킬쓰실래요? ex) 페이커 \n")
-i=8
-for i in usersetlist:
-    if i == skill:
-      print(i , " 사 망")
-      
 
-print(usersetlist[4] , " ", skill)
     
