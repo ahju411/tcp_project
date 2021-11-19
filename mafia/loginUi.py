@@ -1,4 +1,4 @@
-
+#로그인창
 from PyQt5 import QtCore, QtGui, QtWidgets
 import sys,res,login
 from registerUi import Ui_registerUi
@@ -20,12 +20,12 @@ class Ui_Form(QtWidgets.QWidget):
         self.widget = QtWidgets.QWidget(Form)
         self.widget.setGeometry(QtCore.QRect(30, 30, 370, 480))
         self.widget.setStyleSheet("QPushButton#pushButton{\n"
-"    background-color: qlineargradient(spread:pad, x1:0, y1:0.505682, x2:1, y2:0, stop:0 rgba(20, 47, 78, 219), stop:1 rgba(85, 98, 112, 226));\n"
-"    color:rgba(255,255,255,210);\n"
+"    background-color: qlineargradient(spread:pad, x1:0, y1:0.505682, x2:1, y2:0, stop:0 rgba(255, 255, 255, 0.25), stop:1 rgba(255, 255, 255, 0.4));\n"
+"    color:rgba(255,255,255,255);\n"
 "    border-radius:5px;\n"
 "}\n"
 "QPushButton#pushButton:hover{\n"
-"    background-color: qlineargradient(spread:pad, x1:0, y1:0.505682, x2:1, y2:0, stop:0 rgba(40, 67, 98, 219), stop:1 rgba(105, 118, 132, 226));\n"
+"    background-color: qlineargradient(spread:pad, x1:0, y1:0.505682, x2:1, y2:0, stop:0 rgba(255, 255, 255, 0.3), stop:1 rgba(255, 255, 255, 0.4));\n"
 "}\n"
 "QPushButton#pushButton:pressed{\n"
 "    padding-left:5px;\n"
@@ -33,12 +33,12 @@ class Ui_Form(QtWidgets.QWidget):
 "    background-color:rgba(105,118,132,200);\n"
 "}\n"
 "QPushButton#pushButton_2{\n"
-"    background-color: qlineargradient(spread:pad, x1:0, y1:0.505682, x2:1, y2:0, stop:0 rgba(20, 47, 78, 219), stop:1 rgba(85, 98, 112, 226));\n"
-"    color:rgba(255,255,255,210);\n"
+"    background-color: qlineargradient(spread:pad, x1:0, y1:0.505682, x2:1, y2:0, stop:0 rgba(255, 255, 255, 0.25), stop:1 rgba(255, 255, 255, 0.4));\n"
+"    color:rgba(255,255,255,255);\n"
 "    border-radius:5px;\n"
 "}\n"
 "QPushButton#pushButton_2:hover{\n"
-"    background-color: qlineargradient(spread:pad, x1:0, y1:0.505682, x2:1, y2:0, stop:0 rgba(40, 67, 98, 219), stop:1 rgba(105, 118, 132, 226));\n"
+"    background-color: qlineargradient(spread:pad, x1:0, y1:0.505682, x2:1, y2:0, stop:0 rgba(255, 255, 255, 0.3), stop:1 rgba(255, 255, 255, 0.4));\n"
 "}\n"
 "QPushButton#pushButton_2:pressed{\n"
 "    padding-left:5px;\n"
@@ -69,9 +69,9 @@ class Ui_Form(QtWidgets.QWidget):
         self.label_3.setText("")
         self.label_3.setObjectName("label_3")
         self.label_4 = QtWidgets.QLabel(self.widget)
-        self.label_4.setGeometry(QtCore.QRect(135, 95, 111, 40))
+        self.label_4.setGeometry(QtCore.QRect(155, 95, 111, 40))
         font = QtGui.QFont()
-        font.setFamily("Magneto")
+        font.setFamily("Harrington")
         font.setPointSize(20)
         font.setBold(True)
         font.setWeight(75)
@@ -157,9 +157,16 @@ class Ui_Form(QtWidgets.QWidget):
                     print(myname,myid)
 
     def register(self):
-        self.join = Ui_registerUi()
-        self.join.close()
-        self.join.show()
+        joinui = Ui_registerUi()
+        joinui.backbtn.clicked.connect(self.tologinform)
+        
+        widgetlog.addWidget(joinui)
+        widgetlog.setCurrentIndex(widgetlog.currentIndex()+1)
+        
+        #self.join.close()
+        #self.join.show()
+    def tologinform(self):
+        widgetlog.setCurrentIndex(widgetlog.currentIndex()-2)
     def resetpw(self):
         #어떤 ui가 떠야지 본인 확인 ui 그리고 비번 재설정 ui 
         self.this = Ui_Form()
@@ -167,12 +174,14 @@ class Ui_Form(QtWidgets.QWidget):
         self.chk.show()
         self.this.close()
         #self.this.show()
+    def pushback(self):
+        widgetlog.setCurrentIndex(widgetlog.currentIndex())
 
 
     def retranslateUi(self, Form):
         _translate = QtCore.QCoreApplication.translate
         Form.setWindowTitle(_translate("Form", "Form"))
-        self.label_4.setText(_translate("Form", "Log In"))
+        self.label_4.setText(_translate("Form", "Mafia"))
         self.lineEdit.setPlaceholderText(_translate("Form", "User Name"))
         self.lineEdit_2.setPlaceholderText(_translate("Form", "Password"))
         self.pushButton.setText(_translate("Form", "Log In"))
@@ -182,5 +191,13 @@ if __name__=='__main__':
         QtWidgets.QApplication.processEvents()
         app = QtWidgets.QApplication(sys.argv)
         logui = Ui_Form()
-        logui.show()
+        widgetlog = QtWidgets.QStackedWidget()
+        widgetlog.addWidget(logui)
+        widgetlog.setWindowFlags(QtCore.Qt.FramelessWindowHint)
+        widgetlog.setAttribute(QtCore.Qt.WA_TranslucentBackground)
+        widgetlog.setFixedHeight(500)
+        widgetlog.setFixedWidth(400)
+        widgetlog.show()
+        
+        #logui.show()
         sys.exit(app.exec_())

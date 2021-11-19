@@ -1,4 +1,4 @@
-
+#가입정보 확인창
 from PyQt5 import QtCore, QtGui, QtWidgets
 import sys,res,dao
 
@@ -15,7 +15,7 @@ class Ui_chkuser(QtWidgets.QWidget):
     def setupUi(self, Form):
         Form.setObjectName("Form")
         Form.resize(415, 191)
-        Form.move(1100,350)
+        Form.move(1150,350)
         Form.setWindowFlags(QtCore.Qt.FramelessWindowHint)
         Form.setAttribute(QtCore.Qt.WA_TranslucentBackground)
         self.widget = QtWidgets.QWidget(Form)

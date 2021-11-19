@@ -1,4 +1,4 @@
-
+#비밀번호 변경창
 from PyQt5 import QtCore, QtGui, QtWidgets
 import sys,res,dao,bcrypt
 
@@ -16,7 +16,7 @@ class Ui_changepw(QtWidgets.QWidget):
     def setupUi(self, Form):
         Form.setObjectName("Form")
         Form.resize(448, 211)
-        Form.move(1100,350)
+        Form.move(1150,350)
         Form.setWindowFlags(QtCore.Qt.FramelessWindowHint)
         Form.setAttribute(QtCore.Qt.WA_TranslucentBackground)
         self.widget = QtWidgets.QWidget(Form)

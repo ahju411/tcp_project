@@ -1,6 +1,7 @@
-
+#회원가입창
 from PyQt5 import QtCore, QtGui, QtWidgets
 import sys,res,dao,bcrypt,chkid,chknickname
+
 
 
 
@@ -11,7 +12,7 @@ class Ui_registerUi(QtWidgets.QWidget):
             self.show()
     def openWindow(self):
         self.setupUi(self)
-        self.backbtn.clicked.connect(self.pushback) # type: ignore
+       # self.backbtn.clicked.connect(self.pushback) # type: ignore
     def setupUi(self, registerUi):
         registerUi.setObjectName("registerUi")
         registerUi.resize(450, 550)
@@ -260,19 +261,23 @@ class Ui_registerUi(QtWidgets.QWidget):
         self.retranslateUi(registerUi)
         QtCore.QMetaObject.connectSlotsByName(registerUi)
         self.joinbtn.setDisabled(True)
-        self.backbtn.clicked.connect(self.pushback) # type : ignore
+       # self.backbtn.clicked.connect(self.pushback) # type : ignore
         self.chkid.clicked.connect(self.chkidbtn) # type: ignore
         self.chknickname.clicked.connect(self.chknicknamebtn) # type: ignore
         self.joinbtn.clicked.connect(self.getjoinbtn) # type: ignore
-    def pushback(self):
-           self.close()
+    #def pushback(self):
+        #exit()
+        
 
 
     def chkidbtn(self):
             chkided = self.id.text()
             chkided1 = (chkided,)
             if chkid.login(chkided1) == True:
-                    QtWidgets.QMessageBox.about(self,"알림","사용하셔도 좋습니다.")
+                    reply = QtWidgets.QMessageBox.question(self,"알림","사용하셔도 좋습니다.\n사용하겠습니까?",QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.No)
+                    if reply == QtWidgets.QMessageBox.Yes:
+                            print('true')
+                            self.chkidbtn = 1
             else:
                     QtWidgets.QMessageBox.about(self,"경고","아이디가 사용중입니다.")
                     self.id.clear()
@@ -281,14 +286,16 @@ class Ui_registerUi(QtWidgets.QWidget):
             chknicknameed = self.nickname.text()
             chknicknameed1 = (chknicknameed,)
             if chknickname.nickname(chknicknameed1)== True:
-                    QtWidgets.QMessageBox.about(self,"알림","사용하셔도 좋습니다.")
+                    reply = QtWidgets.QMessageBox.question(self,"알림","사용하셔도 좋습니다.\n사용하겠습니까?",QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.No)
+                    if reply == QtWidgets.QMessageBox.Yes:
+                            if self.chkidbtn == 1:
+                                self.joinbtn.setEnabled(True)
+                             
             else:
                     QtWidgets.QMessageBox.about(self,"경고","닉네임이 사용중입니다.")
                     self.nickname.clear()
-            self.joinbtn.setEnabled(True)
+            #self.joinbtn.setEnabled(True)
     def getjoinbtn(self):
-            
-            print("회원가입")
             id = self.id.text()
             pw = self.password.text()
             encode_pw = bytes(pw,'utf-8') #입력된 pw 값을 utf 8 로 인코딩하고 부호화함 
@@ -299,15 +306,21 @@ class Ui_registerUi(QtWidgets.QWidget):
             tel3 = self.tel3.text()
             tel = tel1+tel2+tel3
             nickname = self.nickname.text()
-            print(id,pw,tel,nickname)
-            value = (id,hash_pw.decode('utf-8'),name,tel,nickname)
-            if dao.insert(value) == True:
-                    QtWidgets.QMessageBox.about(self,"알림","회원가입이 성공하였습니다.")
-                    self.close()
-                    
+            #빈칸이 하나라도 있으면 비번 초기화하고 진행안됨
+            if len(id) ==0 or len(pw) ==0 or len(name) ==0 or len(tel1) <3 or len(tel2) <4 or len(tel3) <4 or len(nickname) ==0:
+                    QtWidgets.QMessageBox.about(self,"경고","모든 칸을 채워주세요")
+                    self.password.clear()
             else:
-                    QtWidgets.QMessageBox.about(self,"알림","회원가입이 실패하였습니다.")
-                    self.close()
+
+                print(id,pw,tel,nickname)
+                value = (id,hash_pw.decode('utf-8'),name,tel,nickname)#해쉬 값을 utf-8로 디코딩하고 넘겨줘야함 
+                if dao.insert(value) == True:
+                        QtWidgets.QMessageBox.about(self,"알림","회원가입이 성공하였습니다.")
+                        self.exit()
+                        
+                else:
+                        QtWidgets.QMessageBox.about(self,"알림","회원가입이 실패하였습니다.")
+                        self.close()
     def showModal(self):
             return super().__init__
     def closeEvent(self, event):
@@ -336,6 +349,11 @@ class Ui_registerUi(QtWidgets.QWidget):
 if __name__=='__main__':
         app = QtWidgets.QApplication(sys.argv)
         regui = Ui_registerUi()
-        regui.show()
-        app.exec()
+        widgetreg = QtWidgets.QStackedWidget()
+        widgetreg.addWidget(regui)
+        widgetreg.setWindowFlags(QtCore.Qt.FramelessWindowHint)
+        widgetreg.setAttribute(QtCore.Qt.WA_TranslucentBackground)
+        widgetreg.setFixedHeight(500)
+        widgetreg.setFixedWidth(400)
+        widgetreg.show()
         sys.exit(app.exec_())

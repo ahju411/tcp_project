@@ -1,4 +1,4 @@
-
+'''
 import dao
 import bcrypt
 
@@ -32,6 +32,7 @@ value = (id,hash_pw.decode('utf-8'),name,phone,nickname) #해쉬 값은 꼭 utf-
 #dao.select()
 dao.insert(value)
 
+'''
 
 
 

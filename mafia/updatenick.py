@@ -1,3 +1,5 @@
+#아직 안 만든 닉네임 변경창
+
 import cx_Oracle
 import os
 import dao
