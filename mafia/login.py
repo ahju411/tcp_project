@@ -1,3 +1,4 @@
+#로그인창 메소드
 import dao
 import bcrypt
 #아이디와 비밀번호를 입력 후 테이블과 비교
