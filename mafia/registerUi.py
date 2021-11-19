@@ -12,7 +12,6 @@ class Ui_registerUi(QtWidgets.QWidget):
             self.show()
     def openWindow(self):
         self.setupUi(self)
-       # self.backbtn.clicked.connect(self.pushback) # type: ignore
     def setupUi(self, registerUi):
         registerUi.setObjectName("registerUi")
         registerUi.resize(450, 550)
@@ -261,16 +260,14 @@ class Ui_registerUi(QtWidgets.QWidget):
         self.retranslateUi(registerUi)
         QtCore.QMetaObject.connectSlotsByName(registerUi)
         self.joinbtn.setDisabled(True)
-       # self.backbtn.clicked.connect(self.pushback) # type : ignore
         self.chkid.clicked.connect(self.chkidbtn) # type: ignore
         self.chknickname.clicked.connect(self.chknicknamebtn) # type: ignore
         self.joinbtn.clicked.connect(self.getjoinbtn) # type: ignore
-    #def pushback(self):
-        #exit()
+    
         
 
 
-    def chkidbtn(self):
+    def chkidbtn(self): #아이디 중복확인 버튼 눌렀을 때
             chkided = self.id.text()
             chkided1 = (chkided,)
             if chkid.login(chkided1) == True:
@@ -281,7 +278,7 @@ class Ui_registerUi(QtWidgets.QWidget):
             else:
                     QtWidgets.QMessageBox.about(self,"경고","아이디가 사용중입니다.")
                     self.id.clear()
-    def chknicknamebtn(self):
+    def chknicknamebtn(self): #닉네임 중복확인 버튼 눌렀을 때
             print("닉네임중복확인")
             chknicknameed = self.nickname.text()
             chknicknameed1 = (chknicknameed,)
@@ -295,7 +292,7 @@ class Ui_registerUi(QtWidgets.QWidget):
                     QtWidgets.QMessageBox.about(self,"경고","닉네임이 사용중입니다.")
                     self.nickname.clear()
             #self.joinbtn.setEnabled(True)
-    def getjoinbtn(self):
+    def getjoinbtn(self): #회원가입 버튼 눌렀을때 발생
             id = self.id.text()
             pw = self.password.text()
             encode_pw = bytes(pw,'utf-8') #입력된 pw 값을 utf 8 로 인코딩하고 부호화함 

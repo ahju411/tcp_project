@@ -142,7 +142,7 @@ class Ui_Form(QtWidgets.QWidget):
         self.pushButton_2.clicked.connect(self.register) # type: ignore
         self.pushButton_3.clicked.connect(self.resetpw)
        
-    def login(self):
+    def login(self): #로그인 창에서 로그인 실행 
             id = self.lineEdit.text()
             pw = self.lineEdit_2.text()
             value = (id,pw)
@@ -156,16 +156,17 @@ class Ui_Form(QtWidgets.QWidget):
                     QtWidgets.QMessageBox.about(self,"알림","로그인 성공.")
                     print(myname,myid)
 
-    def register(self):
+    def register(self): #가입하기 버튼 누르면 실행됨 
         joinui = Ui_registerUi()
         joinui.backbtn.clicked.connect(self.tologinform)
         
         widgetlog.addWidget(joinui)
-        widgetlog.setCurrentIndex(widgetlog.currentIndex()+1)
+        widgetlog.setCurrentIndex(widgetlog.currentIndex()+1) #가입창이 메인 위젯
         
         #self.join.close()
         #self.join.show()
     def tologinform(self):
+        #다시 로그인 창으로 돌아감 
         widgetlog.setCurrentIndex(widgetlog.currentIndex()-2)
     def resetpw(self):
         #어떤 ui가 떠야지 본인 확인 ui 그리고 비번 재설정 ui 
