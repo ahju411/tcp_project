@@ -32,14 +32,21 @@ class Server(object):
             
             print("[INFO] Connection from {}:{} AKA {}".format(address[0], address[1], nickname))
             
-            
+            if Start_Num==1:
+                print("게임시작")
 
             if len(UserList)==8: ## 유저가 8명이면 게임 대기문 나가버리기
                 break
             
 
             
-    
+    def send_Timer(self,Sec,sender):
+        self.Sec = str(Sec)
+        if len(self.clients) >0:
+            for nickname in self.clients:
+                if nickname != sender:
+                    msg = Sec.decode()
+                    self.clients[nickname].send(msg.encode())
 
 
 
@@ -73,6 +80,6 @@ class Server(object):
 
 if __name__ == "__main__":
     port = 9090
-    hostname = "0.0.0.0"
+    hostname = "localhost"
 
     chat_server = Server(hostname, port)

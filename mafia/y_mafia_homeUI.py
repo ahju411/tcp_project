@@ -21,7 +21,7 @@ class Ui_Mafia(QtWidgets.QWidget):
         self.textBrowser.setGeometry(QtCore.QRect(0, 40, 551, 521))
         self.textBrowser.setObjectName("textBrowser")
 
-        self.textEdit = QtWidgets.QTextEdit(Form)
+        self.textEdit = QtWidgets.QLineEdit(Form)
         self.textEdit.setGeometry(QtCore.QRect(0, 570, 501, 20))
         self.textEdit.setObjectName("textEdit")
         
