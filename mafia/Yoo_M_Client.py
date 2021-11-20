@@ -76,3 +76,6 @@ class UiChatClient:
 def main():
     conn = UiChatClient()
     conn.run()
+
+
+main()
