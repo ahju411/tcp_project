@@ -1,81 +1,44 @@
-import threading
 import socket
-import tkinter as tk
+import threading
 
+def Send(client_sock):
+    #global nickname 
+    #nickname= input('닉네임을 입력하세요: ')
+    #client_sock.send(nickname.encode('utf-8'))
+    while True:
+        send_data = input()
+        client_sock.send(send_data.encode('utf-8'))
+       # print(send_data)
+        if send_data == '/q':
+            print('연결 종료')
+            client_sock.close()
 
-class UiChatClient:
-    # class 변수 / static 변수 : 모든 객체가 공유
-    ip = 'localhost'
-    port = 9999
+def Recv(client_sock,user):
+    while 1:
+        try:
+            recv_data = client_sock.recv(1024).decode()
+            
+        except:
+            print('연결끊김')
+            break
+       
+        if not user in recv_data:
+           # print('실행되냐')
+            print(recv_data)
 
-    def __init__(self):
-        self.conn_soc = None  # 서버와 연결된 소켓
-        self.win = None
-        self.chatCont = None
-        self.myChat = None
-        self.sendBtn = None
-        self.allChat =''
+if __name__=='__main__':
+    client_sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    Host = '192.168.75.104'
+    Port = 9090
+    user = input('닉네임: ')
+    client_sock.connect((Host,Port))
+    client_sock.send(user.encode('utf-8'))
+    print('Connecting to',Host,Port)
 
-    def conn(self):
-        self.conn_soc = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        self.conn_soc.connect((UiChatClient.ip, UiChatClient.port))
+    thread2 = threading.Thread(target=Recv, args=(client_sock,user))
+   # thread2.daemon = True
+    thread2.start()
 
-    def setWindow(self):
-        self.win = tk.Tk()
-        self.win.title('채팅프로그램')
-        self.win.geometry('400x500+100+100')
-        self.chatCont = tk.Label(self.win, width=50, height=30, text='dd')
-        self.myChat = tk.Entry(self.win, width=40)
-        self.sendBtn = tk.Button(self.win, width=10, text='전송')
-
-        self.chatCont.grid(row=0, column=0, columnspan=2)
-        self.myChat.grid(row=1, column=0, padx=10)
-        self.sendBtn.grid(row=1, column=1)
-
-        self.myChat.bind('<Return>', self.sendMsg)
-
-
-    def sendMsg(self, e):  # 키보드 입력 받아 상대방에게 메시지 전송
-        msg = self.myChat.get()
-        self.myChat.delete(0, tk.END)
-        self.myChat.config(text='')
-        print(type(msg))
-        msg = msg.encode(encoding='utf-8')
-        print(self.conn_soc)
-        self.conn_soc.sendall(msg)
-        print('전송')
-
-    def recvMsg(self):  # 상대방이 보낸 메시지 읽어서 화면에 출력
-        print('리드')
-        while True:
-            print('리드')
-            msg = self.conn_soc.recv(1024)
-            print(msg)
-            msg = msg.decode()+'\n'
-            self.allChat += msg
-            print(',:', self.allChat)
-
-            self.chatCont.config(text=self.allChat)
-            # if msg == '/stop':
-            #     self.close()
-            #     break
-
-    def run(self):
-        self.conn()
-        self.setWindow()
-
-        th2 = threading.Thread(target=self.recvMsg)
-        th2.start()
-        self.win.mainloop()
-
-    def close(self):
-        self.conn_soc.close()
-        print('종료되었습니다')
-
-
-def main():
-    conn = UiChatClient()
-    conn.run()
-
-
-main()
+    thread1 = threading.Thread(target=Send,args=(client_sock,))
+   # thread1.daemon=True
+    thread1.start()

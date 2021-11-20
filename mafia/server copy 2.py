@@ -1,5 +1,5 @@
 import socket, threading
-import Mafia_algorithmcopy
+
 
 class Room:  # 채팅방 클래스.
     def __init__(self):
