@@ -5,7 +5,6 @@ import bcrypt
 
 def login(inform):
     id , pw = inform
-    print('값을 받긴함',id,pw)
     chkid = (id,)
 
 
@@ -23,8 +22,7 @@ def login(inform):
             chkedid,chkedname = dao.login(value)
             name = chkedname[0]
             
-            print('당신의 닉네임은: ',name)
-            return chkedid,name
+            return chkedid,name #아이디와 닉네임을 전달함
         else: #false면 실행됨
             print("아이디 또는 비밀번호가 틀렸습니다.") 
             return 1,1

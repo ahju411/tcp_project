@@ -176,8 +176,8 @@ class Ui_Form(QtWidgets.QWidget):
         self.chk.show()
         self.this.close()
         #self.this.show()
-    def pushback(self):
-        widgetlog.setCurrentIndex(widgetlog.currentIndex())
+    #def pushback(self):
+       # widgetlog.setCurrentIndex(widgetlog.currentIndex())
 
 
     def retranslateUi(self, Form):

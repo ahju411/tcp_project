@@ -17,6 +17,7 @@ class Ui_Mafia(QtWidgets.QWidget):
             super(Ui_Mafia,self).__init__()
             self.openWindow()
             self.show()
+           
     def openWindow(self):
         self.setupUi(self)
     def setupUi(self, Form):
@@ -68,11 +69,18 @@ class Ui_Mafia(QtWidgets.QWidget):
         self.myjob_image.setGeometry(QtCore.QRect(620, 220, 56, 12))
         self.myjob_image.setObjectName("myjob_image")
         self.output_info = QtWidgets.QLabel(Form)
-        self.output_info.setGeometry(QtCore.QRect(560, 460, 56, 12))
+        self.output_info.setGeometry(QtCore.QRect(560, 460, 60, 12))
         self.output_info.setObjectName("output_info")
+
+        self.inputbutton.clicked.connect(self.testreceive)
 
         self.retranslateUi(Form)
         QtCore.QMetaObject.connectSlotsByName(Form)
+    def receivedata(self,id,name):
+        global myid,myname
+        myid=id
+        myname=name
+        print('정보 원래 전달받음',myid,myname)
 
     def retranslateUi(self, Form):
         _translate = QtCore.QCoreApplication.translate
@@ -91,6 +99,8 @@ class Ui_Mafia(QtWidgets.QWidget):
         self.myname.setText(_translate("Form", "자기닉네임"))
         self.myjob_image.setText(_translate("Form", "직업사진"))
         self.output_info.setText(_translate("Form", "투표하세요"))
+    def testreceive(self):
+        print('정보를 전달받음',myid,myname)
 
 
 if __name__ == "__main__":
