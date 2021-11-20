@@ -46,7 +46,7 @@ class Client(object):
 
         nickname = myid
 
-        host = "localhost"
+        host = "118.217.168.174"
         port = 9090
         
         try:

@@ -205,4 +205,5 @@ if __name__=='__main__':
         widgetlog.show()
         
         #logui.show()
+
         sys.exit(app.exec_())

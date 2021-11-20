@@ -56,6 +56,6 @@ class Server(object):
 
 if __name__ == "__main__":
     port = 9090
-    hostname = "localhost"
+    hostname = "0.0.0.0"
 
     chat_server = Server(hostname, port)

@@ -273,13 +273,11 @@ class Ui_registerUi(QtWidgets.QWidget):
             if chkid.login(chkided1) == True:
                     reply = QtWidgets.QMessageBox.question(self,"알림","사용하셔도 좋습니다.\n사용하겠습니까?",QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.No)
                     if reply == QtWidgets.QMessageBox.Yes:
-                            print('true')
                             self.chkidbtn = 1
             else:
                     QtWidgets.QMessageBox.about(self,"경고","아이디가 사용중입니다.")
                     self.id.clear()
     def chknicknamebtn(self): #닉네임 중복확인 버튼 눌렀을 때
-            print("닉네임중복확인")
             chknicknameed = self.nickname.text()
             chknicknameed1 = (chknicknameed,)
             if chknickname.nickname(chknicknameed1)== True:
@@ -308,14 +306,12 @@ class Ui_registerUi(QtWidgets.QWidget):
                     QtWidgets.QMessageBox.about(self,"경고","모든 칸을 채워주세요")
                     self.password.clear()
             else:
-
-                print(id,pw,tel,nickname)
-                value = (id,hash_pw.decode('utf-8'),name,tel,nickname)#해쉬 값을 utf-8로 디코딩하고 넘겨줘야함 
-                if dao.insert(value) == True:
+                    value = (id,hash_pw.decode('utf-8'),name,tel,nickname)#해쉬 값을 utf-8로 디코딩하고 넘겨줘야함 
+                    if dao.insert(value) == True:
                         QtWidgets.QMessageBox.about(self,"알림","회원가입이 성공하였습니다.")
                         self.exit()
                         
-                else:
+                    else:
                         QtWidgets.QMessageBox.about(self,"알림","회원가입이 실패하였습니다.")
                         self.close()
     def showModal(self):
