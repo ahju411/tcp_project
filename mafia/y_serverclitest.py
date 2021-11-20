@@ -46,7 +46,7 @@ class Client(object):
 
         nickname = myid
 
-        host = "118.217.168.174"
+        host = "localhost"
         port = 9090
         
         try:
@@ -105,7 +105,7 @@ class Client(object):
         
 
     def send_message(self):
-        message = self.chat_ui.textEdit.toPlainText()
+        message = self.chat_ui.textEdit.text()
         self.chat_ui.textBrowser.append("Me: " + message)
 
         print("sent: " + message)
