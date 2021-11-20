@@ -1,5 +1,5 @@
 from PyQt5 import QtCore, QtWidgets
-import client_ui
+import mafia_homeUI
 import connect_ui
 
 import sys
@@ -36,9 +36,9 @@ class Client(object):
         self.chatWidget = QtWidgets.QWidget(self.mainWindow)
 
         self.chatWidget.setHidden(True)
-        self.chat_ui = client_ui.Ui_Form()
+        self.chat_ui = mafia_homeUI.Ui_Mafia()
         self.chat_ui.setupUi(self.chatWidget)
-        self.chat_ui.pushButton.clicked.connect(self.send_message)
+        self.chat_ui.inputbutton.clicked.connect(self.send_message)
 
         self.connect_ui = connect_ui.Ui_Form()
         self.connect_ui.setupUi(self.connectWidget)

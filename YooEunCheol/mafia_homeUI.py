@@ -13,23 +13,17 @@ import sys
 
 
 class Ui_Mafia(QtWidgets.QWidget):
-    def __init__(self):
-            super(Ui_Mafia,self).__init__()
-            self.openWindow()
-            self.show()
-           
-    def openWindow(self):
-        self.setupUi(self)
+ 
     def setupUi(self, Form):
         Form.setObjectName("Form")
         Form.resize(754, 595)
-        self.textEdit = QtWidgets.QTextEdit(Form)
-        self.textEdit.setGeometry(QtCore.QRect(0, 40, 551, 521))
-        self.textEdit.setObjectName("textEdit")
+        self.textBrowser = QtWidgets.QTextBrowser(Form)
+        self.textBrowser.setGeometry(QtCore.QRect(0, 40, 551, 521))
+        self.textBrowser.setObjectName("textBrowser")
 
-        self.lineEdit = QtWidgets.QLineEdit(Form)
-        self.lineEdit.setGeometry(QtCore.QRect(0, 570, 501, 20))
-        self.lineEdit.setObjectName("lineEdit")
+        self.textEdit = QtWidgets.QTextEdit(Form)
+        self.textEdit.setGeometry(QtCore.QRect(0, 570, 501, 20))
+        self.textEdit.setObjectName("textEdit")
         
         self.inputbutton = QtWidgets.QPushButton(Form)
         self.inputbutton.setGeometry(QtCore.QRect(510, 570, 41, 23))
@@ -74,16 +68,11 @@ class Ui_Mafia(QtWidgets.QWidget):
         self.output_info.setGeometry(QtCore.QRect(560, 460, 60, 12))
         self.output_info.setObjectName("output_info")
 
-        self.inputbutton.clicked.connect(self.testreceive)
+        
 
         self.retranslateUi(Form)
         QtCore.QMetaObject.connectSlotsByName(Form)
-    def receivedata(self,id,name):
-        global myid,myname
-        myid=id
-        myname=name
-        print('정보 원래 전달받음',myid,myname)
-
+    
     def retranslateUi(self, Form):
         _translate = QtCore.QCoreApplication.translate
         Form.setWindowTitle(_translate("Form", "Form"))
@@ -101,15 +90,4 @@ class Ui_Mafia(QtWidgets.QWidget):
         self.myname.setText(_translate("Form", "자기닉네임"))
         self.myjob_image.setText(_translate("Form", "직업사진"))
         self.output_info.setText(_translate("Form", "투표하세요"))
-    def testreceive(self):
-        print('정보를 전달받음',myid,myname)
-
-
-if __name__ == "__main__":
-    app = QtWidgets.QApplication(sys.argv)
-    regui = Ui_Mafia()
-    widgethome = QtWidgets.QStackedWidget()
-    widgethome.addWidget(regui)
-    widgethome.resize(800,600)
-    widgethome.show()
-    sys.exit(app.exec_())
+  
