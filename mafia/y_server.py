@@ -1,9 +1,13 @@
 import socket
 import threading
 
+UserList = []
+Start_Num = 0
+
 class Server(object):
     def __init__(self, hostname, port):
         self.clients = {}
+        self.id=None
 
         # create server socket
         self.tcp_server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -15,7 +19,7 @@ class Server(object):
 
         print("[INFO] Server running on {}:{}".format(hostname, port))
 
-        while True:
+        while True: ##  게임 대기문 
             connection, address = self.tcp_server.accept()
             nickname = connection.recv(1024)
             nickname = nickname.decode()
@@ -24,7 +28,20 @@ class Server(object):
             # start a thread for the client
             threading.Thread(target=self.receive_message, args=(connection, nickname), daemon=True).start()
 
+            UserList.append(nickname) ## 유저닉네임을 모으는겁니다 
+            
             print("[INFO] Connection from {}:{} AKA {}".format(address[0], address[1], nickname))
+            
+            
+
+            if len(UserList)==8: ## 유저가 8명이면 게임 대기문 나가버리기
+                break
+            
+
+            
+    
+
+
 
 
     def receive_message(self, connection, nickname):
