@@ -1,4 +1,5 @@
 import socket, threading
+import Mafia_algorithmcopy
 
 class Room:  # 채팅방 클래스.
     def __init__(self):
@@ -37,6 +38,7 @@ class ChatClient:  # 텔레마케터
             msg = self.id+': '+ msg
             self.room.sendMsgAll(msg)  # 모든 사용자에 메시지 전송
         self.room.sendMsgAll(self.id + '님이 퇴장하셨습니다.')
+        
 
     def sendMsg(self, msg):
         print(type(msg))
@@ -56,6 +58,8 @@ class ChatServer:
         self.server_soc.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
         self.server_soc.bind((ChatServer.ip, ChatServer.port))
         self.server_soc.listen()
+    
+    
 
     def run(self):
         self.open()

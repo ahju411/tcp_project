@@ -31,13 +31,10 @@ class SET_USER_JOB:
 
 def startTimer():
     global i
-    print(i,"초 남았습니다.")
-    i-=1
-    timer = threading.Timer(1,startTimer)
-    timer.start()
-    if i==0 :
-        timer.cancel()
-        return i
+    while i!=0:
+        print(i,"초 남았습니다")
+        time.sleep(1)
+        i-=1
 
 
 
