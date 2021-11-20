@@ -152,9 +152,10 @@ class Ui_Form(QtWidgets.QWidget):
                     QtWidgets.QMessageBox.about(self,"알림","아이디 또는 비밀번호가 틀립니다.")
                     self.lineEdit.clear()
                     self.lineEdit_2.clear()
-            else:
+            else: #로그인이 성공하면 대기창으로 들어감
                     self.join = Ui_Mafia()
                     self.join.show()
+                    self.close()
 
     def register(self): #가입하기 버튼 누르면 실행됨 
         joinui = Ui_registerUi()
@@ -196,8 +197,8 @@ if __name__=='__main__':
         widgetlog.addWidget(logui)
         widgetlog.setWindowFlags(QtCore.Qt.FramelessWindowHint)
         widgetlog.setAttribute(QtCore.Qt.WA_TranslucentBackground)
-        widgetlog.setFixedHeight(500)
-        widgetlog.setFixedWidth(400)
+        widgetlog.resize(400,500)
+       # widgetlog.setFixedWidth(1200)
         widgetlog.show()
         
         #logui.show()
