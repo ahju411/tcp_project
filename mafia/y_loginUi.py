@@ -146,15 +146,24 @@ class Ui_Form(QtWidgets.QWidget):
             id = self.lineEdit.text()
             pw = self.lineEdit_2.text()
             value = (id,pw)
-            myname,myid = login.login(value)
+            myname,myid = login.login(value) #로그인 성공하면 아이디와 닉네임을 받아옴 
             if myname == 1:
                     QtWidgets.QMessageBox.about(self,"알림","아이디 또는 비밀번호가 틀립니다.")
                     self.lineEdit.clear()
                     self.lineEdit_2.clear()
-            else:
-                    #myname,myid = login.login(value)
-                    QtWidgets.QMessageBox.about(self,"알림","로그인 성공.")
-                    print(myname,myid)
+            else:#로그인이 성공하면 대기창으로 들어감
+                     #로그인이 성공하면 대기창으로 들어감
+                   
+                    from y_mafia_homeUI import Ui_Mafia 
+                    self.join = Ui_Mafia()
+                    self.join.receivedata(myid,myname)
+                    self.join.myname.setText(myid) ## myid로해야 닉네임 받아와지네
+                    self.join.Date.setText("대기중..")
+                     #print(myid,myname)
+                    self.join.show()
+                    self.close()
+                
+                
 
     def register(self): #가입하기 버튼 누르면 실행됨 
         joinui = Ui_registerUi()
@@ -175,8 +184,8 @@ class Ui_Form(QtWidgets.QWidget):
         self.chk.show()
         self.this.close()
         #self.this.show()
-    def pushback(self):
-        widgetlog.setCurrentIndex(widgetlog.currentIndex())
+    #def pushback(self):
+        #widgetlog.setCurrentIndex(widgetlog.currentIndex())
 
 
     def retranslateUi(self, Form):
