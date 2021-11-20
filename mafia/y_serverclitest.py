@@ -35,7 +35,7 @@ class Client(object):
         self.chat_ui = y_mafia_homeUI.Ui_Mafia()
         self.chat_ui.setupUi(self.chatWidget)
         self.chat_ui.inputbutton.clicked.connect(self.send_message)
-        self.chat_ui.textEdit.returnPressed.connect(self.login)
+        self.chat_ui.textEdit.returnPressed.connect(self.send_message)
         self.mainWindow.setGeometry(QtCore.QRect(500, 20,754, 595))
         
 
