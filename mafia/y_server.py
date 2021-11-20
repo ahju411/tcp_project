@@ -32,8 +32,7 @@ class Server(object):
             
             print("[INFO] Connection from {}:{} AKA {}".format(address[0], address[1], nickname))
             
-            if Start_Num==1:
-                print("게임시작")
+            
 
             if len(UserList)==8: ## 유저가 8명이면 게임 대기문 나가버리기
                 break
