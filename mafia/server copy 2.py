@@ -45,7 +45,7 @@ class ChatClient:  # 텔레마케터
         self.soc.sendall(msg.encode(encoding='utf-8'))
 
 
-class ChatServer:
+class ChatServer: 
     ip = 'localhost'  # or 본인 ip or 127.0.0.1
     port = 9999
 
