@@ -72,10 +72,10 @@ class Ui_Mafia(QtWidgets.QWidget):
         QtCore.QMetaObject.connectSlotsByName(Form)
 
 
-    def receivedata(self,id,name):
-        global myid,myname
+    def receivedata(self,id):
+        global myid
         myid=id
-        myname=name
+        
 
     def retranslateUi(self, Form):
         _translate = QtCore.QCoreApplication.translate
@@ -97,4 +97,4 @@ class Ui_Mafia(QtWidgets.QWidget):
 
     
     def testreceive(self):
-        print('정보를 전달받음',myid,myname)
+        print('정보를 전달받음',myid)

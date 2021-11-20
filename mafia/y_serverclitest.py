@@ -1,10 +1,9 @@
 from PyQt5 import QtCore, QtWidgets
 import y_mafia_homeUI
-import y_loginUi
+
 
 import sys
 import socket
-import random
 
 
 class ReceiveThread(QtCore.QThread):
@@ -32,25 +31,55 @@ class Client(object):
         self.mainWindow = QtWidgets.QMainWindow()
 
         # add widgets to the application window
-        self.connectWidget = QtWidgets.QWidget(self.mainWindow)
         self.chatWidget = QtWidgets.QWidget(self.mainWindow)
-
-        self.chatWidget.setHidden(True)
         self.chat_ui = y_mafia_homeUI.Ui_Mafia()
         self.chat_ui.setupUi(self.chatWidget)
         self.chat_ui.inputbutton.clicked.connect(self.send_message)
 
-        self.connect_ui = y_loginUi.Ui_Form()
-        self.connect_ui.setupUi(self.connectWidget)
-        self.connect_ui.pushButton.clicked.connect(self.connect_ui.login)
-
-        self.mainWindow.setGeometry(QtCore.QRect(1080, 20,350, 500))
-        self.mainWindow.show()
+        self.mainWindow.setGeometry(QtCore.QRect(500, 20,754, 595))
+        
 
         self.tcp_client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
-        
     
+    def btn_connect_clicked(self,myid):
+
+        nickname = myid
+
+        host = "localhost"
+        port = 9090
+        
+        try:
+            port = int(port)
+        except Exception as e:
+            error = "Invalid port number \n'{}'".format(str(e))
+            print("[INFO]", error)
+            self.show_error("Port Number Error", error)
+        
+        if len(nickname) < 1:
+            nickname = socket.gethostname()
+ 
+        
+        if self.connect(host, port, nickname):
+            self.chatWidget.setVisible(True)
+            
+            self.recv_thread = ReceiveThread(self.tcp_client)
+            self.recv_thread.signal.connect(self.show_message)
+            self.recv_thread.start()
+            print("[INFO] recv thread started")
+            
+            
+
+            
+
+        
+            
+
+
+
+
+        
+
 
 
     def show_message(self, message):
@@ -70,8 +99,7 @@ class Client(object):
             error = "Unable to connect to server \n'{}'".format(str(e))
             print("[INFO]", error)
             self.show_error("Connection Error", error)
-            self.connect_ui.hostTextEdit.clear()
-            self.connect_ui.portTextEdit.clear()
+            
             
             return False
         

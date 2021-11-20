@@ -153,18 +153,24 @@ class Ui_Form(QtWidgets.QWidget):
                     self.lineEdit_2.clear()
             else:#로그인이 성공하면 대기창으로 들어감
                      #로그인이 성공하면 대기창으로 들어감
+                     from y_serverclitest import Client,ReceiveThread
+                     self.join = Client()
+                     self.join.btn_connect_clicked(myid)
+                     self.join.mainWindow.show()
+                     self.close()
                    
-                    from y_mafia_homeUI import Ui_Mafia 
-                    self.join = Ui_Mafia()
-                    self.join.receivedata(myid,myname)
-                    self.join.myname.setText(myid) ## myid로해야 닉네임 받아와지네
-                    self.join.Date.setText("대기중..")
-                     #print(myid,myname)
-                    self.join.show()
-                    self.close()
-                
-                
+                     
+                     
 
+                    
+                 #    from mafia_homeUI import Ui_Mafia 
+                   #  self.join = Ui_Mafia()
+                   #  self.join.receivedata(myid,myname)
+                    # print(myid,myname)
+                     #self.join.show()
+                     #self.close()
+
+                   
     def register(self): #가입하기 버튼 누르면 실행됨 
         joinui = Ui_registerUi()
         joinui.backbtn.clicked.connect(self.tologinform)
