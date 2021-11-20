@@ -13,7 +13,7 @@ class Server(object):
         self.tcp_server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.tcp_server.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
 
-        # start server
+        # start server####aaaa
         self.tcp_server.bind((hostname, port))
         self.tcp_server.listen(5)
 
@@ -32,7 +32,7 @@ class Server(object):
             
             print("[INFO] Connection from {}:{} AKA {}".format(address[0], address[1], nickname))
             
-            self.send_Enter_message("님이 입장하셨습니다.",nickname)
+            self.send_Enter_message("님이 입장하셨습니다 .",nickname)
             
 
             if len(UserList)==8: ## 유저가 8명이면 게임 대기문 나가버리기
