@@ -12,7 +12,7 @@ class Ui_Form(QtWidgets.QWidget):
     def openWindow(self):
         self.setupUi(self)
         self.pushButton_2.clicked.connect(self.register) # type: ignore
-    def setupUi(self, Form):
+    def setupUi(self, Form): 
         Form.setObjectName("Form")
         Form.resize(450, 550)
         Form.setWindowFlags(QtCore.Qt.FramelessWindowHint)

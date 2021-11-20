@@ -32,6 +32,7 @@ class Server(object):
             
             print("[INFO] Connection from {}:{} AKA {}".format(address[0], address[1], nickname))
             
+            self.send_Enter_message("님이 입장하셨습니다.",nickname)
             
 
             if len(UserList)==8: ## 유저가 8명이면 게임 대기문 나가버리기
@@ -46,6 +47,7 @@ class Server(object):
                 if nickname != sender:
                     msg = Sec.decode()
                     self.clients[nickname].send(msg.encode())
+                
 
 
 
@@ -68,12 +70,18 @@ class Server(object):
 
         print(nickname, " disconnected")
 
+    def send_Enter_message(self,message,entname):
+        if len(self.clients) >0:
+            for nickname in self.clients:
+                msg = entname + ": " + message
+                self.clients[nickname].send(msg.encode())
+
 
     def send_message(self, message, sender):
         if len(self.clients) > 0:
             for nickname in self.clients:
                 if nickname != sender:
-                    msg = sender + ": " + message.decode()
+                    msg = sender + ": " + message
                     self.clients[nickname].send(msg.encode())
 
 
