@@ -107,7 +107,7 @@ class Client(object):
                 message = message[:-2] 
                 self.chat_ui.Timer.setText(message)
             
-            elif message[-1]=="@": # Date은 [-1] == @
+            if message[-1]=="@": # Date은 [-1] == @
                     message = message[:-2]
                     self.chat_ui.Date.setText(message)
 
