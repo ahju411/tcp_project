@@ -234,23 +234,6 @@ class Client(object):
         self.chat_ui.textBrowser.append(message)
                                         
 
-        
-
-
-    def send_message(self):
-        message = self.chat_ui.textEdit.text()
-        self.chat_ui.textBrowser.append("Me: " + message)
-
-        print("sent: " + message)
-
-        try:
-            self.tcp_client.send(message.encode())
-        except Exception as e:
-            error = "Unable to send message '{}'".format(str(e))
-            print("[INFO]", error)
-            self.show_error("Server Error", error)
-        self.chat_ui.textEdit.clear()
-
     def send_message(self):
         message = self.chat_ui.textEdit.text()
         self.chat_ui.textBrowser.append("Me: " + message)
