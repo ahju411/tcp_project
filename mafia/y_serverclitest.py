@@ -140,97 +140,97 @@ class Client(object):
 
     def send_to_user1(self):
         message = self.chat_ui.to_user1.text()
-        message = message+"를 지목했습니다."+"%!"
+        message = message+"%!"
         try:
             self.tcp_client.send(message.encode())
         except Exception as e:
             error = "Unable to send message '{}'".format(str(e))
             print("[INFO]", error)
             self.show_error("Server Error", error)
-        message = message[0:-2]
+        message = message[0:-2]+" 지목했습니다."
         self.chat_ui.textBrowser.append(message)
         
     def send_to_user2(self):
         message = self.chat_ui.to_user2.text()
-        message = message+"를 지목했습니다."+"%@"
+        message = message+"%@"
         try:
             self.tcp_client.send(message.encode())
         except Exception as e:
             error = "Unable to send message '{}'".format(str(e))
             print("[INFO]", error)
             self.show_error("Server Error", error)
-        message = message[0:-2]    
+        message = message[0:-2]+" 지목했습니다."    
         self.chat_ui.textBrowser.append(message)
     def send_to_user3(self):
         message = self.chat_ui.to_user3.text()
-        message = message+"를 지목했습니다."+"%#"
+        message = message+"%#"
         try:
             self.tcp_client.send(message.encode())
         except Exception as e:
             error = "Unable to send message '{}'".format(str(e))
             print("[INFO]", error)
             self.show_error("Server Error", error)
-        message = message[0:-2]    
+        message = message[0:-2]+" 지목했습니다."    
         self.chat_ui.textBrowser.append(message)
 
     def send_to_user4(self):
         message = self.chat_ui.to_user4.text()
-        message = message+"를 지목했습니다."+"%$"
+        message = message+"%$"
         try:
             self.tcp_client.send(message.encode())
         except Exception as e:
             error = "Unable to send message '{}'".format(str(e))
             print("[INFO]", error)
             self.show_error("Server Error", error)
-        message = message[0:-2]    
+        message = message[0:-2]+" 지목했습니다."    
         self.chat_ui.textBrowser.append(message)
 
     def send_to_user5(self):
         message = self.chat_ui.to_user5.text()
-        message = message+"를 지목했습니다."+"%^"
+        message = message+"%^"
         try:
             self.tcp_client.send(message.encode())
         except Exception as e:
             error = "Unable to send message '{}'".format(str(e))
             print("[INFO]", error)
             self.show_error("Server Error", error)
-        message = message[0:-2]    
+        message = message[0:-2]+" 지목했습니다."    
         self.chat_ui.textBrowser.append(message)
 
     def send_to_user6(self):
         message = self.chat_ui.to_user6.text()
-        message = message+"를 지목했습니다."+"%&"
+        message = message+"%&"
         try:
             self.tcp_client.send(message.encode())
         except Exception as e:
             error = "Unable to send message '{}'".format(str(e))
             print("[INFO]", error)
             self.show_error("Server Error", error)
-        message = message[0:-2]
+        message = message[0:-2]+" 지목했습니다."
         self.chat_ui.textBrowser.append(message)
 
     def send_to_user7(self):
         message = self.chat_ui.to_user7.text()
-        message = message+"를 지목했습니다."+"%*"
+        message = message+"%*"
         try:
             self.tcp_client.send(message.encode())
         except Exception as e:
             error = "Unable to send message '{}'".format(str(e))
             print("[INFO]", error)
             self.show_error("Server Error", error)
-        message = message[0:-2]    
+        message = message[0:-2]+" 지목했습니다."    
         self.chat_ui.textBrowser.append(message)
 
     def send_to_user8(self):
         message = self.chat_ui.to_user8.text()
-        message = message+"를 지목했습니다."+"%("
+        message = message+"%("
         try:
             self.tcp_client.send(message.encode())
         except Exception as e:
             error = "Unable to send message '{}'".format(str(e))
             print("[INFO]", error)
             self.show_error("Server Error", error)
-        message = message[0:-2]    
+        message = message[0:-2]+" 지목했습니다."    
         self.chat_ui.textBrowser.append(message)
                                         
 
