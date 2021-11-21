@@ -54,13 +54,16 @@ class Server(object):
         time.sleep(1)
 
         
-       
+       # 버튼에 유저이름 새기기 이거왜 안되냐 일단 보류
+      #  self.send_Username_Button_Setting(UserList[0])
+       # self.send_Username_Button_Setting(UserList[1]) 
 
         global joblist ## 직업분배하는곳
+        self.send_Enter_message("\n직업 분배중입니다.","<시스템>")
         joblist=random.sample(joblist,2)
         self.send_Job_message(UserList[0])
         self.send_Job_message(UserList[1])
-        self.send_Enter_message("\n직업 분배중입니다.","<시스템>")
+        
         time.sleep(5)
        
         while True:  # 게임시작

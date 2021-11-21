@@ -51,12 +51,9 @@ class Client(object):
 
     
     def btn_connect_clicked(self,myid):
-
         nickname = myid
-
         host = "localhost"
         port = 9090
-        
         try:
             port = int(port)
         except Exception as e:
@@ -67,13 +64,13 @@ class Client(object):
         if len(nickname) < 1:
             nickname = socket.gethostname()
  
-        
         if self.connect(host, port, nickname):
             self.chatWidget.setVisible(True)
-            
+            self.chat_ui.myname.setText(nickname)
             self.recv_thread = ReceiveThread(self.tcp_client)
             self.recv_thread.signal.connect(self.show_message)
             self.recv_thread.start()
+            
             print("[INFO] recv thread started")
             
             
@@ -90,10 +87,6 @@ class Client(object):
 
 
 
-<<<<<<< HEAD
-    def show_message(self, message):
-        self.chat_ui.textBrowser.append(message)
-=======
     def show_message(self, message): ## 서버로부터 받은 메시지를 구분하는곳
         if message[-2]=="!": # 마피아팀은 [-2] == !
             if message[-1]=="@": #마피아1은 [-1] == @
@@ -125,7 +118,6 @@ class Client(object):
         else: # 일반 채팅일경우 textbroswer로 모두에게 보여줌
             self.chat_ui.textBrowser.append(message)
 
->>>>>>> 7a42b1fc26001b3b7956b3e9a597be97e8acb27c
         
 
     def connect(self, host, port, nickname):
