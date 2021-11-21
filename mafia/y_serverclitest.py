@@ -43,9 +43,12 @@ class Client(object):
 
     
     def btn_connect_clicked(self,myid):
+
         nickname = myid
+
         host = "localhost"
         port = 9090
+        
         try:
             port = int(port)
         except Exception as e:
@@ -56,13 +59,13 @@ class Client(object):
         if len(nickname) < 1:
             nickname = socket.gethostname()
  
+        
         if self.connect(host, port, nickname):
             self.chatWidget.setVisible(True)
-            self.chat_ui.myname.setText(nickname)
+            
             self.recv_thread = ReceiveThread(self.tcp_client)
             self.recv_thread.signal.connect(self.show_message)
             self.recv_thread.start()
-            
             print("[INFO] recv thread started")
             
             
@@ -79,34 +82,8 @@ class Client(object):
 
 
 
-    def show_message(self, message): ## 서버로부터 받은 메시지를 구분하는곳
-        if message[-2]=="!": # 마피아팀은 [-2] == !
-            if message[-1]=="@": #마피아1은 [-1] == @
-                self.chat_ui.myjob_image.setText("마피아(Test)")
-                message = message[0:-2]
-                self.chat_ui.textBrowser.append(message)
-                self.chat_ui.textBrowser.append("죽일 사람을 선택하세요")
-            
-        elif message[-2]=="@": # 시민팀은 [-2] == @
-            if message[-1]=="!": # 경찰은 [-1] == !
-                self.chat_ui.myjob_image.setText("경찰(Test)")
-                message = message[0:-2]
-                self.chat_ui.textBrowser.append(message)
-                self.chat_ui.textBrowser.append("정체를 알고싶은사람을 선택하세요")
-        
-        elif message[-2]=="#": # 타이머,시간은 [-2]== #
-            if message[-1]=="!": # 타이머는 [-1]== ! 
-                message = message[:-2] 
-                self.chat_ui.Timer.setText(message)
-            
-            elif message[-1]=="@": # Date은 [-1] == @
-                    message = message[:-2]
-                    self.chat_ui.Date.setText(message)
-        
-
-        else: # 일반 채팅일경우 textbroswer로 모두에게 보여줌
-            self.chat_ui.textBrowser.append(message)
-
+    def show_message(self, message):
+        self.chat_ui.textBrowser.append(message)
         
 
     def connect(self, host, port, nickname):

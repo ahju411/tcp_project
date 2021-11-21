@@ -54,11 +54,10 @@ class Server(object):
         time.sleep(1)
 
         global joblist ## 직업분배하는곳
-        self.send_Enter_message("\n직업 분배중입니다.","<시스템>")
         joblist=random.sample(joblist,2)
         self.send_Job_message(UserList[0])
         self.send_Job_message(UserList[1])
-        
+        self.send_Enter_message("\n직업 분배중입니다.","<시스템>")
         time.sleep(5)
        
         while True:  # 게임시작
