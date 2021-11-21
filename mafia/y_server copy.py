@@ -2,6 +2,7 @@ import socket
 import threading
 import random
 import time
+from types import DynamicClassAttribute
 UserList = []
 joblist = ["마피아","경찰"]  
 Start_Num = 0
@@ -53,6 +54,9 @@ class Server(object):
         self.send_Enter_message("\n"+"게임 시작합니다","<시스템>")
         time.sleep(1)
 
+        global arrest_user
+       
+
         
        # 버튼에 유저이름 새기기 이거왜 안되냐 일단 보류
       #  self.send_Username_Button_Setting(UserList[0])
@@ -75,14 +79,16 @@ class Server(object):
             T2=threading.Thread(target=self.send_Timer_message, args=(UserList[1], 7), daemon=True)
             self.send_Enter_message("\n밤입니다.","<시스템>") # 전체채팅에 밤입니다 라고 알림.
             self.send_Date_message("밤") ## 각 클라이언트에게 밤을 표시하도록 함.
+            global Date
+            Date="밤"
             ## 타이머 스레드 시작
             T1.start()
             T2.start()
             
             
-
+            
             time.sleep(9) ## + 2초 대기
-
+            print("마피아킬 여전하냐?",mafia_kill)
             ## 밤 사이에 있던 상호작용 처리하기
 
 
@@ -90,7 +96,7 @@ class Server(object):
 
             time.sleep(1)
             # 2. 아침 ( 대화 시간 ) # 120초
-
+           
 
             ## 타이머 스레드 생성
             T1=threading.Thread(target=self.send_Timer_message, args=(UserList[0], 7), daemon=True)
@@ -154,13 +160,25 @@ class Server(object):
 
 
       
-
     def receive_message(self, connection, nickname): ## 서버에서 보낸 메시지 받기
         print("[INFO] Waiting for messages")
         while True:
             try:
-                msg = connection.recv(1024)
                 
+                msg = connection.recv(1024)
+                dmsg = msg.decode()
+                print("닉네임 :",nickname,"받은것",dmsg)
+                print(dmsg[-2])
+
+                if Date=="밤" and dmsg[-2]=="%": 
+                    global mafia_kill
+                    mafia_kill=""
+                    for i in range(0,len(UserList)):
+                        if UserList[i] == nickname and joblist[i]=="마피아": ## 밤인데 마피아가 지목을했다면?
+                            mafia_kill=dmsg[0:-2]
+                            print("마피아킬값 넣어졋냐?:",mafia_kill)
+
+
                 self.send_message(msg, nickname)
                 print(nickname + ": " + msg.decode())
             except:
