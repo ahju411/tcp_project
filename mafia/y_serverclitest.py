@@ -36,6 +36,14 @@ class Client(object):
         self.chat_ui.setupUi(self.chatWidget)
         self.chat_ui.inputbutton.clicked.connect(self.send_message)
         self.chat_ui.textEdit.returnPressed.connect(self.send_message)
+        self.chat_ui.to_user1.clicked.connect(self.send_to_user1)
+        self.chat_ui.to_user2.clicked.connect(self.send_to_user2)
+        self.chat_ui.to_user3.clicked.connect(self.send_to_user3)
+        self.chat_ui.to_user4.clicked.connect(self.send_to_user4)
+        self.chat_ui.to_user5.clicked.connect(self.send_to_user5)
+        self.chat_ui.to_user6.clicked.connect(self.send_to_user6)
+        self.chat_ui.to_user7.clicked.connect(self.send_to_user7)
+        self.chat_ui.to_user8.clicked.connect(self.send_to_user8)
         self.mainWindow.setGeometry(QtCore.QRect(500, 20,754, 595))
         
 
@@ -82,8 +90,42 @@ class Client(object):
 
 
 
+<<<<<<< HEAD
     def show_message(self, message):
         self.chat_ui.textBrowser.append(message)
+=======
+    def show_message(self, message): ## 서버로부터 받은 메시지를 구분하는곳
+        if message[-2]=="!": # 마피아팀은 [-2] == !
+            if message[-1]=="@": #마피아1은 [-1] == @
+                self.chat_ui.myjob_image.setText("마피아(Test)")
+                message = message[0:-2]
+                self.chat_ui.textBrowser.append(message)
+                
+            
+        elif message[-2]=="@": # 시민팀은 [-2] == @
+            if message[-1]=="!": # 경찰은 [-1] == !
+                self.chat_ui.myjob_image.setText("경찰(Test)")
+                message = message[0:-2]
+                self.chat_ui.textBrowser.append(message)
+                
+        
+        elif message[-2]=="#": # 타이머,시간은 [-2]== #
+            if message[-1]=="!": # 타이머는 [-1]== ! 
+                message = message[:-2] 
+                self.chat_ui.Timer.setText(message)
+            
+            elif message[-1]=="@": # Date은 [-1] == @
+                    message = message[:-2]
+                    self.chat_ui.Date.setText(message)
+
+        elif message[-2]=="%": # 이거 유저버튼클릭하면 서버로 유저버튼 넘어가는데 되돌아오는거 방지하기위해 막음
+                pass
+
+        
+        else: # 일반 채팅일경우 textbroswer로 모두에게 보여줌
+            self.chat_ui.textBrowser.append(message)
+
+>>>>>>> 7a42b1fc26001b3b7956b3e9a597be97e8acb27c
         
 
     def connect(self, host, port, nickname):
@@ -103,6 +145,102 @@ class Client(object):
             
             return False
         
+
+    def send_to_user1(self):
+        message = self.chat_ui.to_user1.text()
+        message = message+"를 지목했습니다."+"%!"
+        try:
+            self.tcp_client.send(message.encode())
+        except Exception as e:
+            error = "Unable to send message '{}'".format(str(e))
+            print("[INFO]", error)
+            self.show_error("Server Error", error)
+        message = message[0:-2]
+        self.chat_ui.textBrowser.append(message)
+        
+    def send_to_user2(self):
+        message = self.chat_ui.to_user2.text()
+        message = message+"를 지목했습니다."+"%@"
+        try:
+            self.tcp_client.send(message.encode())
+        except Exception as e:
+            error = "Unable to send message '{}'".format(str(e))
+            print("[INFO]", error)
+            self.show_error("Server Error", error)
+        message = message[0:-2]    
+        self.chat_ui.textBrowser.append(message)
+    def send_to_user3(self):
+        message = self.chat_ui.to_user3.text()
+        message = message+"를 지목했습니다."+"%#"
+        try:
+            self.tcp_client.send(message.encode())
+        except Exception as e:
+            error = "Unable to send message '{}'".format(str(e))
+            print("[INFO]", error)
+            self.show_error("Server Error", error)
+        message = message[0:-2]    
+        self.chat_ui.textBrowser.append(message)
+
+    def send_to_user4(self):
+        message = self.chat_ui.to_user4.text()
+        message = message+"를 지목했습니다."+"%$"
+        try:
+            self.tcp_client.send(message.encode())
+        except Exception as e:
+            error = "Unable to send message '{}'".format(str(e))
+            print("[INFO]", error)
+            self.show_error("Server Error", error)
+        message = message[0:-2]    
+        self.chat_ui.textBrowser.append(message)
+
+    def send_to_user5(self):
+        message = self.chat_ui.to_user5.text()
+        message = message+"를 지목했습니다."+"%^"
+        try:
+            self.tcp_client.send(message.encode())
+        except Exception as e:
+            error = "Unable to send message '{}'".format(str(e))
+            print("[INFO]", error)
+            self.show_error("Server Error", error)
+        message = message[0:-2]    
+        self.chat_ui.textBrowser.append(message)
+
+    def send_to_user6(self):
+        message = self.chat_ui.to_user6.text()
+        message = message+"를 지목했습니다."+"%&"
+        try:
+            self.tcp_client.send(message.encode())
+        except Exception as e:
+            error = "Unable to send message '{}'".format(str(e))
+            print("[INFO]", error)
+            self.show_error("Server Error", error)
+        message = message[0:-2]
+        self.chat_ui.textBrowser.append(message)
+
+    def send_to_user7(self):
+        message = self.chat_ui.to_user7.text()
+        message = message+"를 지목했습니다."+"%*"
+        try:
+            self.tcp_client.send(message.encode())
+        except Exception as e:
+            error = "Unable to send message '{}'".format(str(e))
+            print("[INFO]", error)
+            self.show_error("Server Error", error)
+        message = message[0:-2]    
+        self.chat_ui.textBrowser.append(message)
+
+    def send_to_user8(self):
+        message = self.chat_ui.to_user8.text()
+        message = message+"를 지목했습니다."+"%("
+        try:
+            self.tcp_client.send(message.encode())
+        except Exception as e:
+            error = "Unable to send message '{}'".format(str(e))
+            print("[INFO]", error)
+            self.show_error("Server Error", error)
+        message = message[0:-2]    
+        self.chat_ui.textBrowser.append(message)
+                                        
 
     def send_message(self):
         message = self.chat_ui.textEdit.text()

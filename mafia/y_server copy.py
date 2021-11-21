@@ -53,6 +53,11 @@ class Server(object):
         self.send_Enter_message("\n"+"게임 시작합니다","<시스템>")
         time.sleep(1)
 
+        
+       # 버튼에 유저이름 새기기 이거왜 안되냐 일단 보류
+      #  self.send_Username_Button_Setting(UserList[0])
+       # self.send_Username_Button_Setting(UserList[1]) 
+
         global joblist ## 직업분배하는곳
         joblist=random.sample(joblist,2)
         self.send_Job_message(UserList[0])
@@ -62,34 +67,99 @@ class Server(object):
        
         while True:  # 게임시작
 
-            # 1. 밤
+            # 1. 밤 # 30초
 
             ## 타이머 스레드 생성
-            T1=threading.Thread(target=self.send_Timer_message, args=(UserList[0], 30), daemon=True)
-            T2=threading.Thread(target=self.send_Timer_message, args=(UserList[1], 30), daemon=True)
+            T1=threading.Thread(target=self.send_Timer_message, args=(UserList[0], 7), daemon=True)
+            T2=threading.Thread(target=self.send_Timer_message, args=(UserList[1], 7), daemon=True)
             self.send_Enter_message("\n밤입니다.","<시스템>") # 전체채팅에 밤입니다 라고 알림.
             self.send_Date_message("밤") ## 각 클라이언트에게 밤을 표시하도록 함.
             ## 타이머 스레드 시작
             T1.start()
             T2.start()
             
-            # 각 직업별 채팅 세팅.
-
-            time.sleep(32) ## 스레드간 오차방지 + 2초 대기
-
-
-            # 2. 아침 ( 대화 시간 )
             
-    
+
+            time.sleep(9) ## + 2초 대기
+
+            ## 밤 사이에 있던 상호작용 처리하기
+
+
+          
+
+            time.sleep(1)
+            # 2. 아침 ( 대화 시간 ) # 120초
+
+
+            ## 타이머 스레드 생성
+            T1=threading.Thread(target=self.send_Timer_message, args=(UserList[0], 7), daemon=True)
+            T2=threading.Thread(target=self.send_Timer_message, args=(UserList[1], 7), daemon=True)
+            self.send_Enter_message("\n아침입니다.","<시스템>") # 전체채팅에 밤입니다 라고 알림.
+            self.send_Date_message("아침") ## 각 클라이언트에게 밤을 표시하도록 함.
+            ## 타이머 스레드 시작
+            T1.start()
+            T2.start()
+
+
+            time.sleep(9)
+
+
+            time.sleep(1)
+
+
+            # 3. 투표시간 15초
+
+            T1=threading.Thread(target=self.send_Timer_message, args=(UserList[0], 7), daemon=True)
+            T2=threading.Thread(target=self.send_Timer_message, args=(UserList[1], 7), daemon=True)
+            self.send_Enter_message("\n투표시간입니다.","<시스템>") # 전체채팅에 밤입니다 라고 알림.
+            self.send_Date_message("투표시간") ## 각 클라이언트에게 밤을 표시하도록 함.
+            ## 타이머 스레드 시작
+            T1.start()
+            T2.start()
+            
+            time.sleep(9)
+
+            time.sleep(1)
 
 
 
-    def receive_message(self, connection, nickname):
+            # 4. 최후의 반론 15초
+
+            T1=threading.Thread(target=self.send_Timer_message, args=(UserList[0], 7), daemon=True)
+            T2=threading.Thread(target=self.send_Timer_message, args=(UserList[1], 7), daemon=True)
+            self.send_Enter_message("\n최후의반론입니다.","<시스템>") # 전체채팅에 밤입니다 라고 알림.
+            self.send_Date_message("최후의반론") ## 각 클라이언트에게 밤을 표시하도록 함.
+            ## 타이머 스레드 시작
+            T1.start()
+            T2.start()
+
+            time.sleep(9)
+
+            time.sleep(1)
+
+             # 5. 최후의 투표 15초
+
+            T1=threading.Thread(target=self.send_Timer_message, args=(UserList[0], 7), daemon=True)
+            T2=threading.Thread(target=self.send_Timer_message, args=(UserList[1], 7), daemon=True)
+            self.send_Enter_message("\n최종 투표시간입니다.","<시스템>") # 전체채팅에 밤입니다 라고 알림.
+            self.send_Date_message("최종투표") ## 각 클라이언트에게 밤을 표시하도록 함.
+            ## 타이머 스레드 시작
+            T1.start()
+            T2.start()
+
+            time.sleep(9)
+
+            time.sleep(1)
+
+
+      
+
+    def receive_message(self, connection, nickname): ## 서버에서 보낸 메시지 받기
         print("[INFO] Waiting for messages")
         while True:
             try:
                 msg = connection.recv(1024)
-
+                
                 self.send_message(msg, nickname)
                 print(nickname + ": " + msg.decode())
             except:
@@ -101,6 +171,14 @@ class Server(object):
                 break
 
         print(nickname, " disconnected")
+
+    def send_Username_Button_Setting(self,nickname):
+        for i in range(0,len(UserList)):
+            if UserList[i]==nickname:
+                for i in range(0,len(UserList)):
+                    msg=str(UserList[i])+"%!"
+                    self.clients[nickname].send(msg.encode())
+
     
     def send_Timer_message(self,nickname,sec): ## 타이머 보내기
          for i in range(0,len(UserList)):
@@ -133,9 +211,15 @@ class Server(object):
                     if str(joblist[i]) == "마피아":
                         msg+="!@"
                         self.clients[nickname].send(msg.encode())
+                        if msg[-2] == "!" and msg[-1] =="@":
+                            msg = "죽일 사람을 지목하세요. 기회는 단 한번입니다."
+                            self.clients[nickname].send(msg.encode())
                     elif str(joblist[i]) == "경찰":
                         msg+="@!"
                         self.clients[nickname].send(msg.encode())
+                        if msg[-2] == "@" and msg[-1] =="!":
+                            msg = "정체를 알고싶은사람을 지목하세요."
+                            self.clients[nickname].send(msg.encode())
 
 
     def send_message(self, message, sender): ## 유저들간 채팅보내기
