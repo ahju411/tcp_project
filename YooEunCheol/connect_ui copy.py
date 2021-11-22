@@ -1,8 +1,4 @@
-a = "ABC"
+asd = ["1","2"]
 
-a.encode()
-
-print(a)
-
-a.decode()
-print(a)
+for n in asd:
+    print(n)

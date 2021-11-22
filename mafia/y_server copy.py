@@ -7,6 +7,8 @@ UserList = []
 joblist = ["마피아","경찰","의사"]  
 Start_Num = 0
 UserJobList=[]
+user_toVote=["","",""]
+Votelist=[0,0,0]
 
 class Server(object):
     def __init__(self, hostname, port):
@@ -37,6 +39,7 @@ class Server(object):
             threading.Thread(target=self.receive_message, args=(connection, nickname), daemon=True).start()
 
             UserList.append(nickname)
+            Votelist.append(0)
             
 
             self.send_Enter_message("님이 입장하셨습니다 .",nickname)
@@ -52,10 +55,11 @@ class Server(object):
         self.send_Enter_message("\n"+"게임 시작합니다","<시스템>")
         time.sleep(1)
         global police_skill,doctor_skill,mafia_kill,mafia_su,citizen_su
-        global Votelist
         global Vote_Y
         global Vote_N
-        Votelist = []
+        global VoteMax,vote_equ_flag,max_equ_num
+        vote_equ_flag=0
+        VoteMax=-1
         mafia_kill=""
         police_skill=""
         doctor_skill=""
@@ -63,6 +67,7 @@ class Server(object):
         citizen_su=5
         Vote_Y=0
         Vote_N=0
+        max_equ_num=-1
 
        
        
@@ -132,7 +137,7 @@ class Server(object):
             T3=threading.Thread(target=self.send_Timer_message, args=(UserList[1], 7), daemon=True)
             self.send_Enter_message("아침입니다.","<시스템>") # 전체채팅에 밤입니다 라고 알림.
             self.send_Date_message("아침") ## 각 클라이언트에게 밤을 표시하도록 함.
-            Date="morning"
+            Date="아침"
             ## 타이머 스레드 시작
             T1.start()
             T2.start()
@@ -152,62 +157,102 @@ class Server(object):
             T3=threading.Thread(target=self.send_Timer_message, args=(UserList[1], 7), daemon=True)
             self.send_Enter_message("\n투표시간입니다.","<시스템>") # 전체채팅에 밤입니다 라고 알림.
             self.send_Date_message("투표시간") ## 각 클라이언트에게 밤을 표시하도록 함.
-            Date="VoteTime"
+            Date="투표시간"
             ## 타이머 스레드 시작
             T1.start()
             T2.start()
             T3.start()
             
             time.sleep(9)
+            ## 투표간 상호작용 처리
+            for i in range(0,len(UserList)):
+                for name in user_toVote:
+                   if UserList[i] == name:
+                       Votelist[i] +=1
 
-            time.sleep(1)
+
+                
+            
+            print("votelist ==",Votelist)
+                
+
+
+            for i in range(0,len(UserList)):
+                if VoteMax < Votelist[i]:
+                    VoteMax = Votelist[i]
+                    if max_equ_num < VoteMax:
+                        vote_equ_flag==0
+                elif VoteMax == Votelist[i]:
+                    vote_equ_flag==1
+                    max_equ_num=VoteMax
+            
+            print("투표현황좀보자 :",user_toVote)
+            print("투표 수 ",Votelist)
+            for i in range(0,len(UserList)):
+                if Votelist[i]==VoteMax and vote_equ_flag==1:
+                    self.send_Enter_message("투표 결과 동률입니다.","<시스템>")
+                elif Votelist[i]==VoteMax and vote_equ_flag==0:
+                    self.send_Enter_message(UserList[i],"<시스템> 투표로 지목 받은사람 : ")
+
+            
+            time.sleep(2)
 
 
 
             # 4. 최후의 반론 15초
+            if vote_equ_flag==0:
+                T1=threading.Thread(target=self.send_Timer_message, args=(UserList[0], 7), daemon=True)
+                T2=threading.Thread(target=self.send_Timer_message, args=(UserList[1], 7), daemon=True)
+                T3=threading.Thread(target=self.send_Timer_message, args=(UserList[1], 7), daemon=True)
+                self.send_Enter_message("\n최후의반론입니다.","<시스템>") # 전체채팅에 밤입니다 라고 알림.
+                self.send_Date_message("최후의반론") ## 각 클라이언트에게 밤을 표시하도록 함.
+                ## 타이머 스레드 시작
+                T1.start()
+                T2.start()
+                T3.start()
 
-            T1=threading.Thread(target=self.send_Timer_message, args=(UserList[0], 7), daemon=True)
-            T2=threading.Thread(target=self.send_Timer_message, args=(UserList[1], 7), daemon=True)
-            self.send_Enter_message("\n최후의반론입니다.","<시스템>") # 전체채팅에 밤입니다 라고 알림.
-            self.send_Date_message("최후의반론") ## 각 클라이언트에게 밤을 표시하도록 함.
-            ## 타이머 스레드 시작
-            T1.start()
-            T2.start()
+                time.sleep(9)
+                
 
-            time.sleep(9)
 
-            time.sleep(1)
 
-             # 5. 최후의 투표 15초
+                time.sleep(1)
 
-            T1=threading.Thread(target=self.send_Timer_message, args=(UserList[0], 7), daemon=True)
-            T2=threading.Thread(target=self.send_Timer_message, args=(UserList[1], 7), daemon=True)
-            self.send_Enter_message("\n최종 투표시간입니다.","<시스템>") # 전체채팅에 밤입니다 라고 알림.
-            self.send_Date_message("최종투표") ## 각 클라이언트에게 밤을 표시하도록 함.
-            ## 타이머 스레드 시작
-            T1.start()
-            T2.start()
+                # 5. 최후의 투표 15초
 
-            time.sleep(9)
+                T1=threading.Thread(target=self.send_Timer_message, args=(UserList[0], 7), daemon=True)
+                T2=threading.Thread(target=self.send_Timer_message, args=(UserList[1], 7), daemon=True)
+                T3=threading.Thread(target=self.send_Timer_message, args=(UserList[1], 7), daemon=True)
+                self.send_Enter_message("\n최종 투표시간입니다.","<시스템>") # 전체채팅에 밤입니다 라고 알림.
+                self.send_Date_message("최종투표") ## 각 클라이언트에게 밤을 표시하도록 함.
+                ## 타이머 스레드 시작
+                T1.start()
+                T2.start()
+                T3.start()
 
-            time.sleep(1)
+                time.sleep(9)
+
+                time.sleep(1)
+
+            else:
+                self.send_Enter_message("투표 결과 아무런 일이 일어나지않았습니다.","<시스템>")
 
 
       
-    def receive_message(self, connection, nickname): ## 서버에서 보낸 메시지 받기
+    def receive_message(self, connection, nickname): ## 클라로부터 메시지 받기
         print("[INFO] Waiting for messages")
         while True:
             try:
-                global mafia_kill,police_skill,doctor_skill
+                global mafia_kill,police_skill,doctor_skill,Votelist
                 msg = connection.recv(1024)
+
                 dmsg = msg.decode()
                 print("닉네임 :",nickname,"받은것",dmsg)
                 print(dmsg[-2])
+               
 
-                if Date=="밤" and dmsg[-2]=="%":  # %는 버튼코드
-
-         
-                   
+                # 클라에서 받은게 Button이벤트 일경우~~~
+                if Date=="밤" and dmsg[-2]=="%":  # %는 버튼코드 , 밤일경우 각 버튼은 직업스킬로 바뀜
 
                     for i in range(0,len(UserList)):
                         if UserList[i] == nickname and joblist[i]=="마피아": ## 밤인데 마피아가 지목을했다면?
@@ -225,7 +270,20 @@ class Server(object):
 
                     for i in range(0,len(UserList)):
                         if UserList[i] == nickname and joblist[i]=="의사": ## 밤인데 의사가 지목을했다면?
-                            doctor_skill=dmsg[0:-2]\
+                            doctor_skill=dmsg[0:-2]
+                
+                elif Date=="투표시간" and dmsg[-2]=="%":
+                     print("여기가문제냐?????? Date : ",Date," dmsg = ",dmsg[0:-2])
+                     for i in range(0,len(UserList)):
+                        if UserList[i] == nickname:
+                            user_toVote[i]=dmsg[0:-2]
+                            dmsg=str(UserList[i])+"님을 투표 했습니다."
+                            
+                
+
+
+
+
 
 
                 self.send_message(msg, nickname)
