@@ -57,7 +57,7 @@ class Server(object):
         #게임 세팅
        
         
-        self.send_Enter_message("\n"+"게임 시작합니다","<시스템>")
+        self.send_Enter_message("\n게임 시작합니다","<시스템>")
         time.sleep(1)
         global police_skill,doctor_skill,mafia_kill,mafia_su,citizen_su
         global Vote_Y
@@ -130,7 +130,7 @@ class Server(object):
                          nickname=mafia_kill
                          joblist[i] = "사망"
                          citizen_su-=1
-                         msg="당신은 밤에 습격을 당했습니다."
+                         msg="<시스템>:당신은 밤에 습격을 당했습니다."
                          self.clients[nickname].send(msg.encode()) ## 살해당한 유저에게 죽었다고 보냅니다
 
             else:
@@ -164,7 +164,7 @@ class Server(object):
             T1=threading.Thread(target=self.send_Timer_message, args=(UserList[0], 7), daemon=True)
             T2=threading.Thread(target=self.send_Timer_message, args=(UserList[1], 7), daemon=True)
             T3=threading.Thread(target=self.send_Timer_message, args=(UserList[1], 7), daemon=True)
-            self.send_Enter_message("\n투표시간입니다.","<시스템>") # 전체채팅에 밤입니다 라고 알림.
+            self.send_Enter_message("투표시간입니다.","<시스템>") # 전체채팅에 밤입니다 라고 알림.
             self.send_Date_message("투표시간") ## 각 클라이언트에게 밤을 표시하도록 함.
             Date="투표시간"
             ## 타이머 스레드 시작
@@ -215,7 +215,7 @@ class Server(object):
                 T1=threading.Thread(target=self.send_Timer_message, args=(UserList[0], 7), daemon=True)
                 T2=threading.Thread(target=self.send_Timer_message, args=(UserList[1], 7), daemon=True)
                 T3=threading.Thread(target=self.send_Timer_message, args=(UserList[1], 7), daemon=True)
-                self.send_Enter_message("\n최후의반론입니다.","<시스템>") # 전체채팅에 밤입니다 라고 알림.
+                self.send_Enter_message("최후의반론입니다.","<시스템>") # 전체채팅에 밤입니다 라고 알림.
                 self.send_Date_message("최후의반론") ## 각 클라이언트에게 밤을 표시하도록 함.
                 Date="최후의반론"
                 ## 타이머 스레드 시작
@@ -239,7 +239,7 @@ class Server(object):
                 T1=threading.Thread(target=self.send_Timer_message, args=(UserList[0], 7), daemon=True)
                 T2=threading.Thread(target=self.send_Timer_message, args=(UserList[1], 7), daemon=True)
                 T3=threading.Thread(target=self.send_Timer_message, args=(UserList[1], 7), daemon=True)
-                self.send_Enter_message("최종 투표시간입니다. 입력방법 : /Y or /N","<시스템>") # 전체채팅에 밤입니다 라고 알림.
+                self.send_Enter_message("최종 투표시간입니다. 입력방법 : /Y or /N 입니다.","<시스템>") # 전체채팅에 밤입니다 라고 알림.
                 self.send_Date_message("최종투표") ## 각 클라이언트에게 밤을 표시하도록 함.
                 Date="최후의투표"
                 ## 타이머 스레드 시작
@@ -262,7 +262,7 @@ class Server(object):
                      if UserList[i]== FinalVoteUser:
                         joblist[i] = "사망"
                         citizen_su-=1
-                        msg="당신은 투표로 인해 죽었습니다."
+                        msg="<시스템>:당신은 투표로 인해 죽었습니다."
                         print("작동하나유유유유유",nickname,joblist[i],FinalVoteUser)
                         self.clients[FinalVoteUser].send(msg.encode()) ## 유저에게 죽었다고 보냅니다
                 
@@ -301,7 +301,7 @@ class Server(object):
 
                             for i in range(0,len(UserList)): # 경찰은 지목한사람 직업을 바로보낸다.
                                 if UserList[i] ==  police_skill:
-                                    dmsg =police_skill+"의 직업은"+str(joblist[i])+" 입니다.\n"
+                                    dmsg ="<시스템>:"+police_skill+"의 직업은"+str(joblist[i])+" 입니다.\n"
                                     self.clients[nickname].send(dmsg.encode())
                                    
 
@@ -321,14 +321,14 @@ class Server(object):
                         for i in range(0,len(UserList)):
                             if UserList[i] == nickname:
                                 FinalVotelist[i]="Y"
-                                dmsg="찬성 했습니다."
+                                dmsg="<시스템>:찬성 했습니다."
                                 self.clients[nickname].send(dmsg.encode())
 
                     elif dmsg[-1]=="N":
                         for i in range(0,len(UserList)):
                             if UserList[i] == nickname:
                                 FinalVotelist[i]="N"
-                                dmsg="반대 했습니다."
+                                dmsg="<시스템>:반대 했습니다."
                                 self.clients[nickname].send(dmsg.encode())
 
                 
@@ -373,7 +373,7 @@ class Server(object):
     def send_Date_message(self,Date): ## 밤,아침,투표시간 등등 보내기
          if len(self.clients) >0:
             for nickname in self.clients:
-                msg = str(Date)+"입니다."+"#@"
+                msg = "<시스템>:"+str(Date)+"입니다."+"#@"
                 self.clients[nickname].send(msg.encode())
 
     def send_Enter_message(self,message,entname): ## 누가 입장했는지 표시
@@ -386,24 +386,24 @@ class Server(object):
         if len(self.clients) >0:
             for i in range(0,len(UserList)):
                 if UserList[i] == nickname:
-                    msg = "\n당신의 직업은 : " + str(joblist[i]) + "입니다."
+                    msg = "<시스템>:당신의 직업은 : " + str(joblist[i]) + "입니다."
                     if str(joblist[i]) == "마피아":
                         msg+="!@"
                         self.clients[nickname].send(msg.encode())
                         if msg[-2] == "!" and msg[-1] =="@":
-                            msg = "죽일 사람을 지목하세요. 기회는 단 한번입니다."
+                            msg = "<시스템>:시민팀을 죽여 게임에 승리하세요."
                             self.clients[nickname].send(msg.encode())
                     elif str(joblist[i]) == "경찰":
                         msg+="@!"
                         self.clients[nickname].send(msg.encode())
                         if msg[-2] == "@" and msg[-1] =="!":
-                            msg = "정체를 알고싶은사람을 지목하세요."
+                            msg = "<시스템>:마피아의 정체를 밝혀 게임을 승리하세요"
                             self.clients[nickname].send(msg.encode())
                     elif str(joblist[i]) == "의사":
                         msg+="@@"
                         self.clients[nickname].send(msg.encode())
                         if msg[-2] == "@" and msg[-1] =="@":
-                            msg = "정체를 알고싶은사람을 지목하세요."
+                            msg = "<시스템>:마피아로부터 공격을 막아 게임을 승리하세요"
                             self.clients[nickname].send(msg.encode())
 
 
