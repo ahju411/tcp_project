@@ -4,7 +4,7 @@ import random
 import time
 from types import DynamicClassAttribute
 UserList = []
-joblist = ["마피아","경찰"]  
+joblist = ["마피아","경찰","의사"]  
 Start_Num = 0
 UserJobList=[]
 
@@ -43,30 +43,39 @@ class Server(object):
             
             print("[INFO] Connection from {}:{} AKA {}".format(address[0], address[1], nickname))
 
-            if len(UserList) ==2:
+            if len(UserList) ==3: ## n명되면 게임대기문 빠져나옴
                 break
-        #게임 세팅
-        
-        
 
+        #게임 세팅
        
         threading.Thread(target=self.receive_message, args=(connection, nickname), daemon=True).start()
         self.send_Enter_message("\n"+"게임 시작합니다","<시스템>")
         time.sleep(1)
+        global police_skill,doctor_skill,mafia_kill,mafia_su,citizen_su
+        global Votelist
+        global Vote_Y
+        global Vote_N
+        Votelist = []
+        mafia_kill=""
+        police_skill=""
+        doctor_skill=""
+        mafia_su=1
+        citizen_su=5
+        Vote_Y=0
+        Vote_N=0
 
-        global arrest_user
        
-
-        
+       
        # 버튼에 유저이름 새기기 이거왜 안되냐 일단 보류
       #  self.send_Username_Button_Setting(UserList[0])
        # self.send_Username_Button_Setting(UserList[1]) 
 
         global joblist ## 직업분배하는곳
-        self.send_Enter_message("\n직업 분배중입니다.","<시스템>")
-        joblist=random.sample(joblist,2)
-        self.send_Job_message(UserList[0])
+        self.send_Enter_message("직업 분배중입니다.\n","<시스템>")
+        joblist=random.sample(joblist,3)
+        self.send_Job_message(UserList[0]) ## ↓각 유저들에게 직업을 알려줍니다
         self.send_Job_message(UserList[1])
+        self.send_Job_message(UserList[2])
         
         time.sleep(5)
        
@@ -77,22 +86,41 @@ class Server(object):
             ## 타이머 스레드 생성
             T1=threading.Thread(target=self.send_Timer_message, args=(UserList[0], 7), daemon=True)
             T2=threading.Thread(target=self.send_Timer_message, args=(UserList[1], 7), daemon=True)
-            self.send_Enter_message("\n밤입니다.","<시스템>") # 전체채팅에 밤입니다 라고 알림.
+            T3=threading.Thread(target=self.send_Timer_message, args=(UserList[1], 7), daemon=True)
+            self.send_Enter_message("밤입니다.","<시스템>") # 전체채팅에 밤입니다 라고 알림.
             self.send_Date_message("밤") ## 각 클라이언트에게 밤을 표시하도록 함.
             global Date
             Date="밤"
             ## 타이머 스레드 시작
             T1.start()
             T2.start()
+            T3.start()
             
             
             
             time.sleep(9) ## + 2초 대기
             print("마피아킬 여전하냐?",mafia_kill)
+            print("경찰지목 여전하냐?",police_skill)
+            print("의사지목 여전하냐?",doctor_skill)
             ## 밤 사이에 있던 상호작용 처리하기
 
+            
+            
+            if mafia_kill == doctor_skill: ## 마피아지목==의사지목 = 살인실패
+                self.send_Enter_message("누군가가 마피아로의 공격으로부터 살아남았습니다.!","<시스템>")
+                
+            elif mafia_kill == doctor_skill: ## 마피아지목!=의사지목
+                self.send_Enter_message(mafia_kill,"<시스템> 밤에 습격을 당한사람")
+                for i in range(0,len(UserList)): # 
+                     if UserList[i] ==  mafia_kill:
+                         nickname=mafia_kill
+                         joblist[i] = "사망"
+                         citizen_su-=1
+                         msg="당신은 밤에 습격을 당했습니다."
+                         self.clients[nickname].send(msg.encode()) ## 살해당한 유저에게 죽었다고 보냅니다
 
-          
+            else:
+                self.send_Enter_message("아무런 일이 일어나지 않았습니다.","<시스템>")
 
             time.sleep(1)
             # 2. 아침 ( 대화 시간 ) # 120초
@@ -101,11 +129,14 @@ class Server(object):
             ## 타이머 스레드 생성
             T1=threading.Thread(target=self.send_Timer_message, args=(UserList[0], 7), daemon=True)
             T2=threading.Thread(target=self.send_Timer_message, args=(UserList[1], 7), daemon=True)
-            self.send_Enter_message("\n아침입니다.","<시스템>") # 전체채팅에 밤입니다 라고 알림.
+            T3=threading.Thread(target=self.send_Timer_message, args=(UserList[1], 7), daemon=True)
+            self.send_Enter_message("아침입니다.","<시스템>") # 전체채팅에 밤입니다 라고 알림.
             self.send_Date_message("아침") ## 각 클라이언트에게 밤을 표시하도록 함.
+            Date="morning"
             ## 타이머 스레드 시작
             T1.start()
             T2.start()
+            T3.start()
 
 
             time.sleep(9)
@@ -118,11 +149,14 @@ class Server(object):
 
             T1=threading.Thread(target=self.send_Timer_message, args=(UserList[0], 7), daemon=True)
             T2=threading.Thread(target=self.send_Timer_message, args=(UserList[1], 7), daemon=True)
+            T3=threading.Thread(target=self.send_Timer_message, args=(UserList[1], 7), daemon=True)
             self.send_Enter_message("\n투표시간입니다.","<시스템>") # 전체채팅에 밤입니다 라고 알림.
             self.send_Date_message("투표시간") ## 각 클라이언트에게 밤을 표시하도록 함.
+            Date="VoteTime"
             ## 타이머 스레드 시작
             T1.start()
             T2.start()
+            T3.start()
             
             time.sleep(9)
 
@@ -164,19 +198,34 @@ class Server(object):
         print("[INFO] Waiting for messages")
         while True:
             try:
-                
+                global mafia_kill,police_skill,doctor_skill
                 msg = connection.recv(1024)
                 dmsg = msg.decode()
                 print("닉네임 :",nickname,"받은것",dmsg)
                 print(dmsg[-2])
 
-                if Date=="밤" and dmsg[-2]=="%": 
-                    global mafia_kill
-                    mafia_kill=""
+                if Date=="밤" and dmsg[-2]=="%":  # %는 버튼코드
+
+         
+                   
+
                     for i in range(0,len(UserList)):
                         if UserList[i] == nickname and joblist[i]=="마피아": ## 밤인데 마피아가 지목을했다면?
                             mafia_kill=dmsg[0:-2]
-                            print("마피아킬값 넣어졋냐?:",mafia_kill)
+
+                    for i in range(0,len(UserList)):
+                        if UserList[i] == nickname and joblist[i]=="경찰": ## 밤인데 경찰이 지목을했다면?
+                            police_skill=dmsg[0:-2]
+
+                            for i in range(0,len(UserList)): # 경찰은 지목한사람 직업을 바로보낸다.
+                                if UserList[i] ==  police_skill:
+                                    dmsg =police_skill+"의 직업은"+str(joblist[i])+" 입니다.\n"
+                                    self.clients[nickname].send(dmsg.encode())
+                                   
+
+                    for i in range(0,len(UserList)):
+                        if UserList[i] == nickname and joblist[i]=="의사": ## 밤인데 의사가 지목을했다면?
+                            doctor_skill=dmsg[0:-2]\
 
 
                 self.send_message(msg, nickname)
