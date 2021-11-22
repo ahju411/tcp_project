@@ -16,6 +16,8 @@ FinalVotelist=["","",""]
 class Server(object):
     def __init__(self, hostname, port):
         self.clients = {}
+        global currentusernum # 사람이 몇명있는지 확인하는 변수
+        currentusernum =0
         
         
         
@@ -29,7 +31,7 @@ class Server(object):
         self.tcp_server.listen(5)
 
         print("[INFO] Server running on {}:{}".format(hostname, port))
-
+        
 
         
         while True: ##  게임 대기문 
@@ -51,8 +53,12 @@ class Server(object):
             
             print("[INFO] Connection from {}:{} AKA {}".format(address[0], address[1], nickname))
 
-            if len(UserList) ==3: ## n명되면 게임대기문 빠져나옴
-                break
+            if nickname in UserList: # 현재 닉네임이 있으면 현재유저에 추가
+                currentusernum+=1
+                print(currentusernum)
+
+            if currentusernum ==3: ##n명되면 게임대기문 빠져나옴
+                break;
 
         #게임 세팅
        
@@ -277,6 +283,7 @@ class Server(object):
 
       
     def receive_message(self, connection, nickname): ## 클라로부터 메시지 받기
+        global currentusernum # 현재 유저수를 받음
         print("[INFO] Waiting for messages")
         while True:
             try:
@@ -336,6 +343,7 @@ class Server(object):
                 print(nickname + ": " + msg.decode())
             except:
                 connection.close()
+                currentusernum-=1 # 나가면 현재 유저수를 뺌
 
                 #remove user from users list
                 del(self.clients[nickname])
@@ -421,5 +429,5 @@ class Server(object):
 if __name__ == "__main__":
     port = 9090
     hostname = "localhost"
-
+    
     chat_server = Server(hostname, port)
