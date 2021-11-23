@@ -52,7 +52,7 @@ class Client(object):
     
     def btn_connect_clicked(self,myid):
         nickname = myid
-        host = "localhost"
+        host = "118.217.168.174"
         port = 9090
         try:
             port = int(port)

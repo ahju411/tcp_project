@@ -13,7 +13,8 @@ Votelist=[0,0,0]
 class Server(object):
     def __init__(self, hostname, port):
         self.clients = {}
-        
+        global currentusernum #사람이 현재 몇 명 있는지 확인하는 변수
+        currentusernum = 0
         
         
 
@@ -33,6 +34,7 @@ class Server(object):
             connection, address = self.tcp_server.accept()
             nickname = connection.recv(1024)
             nickname = nickname.decode()
+            
             self.clients[nickname] = connection
             
             # start a thread for the client
@@ -45,9 +47,13 @@ class Server(object):
             self.send_Enter_message("님이 입장하셨습니다 .",nickname)
             
             print("[INFO] Connection from {}:{} AKA {}".format(address[0], address[1], nickname))
+            if nickname in UserList: #현재 닉네임이 있으면 현재 유저에 추가함
+                currentusernum += 1
+                print(currentusernum)
 
-            if len(UserList) ==3: ## n명되면 게임대기문 빠져나옴
-                break
+            if currentusernum ==3: ## n명되면 게임대기문 빠져나옴
+                    break
+            
 
         #게임 세팅
        
@@ -240,6 +246,7 @@ class Server(object):
 
       
     def receive_message(self, connection, nickname): ## 클라로부터 메시지 받기
+        global currentusernum #현재 유저수를 받음
         print("[INFO] Waiting for messages")
         while True:
             try:
@@ -262,10 +269,10 @@ class Server(object):
                         if UserList[i] == nickname and joblist[i]=="경찰": ## 밤인데 경찰이 지목을했다면?
                             police_skill=dmsg[0:-2]
 
-                            for i in range(0,len(UserList)): # 경찰은 지목한사람 직업을 바로보낸다.
-                                if UserList[i] ==  police_skill:
-                                    dmsg =police_skill+"의 직업은"+str(joblist[i])+" 입니다.\n"
-                                    self.clients[nickname].send(dmsg.encode())
+                    for i in range(0,len(UserList)): # 경찰은 지목한사람 직업을 바로보낸다.
+                        if UserList[i] ==  police_skill:
+                            dmsg =police_skill+"의 직업은"+str(joblist[i])+" 입니다.\n"
+                            self.clients[nickname].send(dmsg.encode())
                                    
 
                     for i in range(0,len(UserList)):
@@ -297,6 +304,7 @@ class Server(object):
                 break
 
         print(nickname, " disconnected")
+        currentusernum -= 1 #나가면 현재 유저 수 뺌
 
     def send_Username_Button_Setting(self,nickname):
         for i in range(0,len(UserList)):
@@ -361,6 +369,6 @@ class Server(object):
 
 if __name__ == "__main__":
     port = 9090
-    hostname = "localhost"
+    hostname = "0.0.0.0"
 
     chat_server = Server(hostname, port)
