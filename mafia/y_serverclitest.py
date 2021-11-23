@@ -88,16 +88,22 @@ class Client(object):
 
 
     def show_message(self, message): ## 서버로부터 받은 메시지를 구분하는곳
+        global VotePopup
         if message[-2]=="!": # 마피아팀은 [-2] == !
             if message[-1]=="@": #마피아1은 [-1] == @
-                self.chat_ui.myjob_image.setText("마피아(Test)")
+                self.chat_ui.myjob_image.setText("마피아")
                 message = message[0:-2]
                 self.chat_ui.textBrowser.append(message)
                 
             
         elif message[-2]=="@": # 시민팀은 [-2] == @
             if message[-1]=="!": # 경찰은 [-1] == !
-                self.chat_ui.myjob_image.setText("경찰(Test)")
+                self.chat_ui.myjob_image.setText("경찰")
+                message = message[0:-2]
+                self.chat_ui.textBrowser.append(message)
+            
+            if message[-1]=="@": # 경찰은 [-1] == !
+                self.chat_ui.myjob_image.setText("의사")
                 message = message[0:-2]
                 self.chat_ui.textBrowser.append(message)
                 
@@ -110,9 +116,40 @@ class Client(object):
             if message[-1]=="@": # Date은 [-1] == @
                     message = message[:-2]
                     self.chat_ui.Date.setText(message)
+        elif message[-2]=="*":  ## 버튼에 각각 유저이름 새기기
+            if message[-1]=="!":
 
-        elif message[-2]=="%": # 이거 유저버튼클릭하면 서버로 유저버튼 넘어가는데 되돌아오는거 방지하기위해 막음
+                UserBtnList=[]
+                while message!="":
+                    findcode = message.find("*!",0,)
+                    BtnName=message[0:findcode]
+                    UserBtnList.append(BtnName)
+
+                    message=message[findcode+2:]
+                
+                print(UserBtnList)
+
+                
+
+             
+                self.chat_ui.to_user1.setText(UserBtnList[0])
+               
+                self.chat_ui.to_user2.setText(UserBtnList[1])
+                
+                self.chat_ui.to_user3.setText(UserBtnList[2])
+                
+                
+
+        elif message[-2]=="%" or message[-2]=="^": # 이거 유저버튼클릭하면 서버로 유저버튼 넘어가는데 되돌아오는거 방지하기위해 막음
                 pass
+        
+
+       # elif message[-2]=="*": #팝업 어캐하노;
+           # if message[-1]=="!":
+             #   VotePopup=QtWidgets.QMessageBox.question(self,"알림",
+               # "투표하시겠습니까?",QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.No)
+                #if VotePopup == QtWidgets.QMessageBox.Yes:
+                 #   pass
 
         
         else: # 일반 채팅일경우 textbroswer로 모두에게 보여줌
@@ -137,6 +174,10 @@ class Client(object):
             
             return False
         
+
+   
+    
+
 
     def send_to_user1(self):
         message = self.chat_ui.to_user1.text()

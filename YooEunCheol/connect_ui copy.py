@@ -1,4 +1,3 @@
-asd = ["1","2"]
+asd ="ab"
 
-for n in asd:
-    print(n)
+print(asd[-2])

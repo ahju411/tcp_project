@@ -81,9 +81,9 @@ class Ui_Mafia(QtWidgets.QWidget):
         _translate = QtCore.QCoreApplication.translate
         Form.setWindowTitle(_translate("Form", "Form"))
         self.inputbutton.setText(_translate("Form", "전송"))
-        self.to_user1.setText(_translate("Form", "유저1"))
-        self.to_user2.setText(_translate("Form", "유저2"))
-        self.to_user3.setText(_translate("Form", "유저3"))
+        self.to_user1.setText(_translate("Form", "대기중"))
+        self.to_user2.setText(_translate("Form", "대기중"))
+        self.to_user3.setText(_translate("Form", "대기중"))
         self.to_user4.setText(_translate("Form", "유저4"))
         self.to_user5.setText(_translate("Form", "유저5"))
         self.to_user6.setText(_translate("Form", "유저6"))
