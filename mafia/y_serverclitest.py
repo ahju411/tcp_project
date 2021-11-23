@@ -116,6 +116,29 @@ class Client(object):
             if message[-1]=="@": # Date은 [-1] == @
                     message = message[:-2]
                     self.chat_ui.Date.setText(message)
+        elif message[-2]=="*":  ## 버튼에 각각 유저이름 새기기
+            if message[-1]=="!":
+
+                UserBtnList=[]
+                while message!="":
+                    findcode = message.find("*!",0,)
+                    BtnName=message[0:findcode]
+                    UserBtnList.append(BtnName)
+
+                    message=message[findcode+2:]
+                
+                print(UserBtnList)
+
+                
+
+             
+                self.chat_ui.to_user1.setText(UserBtnList[0])
+               
+                self.chat_ui.to_user2.setText(UserBtnList[1])
+                
+                self.chat_ui.to_user3.setText(UserBtnList[2])
+                
+                
 
         elif message[-2]=="%" or message[-2]=="^": # 이거 유저버튼클릭하면 서버로 유저버튼 넘어가는데 되돌아오는거 방지하기위해 막음
                 pass

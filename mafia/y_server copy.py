@@ -64,6 +64,7 @@ class Server(object):
        
         
         self.send_Enter_message("\n게임 시작합니다","<시스템>")
+        
         time.sleep(1)
         global police_skill,doctor_skill,mafia_kill,mafia_su,citizen_su
         global Vote_Y
@@ -81,7 +82,12 @@ class Server(object):
         Vote_Y=0
         Vote_N=0
         max_equ_num=-1
-
+        time.sleep(1)
+        
+        self.send_Enter_message("\n게임 세팅중입니다..","<시스템>")
+        self.send_Username_Button_Setting(UserList[0])
+        self.send_Username_Button_Setting(UserList[1])
+        self.send_Username_Button_Setting(UserList[2])
        
        
        # 버튼에 유저이름 새기기 이거왜 안되냐 일단 보류
@@ -359,11 +365,11 @@ class Server(object):
                # self.clients[nickname].send(msg.encode())
 
 
-    def send_Username_Button_Setting(self,nickname): 
+    def send_Username_Button_Setting(self,nickname):  ## 버튼에 각각 유저이름 새기기
         for i in range(0,len(UserList)):
             if UserList[i]==nickname:
-                for i in range(0,len(UserList)):
-                    msg=str(UserList[i])+"%!"
+                for j in range(0,len(UserList)):
+                    msg=str(UserList[j])+"*!"
                     self.clients[nickname].send(msg.encode())
 
     
