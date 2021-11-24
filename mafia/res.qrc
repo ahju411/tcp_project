@@ -1,5 +1,6 @@
 <RCC>
   <qresource prefix="images">
+    <file>images/hat.png</file>
     <file>images/register.jpg</file>
     <file>images/pushbtn.png</file>
     <file>images/login.jpg</file>

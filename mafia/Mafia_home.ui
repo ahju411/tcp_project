@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Form</class>
+ <widget class="QWidget" name="Form">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>760</width>
+    <height>604</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">QWidget#Form{background-color:qlineargradient(spread:pad, x1:0, y1:0.5, x2:0.956409, y2:0.529, stop:0 rgba(47, 47, 47, 255), stop:1 rgba(86, 86, 86, 255))}</string>
+  </property>
+  <widget class="QTextEdit" name="textEdit">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>40</y>
+     <width>551</width>
+     <height>521</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">font: 10pt &quot;나눔스퀘어&quot;;</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="lineEdit">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>570</y>
+     <width>501</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">font: 10pt &quot;나눔스퀘어&quot;;</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="inputbutton">
+   <property name="geometry">
+    <rect>
+     <x>510</x>
+     <y>570</y>
+     <width>41</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">border-radius:20px;
+background-color: rgb(220, 255, 255);</string>
+   </property>
+   <property name="text">
+    <string>전송</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="to_user1">
+   <property name="geometry">
+    <rect>
+     <x>560</x>
+     <y>490</y>
+     <width>41</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">border-radius:20px;
+background-color: rgb(255, 255, 255);</string>
+   </property>
+   <property name="text">
+    <string>유저1</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="to_user2">
+   <property name="geometry">
+    <rect>
+     <x>610</x>
+     <y>490</y>
+     <width>41</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">border-radius:20px;
+background-color: rgb(255, 255, 255);
+font: 75 9pt &quot;나눔스퀘어 Bold&quot;;</string>
+   </property>
+   <property name="text">
+    <string>유저2</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="to_user3">
+   <property name="geometry">
+    <rect>
+     <x>660</x>
+     <y>490</y>
+     <width>41</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">border-radius:20px;
+background-color: rgb(255, 255, 255);</string>
+   </property>
+   <property name="text">
+    <string>유저3</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="to_user4">
+   <property name="geometry">
+    <rect>
+     <x>560</x>
+     <y>520</y>
+     <width>41</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">border-radius:20px;
+background-color: rgb(255, 255, 255);</string>
+   </property>
+   <property name="text">
+    <string>유저4</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="to_user5">
+   <property name="geometry">
+    <rect>
+     <x>610</x>
+     <y>520</y>
+     <width>41</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">border-radius:20px;
+background-color: rgb(255, 255, 255);</string>
+   </property>
+   <property name="text">
+    <string>유저5</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="to_user6">
+   <property name="geometry">
+    <rect>
+     <x>660</x>
+     <y>520</y>
+     <width>41</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">border-radius:20px;
+background-color: rgb(255, 255, 255);</string>
+   </property>
+   <property name="text">
+    <string>유저6</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="Date">
+   <property name="geometry">
+    <rect>
+     <x>15</x>
+     <y>12</y>
+     <width>61</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">font: 11pt &quot;배달의민족 주아&quot;; color:rgb(255, 255, 255)</string>
+   </property>
+   <property name="text">
+    <string>날짜</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="Timer">
+   <property name="geometry">
+    <rect>
+     <x>510</x>
+     <y>20</y>
+     <width>56</width>
+     <height>12</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">font: 11pt &quot;배달의민족 주아&quot;; color:rgb(255, 255, 255)</string>
+   </property>
+   <property name="text">
+    <string>시간</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="myname">
+   <property name="geometry">
+    <rect>
+     <x>620</x>
+     <y>80</y>
+     <width>61</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">font: 11pt &quot;배달의민족 주아&quot;; color:rgb(255, 255, 255)</string>
+   </property>
+   <property name="text">
+    <string>자기닉네임</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="myjob_image">
+   <property name="geometry">
+    <rect>
+     <x>620</x>
+     <y>220</y>
+     <width>56</width>
+     <height>12</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">font: 11pt &quot;배달의민족 주아&quot;; color:rgb(255, 255, 255)</string>
+   </property>
+   <property name="text">
+    <string>직업사진</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="output_info">
+   <property name="geometry">
+    <rect>
+     <x>560</x>
+     <y>460</y>
+     <width>71</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">font: 11pt &quot;배달의민족 주아&quot;; color:rgb(255, 255, 255)</string>
+   </property>
+   <property name="text">
+    <string>투표하세요</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label">
+   <property name="geometry">
+    <rect>
+     <x>270</x>
+     <y>10</y>
+     <width>81</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">font: 12pt &quot;배달의민족 도현&quot;; color: rgb(255, 255, 255)</string>
+   </property>
+   <property name="text">
+    <string>마피아게임</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_2">
+   <property name="geometry">
+    <rect>
+     <x>490</x>
+     <y>40</y>
+     <width>56</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">color:rgb(255, 255, 255);border-image:url(:/images/images/hat.png);</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+ </widget>
+ <resources>
+  <include location="res.qrc"/>
+ </resources>
+ <connections/>
+</ui>

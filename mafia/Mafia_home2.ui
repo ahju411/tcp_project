@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Form</class>
+ <widget class="QWidget" name="Form">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>754</width>
+    <height>595</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <widget class="QTextEdit" name="textEdit">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>40</y>
+     <width>551</width>
+     <height>521</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="lineEdit">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>570</y>
+     <width>501</width>
+     <height>20</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="inputbutton">
+   <property name="geometry">
+    <rect>
+     <x>510</x>
+     <y>570</y>
+     <width>41</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>전송</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="to_user1">
+   <property name="geometry">
+    <rect>
+     <x>560</x>
+     <y>490</y>
+     <width>31</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>유저1</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="to_user2">
+   <property name="geometry">
+    <rect>
+     <x>610</x>
+     <y>490</y>
+     <width>31</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>유저2</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="to_user3">
+   <property name="geometry">
+    <rect>
+     <x>660</x>
+     <y>490</y>
+     <width>31</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>유저3</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="to_user4">
+   <property name="geometry">
+    <rect>
+     <x>710</x>
+     <y>490</y>
+     <width>31</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>유저4</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="to_user5">
+   <property name="geometry">
+    <rect>
+     <x>560</x>
+     <y>520</y>
+     <width>31</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>유저5</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="to_user6">
+   <property name="geometry">
+    <rect>
+     <x>610</x>
+     <y>520</y>
+     <width>31</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>유저6</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="to_user7">
+   <property name="geometry">
+    <rect>
+     <x>660</x>
+     <y>520</y>
+     <width>31</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>유저7</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="to_user8">
+   <property name="geometry">
+    <rect>
+     <x>710</x>
+     <y>520</y>
+     <width>31</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>유저8</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="Date">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>20</y>
+     <width>56</width>
+     <height>12</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>날짜</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="Timer">
+   <property name="geometry">
+    <rect>
+     <x>510</x>
+     <y>20</y>
+     <width>56</width>
+     <height>12</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>시간</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="myname">
+   <property name="geometry">
+    <rect>
+     <x>620</x>
+     <y>80</y>
+     <width>56</width>
+     <height>12</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>자기닉네임</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="myjob_image">
+   <property name="geometry">
+    <rect>
+     <x>620</x>
+     <y>220</y>
+     <width>56</width>
+     <height>12</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>직업사진</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="output_info">
+   <property name="geometry">
+    <rect>
+     <x>560</x>
+     <y>460</y>
+     <width>56</width>
+     <height>12</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>투표하세요</string>
+   </property>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
