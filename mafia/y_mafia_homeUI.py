@@ -127,7 +127,7 @@ class Ui_Mafia(QtWidgets.QWidget):
         self.Timer.setText(_translate("Form", "시간"))
         self.myname.setText(_translate("Form", "자기닉네임"))
         self.myjob_image.setText(_translate("Form", "직업사진"))
-        self.output_info.setText(_translate("Form", "투표하세요"))
+        self.output_info.setText(_translate("Form", "지목하세요"))
 
     
     def testreceive(self):
