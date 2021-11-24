@@ -55,7 +55,9 @@ class Server(object):
     def __init__(self, hostname, port):
         self.clients = {}
         global currentusernum # 사람이 몇명있는지 확인하는 변수
+        global mafia_su
         currentusernum =0
+        mafia_su=0
         
         
         
@@ -105,7 +107,7 @@ class Server(object):
         self.send_Enter_message("\n게임 시작합니다","<시스템>")
         
         
-        global police_skill,doctor_skill,mafia_kill,mafia_su,citizen_su
+        global police_skill,doctor_skill,mafia_kill,citizen_su
         global Vote_Y
         global Vote_N
         global VoteMax,vote_equ_flag,max_equ_num
@@ -453,9 +455,12 @@ class Server(object):
 
     def receive_message(self, connection, nickname): ## 클라로부터 메시지 받기
         global currentusernum # 현재 유저수를 받음
+        global mafia_su
         print("[INFO] Waiting for messages")
         while True:
             try:
+                global Mafia_Chat_Flag
+                Mafia_Chat_Flag=0
                 global mafia_kill,police_skill,doctor_skill,Votelist,FinalVotelist
                 msg = connection.recv(1024)
 
@@ -463,7 +468,11 @@ class Server(object):
                 print("닉네임 :",nickname,"받은것",dmsg)
                 print(dmsg[-2])
                
-
+                if Date=="밤" and mafia_su==2:
+                    for i in range(0,len(UserList)):
+                        if UserList[i] == nickname and joblist[i] =="마피아":
+                            self.send_Mafia_message(msg,nickname)
+                            Mafia_Chat_Flag=1
                 # 클라에서 받은게 Button이벤트 일경우~~~
                 if Date=="밤" and dmsg[-2]=="%":  # %는 버튼코드 , 밤일경우 각 버튼은 직업스킬로 바뀜
 
@@ -507,9 +516,9 @@ class Server(object):
                                 dmsg="<시스템>:반대 했습니다."
                                 self.clients[nickname].send(dmsg.encode())
 
-                
-                self.send_message(msg, nickname)
-                print(nickname + ": " + msg.decode())
+                elif Mafia_Chat_Flag==0:
+                    self.send_message(msg, nickname)
+                    print(nickname + ": " + msg.decode())
             except:
                 connection.close()
                 currentusernum-=1 # 나가면 현재 유저수를 뺌
@@ -558,6 +567,13 @@ class Server(object):
             for nickname in self.clients:
                 msg = entname + ": " + message
                 self.clients[nickname].send(msg.encode())
+    def send_Mafia_message(self,message,sender): ## 마피아간 밤채팅
+        for i in range(0,len(UserList)):
+            if UserList[i] != sender and joblist[i]=="마피아" : # 나 아닌 딴놈이 마피아일경우 그놈한테 메시지를전달.
+                msg = sender + ": " + message.decode()
+                print("누구에게 : ",UserList[i]," 무엇을 ",msg," 센더는:",sender)
+                self.clients[UserList[i]].send(msg.encode())
+
 
     def send_Job_message(self,nickname): ## 직업알려주기
         if len(self.clients) >0:
@@ -599,12 +615,23 @@ class Server(object):
                     self.clients[nickname].send(msg.encode())
 
     def send_ChatButton_Setting(self,Date): ## 채팅 세팅
-        print("Date 어떻게뜨죠",Date)
-        if Date=="밤" or Date=="투표시간"  : ##  채팅 X 지목 O
+        global mafia_su
+        if mafia_su==2 and Date=="밤":
+            for i in range(0,len(joblist)):##마피아가 밤에 2명있으면 채팅O 지목O
+                    if joblist[i]=="마피아":
+            
+                        msg = "*%"
+                        self.clients[UserList[i]].send(msg.encode())
+                    else:
+                        msg ="*@"
+                
+                        self.clients[UserList[i]].send(msg.encode())
+
+
+        elif Date=="투표시간"  : ##  채팅 X 지목 O
             if len(self.clients) >0:
                 for nickname in self.clients:
                     msg = "*@"
-                    print("닉네임 : ",nickname,"에게",msg,"를보냈습니다.")
                     self.clients[nickname].send(msg.encode())
         elif Date=="아침" or Date=="끝" or  Date=="최후의투표" or Date =="게임세팅": ## 채팅 O 지목 X
             if len(self.clients) >0:

@@ -171,6 +171,18 @@ class Client(object):
                 # self.chat_ui.to_user7.setDisabled(True)
                 # self.chat_ui.to_user8.setDisabled(True)
 
+            elif message[-1]=="%": # 특정시간대 채팅O 지목O >>마피아가 밤일때
+                self.chat_ui.inputbutton.setDisabled(False)
+                self.chat_ui.textEdit.setDisabled(False)
+                self.chat_ui.to_user1.setDisabled(False)
+                self.chat_ui.to_user2.setDisabled(False)
+                self.chat_ui.to_user3.setDisabled(False)
+                self.chat_ui.to_user4.setDisabled(False)
+                self.chat_ui.to_user5.setDisabled(False)
+                self.chat_ui.to_user6.setDisabled(False)
+                #self.chat_ui.to_user7.setDisabled(False)
+                #self.chat_ui.to_user8.setDisabled(False)
+
             
 
         elif message[-2]=="%" or message[-2]=="^": # 이거 유저버튼클릭하면 서버로 유저버튼 넘어가는데 되돌아오는거 방지하기위해 막음
