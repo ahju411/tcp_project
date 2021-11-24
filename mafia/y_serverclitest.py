@@ -116,29 +116,55 @@ class Client(object):
             if message[-1]=="@": # Date은 [-1] == @
                     message = message[:-2]
                     self.chat_ui.Date.setText(message)
-        elif message[-2]=="*":  ## 버튼에 각각 유저이름 새기기
-            if message[-1]=="!":
+        elif message[-2]=="*":  ## 버튼세팅
+            if message[-1]=="!":## 버튼에 각각 유저이름 새기기
 
                 UserBtnList=[]
                 while message!="":
                     findcode = message.find("*!",0,)
                     BtnName=message[0:findcode]
                     UserBtnList.append(BtnName)
-
                     message=message[findcode+2:]
-                
-                print(UserBtnList)
-
-                
-
-             
                 self.chat_ui.to_user1.setText(UserBtnList[0])
-               
                 self.chat_ui.to_user2.setText(UserBtnList[1])
-                
                 self.chat_ui.to_user3.setText(UserBtnList[2])
+            elif message[-1]=="@": # 특정시간대에 채팅 X  지목 O
+                self.chat_ui.inputbutton.setDisabled(True)
+                self.chat_ui.textEdit.setDisabled(True)
+                self.chat_ui.to_user1.setDisabled(False)
+                self.chat_ui.to_user2.setDisabled(False)
+                self.chat_ui.to_user3.setDisabled(False)
+                self.chat_ui.to_user4.setDisabled(False)
+                self.chat_ui.to_user5.setDisabled(False)
+                self.chat_ui.to_user6.setDisabled(False)
+                self.chat_ui.to_user7.setDisabled(False)
+                self.chat_ui.to_user8.setDisabled(False)
                 
-                
+            elif message[-1]=="#": # 특정시간대 채팅 O 지목 X
+                self.chat_ui.inputbutton.setDisabled(False)
+                self.chat_ui.textEdit.setDisabled(False)
+                self.chat_ui.to_user1.setDisabled(True)
+                self.chat_ui.to_user2.setDisabled(True)
+                self.chat_ui.to_user3.setDisabled(True)
+                self.chat_ui.to_user4.setDisabled(True)
+                self.chat_ui.to_user5.setDisabled(True)
+                self.chat_ui.to_user6.setDisabled(True)
+                self.chat_ui.to_user7.setDisabled(True)
+                self.chat_ui.to_user8.setDisabled(True)
+
+            elif message[-1]=="$": # 특정시간대 채팅X 지목X
+                self.chat_ui.inputbutton.setDisabled(True)
+                self.chat_ui.textEdit.setDisabled(True)
+                self.chat_ui.to_user1.setDisabled(True)
+                self.chat_ui.to_user2.setDisabled(True)
+                self.chat_ui.to_user3.setDisabled(True)
+                self.chat_ui.to_user4.setDisabled(True)
+                self.chat_ui.to_user5.setDisabled(True)
+                self.chat_ui.to_user6.setDisabled(True)
+                self.chat_ui.to_user7.setDisabled(True)
+                self.chat_ui.to_user8.setDisabled(True)
+
+            
 
         elif message[-2]=="%" or message[-2]=="^": # 이거 유저버튼클릭하면 서버로 유저버튼 넘어가는데 되돌아오는거 방지하기위해 막음
                 pass
