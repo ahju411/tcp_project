@@ -309,7 +309,6 @@ class Ui_registerUi(QtWidgets.QWidget):
                     value = (id,hash_pw.decode('utf-8'),name,tel,nickname)#해쉬 값을 utf-8로 디코딩하고 넘겨줘야함 
                     if dao.insert(value) == True:
                         QtWidgets.QMessageBox.about(self,"알림","회원가입이 성공하였습니다.")
-                        self.exit()
                         
                     else:
                         QtWidgets.QMessageBox.about(self,"알림","회원가입이 실패하였습니다.")
