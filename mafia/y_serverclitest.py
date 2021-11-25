@@ -1,3 +1,4 @@
+from tkinter.constants import N, TRUE, Y
 from PyQt5 import QtCore, QtWidgets
 import y_mafia_homeUI
 
@@ -89,6 +90,7 @@ class Client(object):
 
     def show_message(self, message): ## 서버로부터 받은 메시지를 구분하는곳
         global VotePopup
+        
         if message[-2]=="!": # 마피아팀은 [-2] == !
             if message[-1]=="@": #마피아1은 [-1] == @
                 self.chat_ui.myjob_image.setText("마피아")
@@ -182,19 +184,22 @@ class Client(object):
                 self.chat_ui.to_user6.setDisabled(False)
                 #self.chat_ui.to_user7.setDisabled(False)
                 #self.chat_ui.to_user8.setDisabled(False)
-
+            elif message[-1]=="*":
+                import tkinter.messagebox
+                popvote = tkinter.messagebox.askyesno('투표창','찬성하시겠습니까?')
+                if popvote == True:
+                    self.chat_ui.textEdit.setText('/Y')
+                    self.send_message()
+                    
+                else:
+                    self.chat_ui.textEdit.setText('/N')
+                    self.send_message()
             
 
         elif message[-2]=="%" or message[-2]=="^": # 이거 유저버튼클릭하면 서버로 유저버튼 넘어가는데 되돌아오는거 방지하기위해 막음
                 pass
         
 
-       # elif message[-2]=="*": #팝업 어캐하노;
-           # if message[-1]=="!":
-             #   VotePopup=QtWidgets.QMessageBox.question(self,"알림",
-               # "투표하시겠습니까?",QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.No)
-                #if VotePopup == QtWidgets.QMessageBox.Yes:
-                 #   pass
 
         
         else: # 일반 채팅일경우 textbroswer로 모두에게 보여줌

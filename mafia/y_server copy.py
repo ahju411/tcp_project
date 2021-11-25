@@ -104,7 +104,7 @@ class Server(object):
         #게임 세팅
        
         
-        self.send_Enter_message("\n게임 시작합니다","<시스템>")
+        self.send_Enter_message("\n게임 시작합니다","\n<시스템>")
         
         
         global police_skill,doctor_skill,mafia_kill,citizen_su
@@ -123,7 +123,7 @@ class Server(object):
         max_equ_num=-1
         time.sleep(3)
         
-        self.send_Enter_message("\n게임 세팅중입니다..","<시스템>")
+        self.send_Enter_message("\n게임 세팅중입니다..","\n<시스템>")
         self.send_Username_Button_Setting(UserList[0])
         self.send_Username_Button_Setting(UserList[1])
         self.send_Username_Button_Setting(UserList[2])
@@ -152,9 +152,12 @@ class Server(object):
         self.send_Job_message(UserList[5])
         
 
+        global MafiaList
+        MafiaList=[]
         for i in range(0,len(joblist)): ## 게임 종료후에 마피아가 누군지 알려주기위해 마피아값을 구한다.
             if joblist[i]=="마피아":
                 Mafia=UserList[i]
+                MafiaList.append(UserList[i])
       
         
         time.sleep(3)
@@ -211,12 +214,14 @@ class Server(object):
                             mafia_su-=1
                             msg="<시스템>:당신은 밤에 습격을 당했습니다."
                             self.clients[Mafia].send(msg.encode()) ## 살해당한 유저에게 죽었다고 보냅니다
+                            
                         else:
                             nickname=mafia_kill
                             joblist[i] = "사망"
                             citizen_su-=1
                             msg="<시스템>:당신은 밤에 습격을 당했습니다."
                             self.clients[mafia_kill].send(msg.encode()) ## 살해당한 유저에게 죽었다고 보냅니다
+                            
 
             else:
                 self.send_Enter_message("아무런 일이 일어나지 않았습니다.","<시스템>")
@@ -397,12 +402,14 @@ class Server(object):
                                 mafia_su-=1
                                 msg="<시스템>:당신은 투표로 인해 죽었습니다."
                                 self.clients[Mafia].send(msg.encode()) ## 마피아 유저에게 죽었다고 보냅니다
+                                
                             else:
                                 joblist[i] = "사망"
                                 citizen_su-=1
                                 msg="<시스템>:당신은 투표로 인해 죽었습니다."
                                 print("작동하나유유유유유",nickname,joblist[i],FinalVoteUser)
                                 self.clients[FinalVoteUser].send(msg.encode()) ## 유저에게 죽었다고 보냅니다
+                                
                 
                 elif Vote_Y <= Vote_N:
                     self.send_Enter_message("최종 투표결과 아무런일이 일어나지 않았습니다.","<시스템>")
@@ -427,13 +434,13 @@ class Server(object):
             print("마피아팀의승리")
             self.send_Enter_message("\n\n\n\n","")
             self.send_Enter_message("마피아의 승리!!!!\n","<시스템>")
-            self.send_Enter_message(Mafia,"<시스템>: 이번 게임의 마피아1")
+            self.send_Enter_message(MafiaList[0]+" , "+MafiaList[1],"<시스템>: 이번 게임의 마피아")
 
         else:
             print("시민팀의승리 ")
             self.send_Enter_message("\n\n\n\n","")
             self.send_Enter_message("시민팀의 승리!!!!\n","<시스템>")
-            self.send_Enter_message(Mafia,"<시스템>: 이번 게임의 마피아2")
+            self.send_Enter_message(MafiaList[0]+" , "+MafiaList[1],"<시스템>: 이번 게임의 마피아")
 
         
         self.send_Enter_message("게임이 종료되었습니다.","\n\n\n<시스템>")
@@ -604,7 +611,8 @@ class Server(object):
                         self.clients[nickname].send(msg.encode())
                         if msg[-2] == "@" and msg[-1] =="#":
                             msg = "<시스템>:시민으로서 마피아를 찾아 승리로 이끌어주세요"
-                            self.clients[nickname].send(msg.encode())        
+                            self.clients[nickname].send(msg.encode())   
+                        
 
 
     def send_message(self, message, sender): ## 유저들간 채팅보내기
@@ -631,24 +639,57 @@ class Server(object):
         elif Date=="투표시간"  : ##  채팅 X 지목 O
             if len(self.clients) >0:
                 for nickname in self.clients:
-                    msg = "*@"
-                    self.clients[nickname].send(msg.encode())
-        elif Date=="아침" or Date=="끝" or  Date=="최후의투표" or Date =="게임세팅": ## 채팅 O 지목 X
+                    for i in range(0,len(joblist)):
+                        if joblist[i] == "사망" :
+                            msg = "*$"
+                            self.clients[UserList[i]].send(msg.encode())   
+                        else:
+                            msg = "*@"
+                            self.clients[nickname].send(msg.encode())
+        elif Date=="아침" or Date =="게임세팅": ## 채팅 O 지목 X
             if len(self.clients) >0:
                 for nickname in self.clients:
-                    msg = "*#"
-                    self.clients[nickname].send(msg.encode())
+                    for i in range(0,len(joblist)):
+                        if joblist[i] == "사망" :
+                            msg = "*$"
+                            self.clients[UserList[i]].send(msg.encode())   
+                        else:
+                            msg = "*#"
+                            self.clients[nickname].send(msg.encode())
+        
         
         elif Date=="최후의반론"  : ## 투표 지목받은사람만 채팅 O 지목 X
             if len(self.clients) >0:
                 for nickname in self.clients:
-                    if nickname==FinalVoteUser:
-                        msg = "*#"
-                        self.clients[nickname].send(msg.encode())
-                    else:
-                        msg="*$"  # 투표 지목 안받은사람은 채팅X 지목X
-                        self.clients[nickname].send(msg.encode())
-            
+                    for i in range(0,len(joblist)):
+                        if joblist[i] == "사망" :
+                            msg = "*$"
+                            self.clients[UserList[i]].send(msg.encode())   
+                        else:
+                            if nickname==FinalVoteUser:
+                                msg = "*#"
+                                self.clients[nickname].send(msg.encode())
+                            else:
+                                msg="*$"  # 투표 지목 안받은사람은 채팅X 지목X
+                                self.clients[nickname].send(msg.encode())
+        elif  Date=="최후의투표":
+            if len(self.clients) >0:
+                for nickname in self.clients:
+                    for i in range(0,len(joblist)):
+                        if joblist[i] == "사망" :
+                            msg = "*$"
+                            self.clients[UserList[i]].send(msg.encode())   
+                        else:
+                            msg = "**"
+                            self.clients[nickname].send(msg.encode())
+        elif Date=="끝":
+                if len(self.clients) >0:
+                    for nickname in self.clients:
+                            msg = "*#"
+                            self.clients[nickname].send(msg.encode())
+         
+       
+           
             
 
                 

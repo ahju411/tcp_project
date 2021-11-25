@@ -132,3 +132,6 @@ class Ui_Mafia(QtWidgets.QWidget):
     
     def testreceive(self):
         print('정보를 전달받음',myid)
+if __name__=='__main__':
+        app = QtWidgets.QApplication(sys.argv)
+        sys.exit(app.exec_())
