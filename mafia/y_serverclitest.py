@@ -133,12 +133,15 @@ class Client(object):
                     BtnName=message[0:findcode]
                     UserBtnList.append(BtnName)
                     message=message[findcode+2:]
+                
                 self.chat_ui.to_user1.setText(UserBtnList[0])
                 self.chat_ui.to_user2.setText(UserBtnList[1])
                 self.chat_ui.to_user3.setText(UserBtnList[2])
                 self.chat_ui.to_user4.setText(UserBtnList[3])
                 self.chat_ui.to_user5.setText(UserBtnList[4])
                 self.chat_ui.to_user6.setText(UserBtnList[5])
+                
+                
             elif message[-1]=="@": # 특정시간대에 채팅 X  지목 O
                 self.chat_ui.inputbutton.setDisabled(True)
                 self.chat_ui.textEdit.setDisabled(True)
@@ -148,8 +151,7 @@ class Client(object):
                 self.chat_ui.to_user4.setDisabled(False)
                 self.chat_ui.to_user5.setDisabled(False)
                 self.chat_ui.to_user6.setDisabled(False)
-                # self.chat_ui.to_user7.setDisabled(False)
-                # self.chat_ui.to_user8.setDisabled(False)
+               
                 
             elif message[-1]=="#": # 특정시간대 채팅 O 지목 X
                 self.chat_ui.inputbutton.setDisabled(False)
@@ -160,8 +162,7 @@ class Client(object):
                 self.chat_ui.to_user4.setDisabled(True)
                 self.chat_ui.to_user5.setDisabled(True)
                 self.chat_ui.to_user6.setDisabled(True)
-                # self.chat_ui.to_user7.setDisabled(True)
-                # self.chat_ui.to_user8.setDisabled(True)
+               
 
             elif message[-1]=="$": # 특정시간대 채팅X 지목X
                 self.chat_ui.inputbutton.setDisabled(True)
@@ -172,8 +173,7 @@ class Client(object):
                 self.chat_ui.to_user4.setDisabled(True)
                 self.chat_ui.to_user5.setDisabled(True)
                 self.chat_ui.to_user6.setDisabled(True)
-                # self.chat_ui.to_user7.setDisabled(True)
-                # self.chat_ui.to_user8.setDisabled(True)
+                
 
             elif message[-1]=="%": # 특정시간대 채팅O 지목O >>마피아가 밤일때
                 self.chat_ui.inputbutton.setDisabled(False)
@@ -184,8 +184,7 @@ class Client(object):
                 self.chat_ui.to_user4.setDisabled(False)
                 self.chat_ui.to_user5.setDisabled(False)
                 self.chat_ui.to_user6.setDisabled(False)
-                #self.chat_ui.to_user7.setDisabled(False)
-                #self.chat_ui.to_user8.setDisabled(False)
+                
             elif message[-1]=="*":
                 import tkinter.messagebox
                 popvote = tkinter.messagebox.askyesno('투표창','찬성하시겠습니까?')
@@ -303,30 +302,6 @@ class Client(object):
         message = message[0:-2]+" 지목했습니다."
         self.chat_ui.textBrowser.append(message)
 
-    # def send_to_user7(self):
-    #     message = self.chat_ui.to_user7.text()
-    #     message = message+"%*"
-    #     try:
-    #         self.tcp_client.send(message.encode())
-    #     except Exception as e:
-    #         error = "Unable to send message '{}'".format(str(e))
-    #         print("[INFO]", error)
-    #         self.show_error("Server Error", error)
-    #     message = message[0:-2]+" 지목했습니다."    
-    #     self.chat_ui.textBrowser.append(message)
-
-    # def send_to_user8(self):
-    #     message = self.chat_ui.to_user8.text()
-    #     message = message+"%("
-    #     try:
-    #         self.tcp_client.send(message.encode())
-    #     except Exception as e:
-    #         error = "Unable to send message '{}'".format(str(e))
-    #         print("[INFO]", error)
-    #         self.show_error("Server Error", error)
-    #     message = message[0:-2]+" 지목했습니다."    
-    #     self.chat_ui.textBrowser.append(message)
-                                        
 
     def send_message(self):
         message = self.chat_ui.textEdit.text()

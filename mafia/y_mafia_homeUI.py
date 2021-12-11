@@ -123,10 +123,10 @@ class Ui_Mafia(QtWidgets.QWidget):
         # self.to_user7.setText(_translate("Form", "유저7"))
         # self.to_user8.setText(_translate("Form", "유저8"))
         self.label.setText(_translate("Form", "마피아게임"))
-        self.Date.setText(_translate("Form", "날짜"))
-        self.Timer.setText(_translate("Form", "시간"))
+        self.Date.setText(_translate("Form", ""))
+        self.Timer.setText(_translate("Form", ""))
         self.myname.setText(_translate("Form", "자기닉네임"))
-        self.myjob_image.setText(_translate("Form", "직업사진"))
+        self.myjob_image.setText(_translate("Form", "직업"))
         self.output_info.setText(_translate("Form", "지목하세요"))
 
     

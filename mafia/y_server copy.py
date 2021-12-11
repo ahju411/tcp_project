@@ -113,10 +113,8 @@ class Server(object):
         global Vote_N
         global VoteMax,vote_equ_flag,max_equ_num
         global FinalVoteUser
-        global police_choice
         vote_equ_flag=0
         VoteMax=-1
-        
         
         FinalVoteUser=""
         mafia_su=2
@@ -127,32 +125,21 @@ class Server(object):
         time.sleep(3)
         
         self.send_Enter_message("게임 세팅중입니다..","<시스템>")
-        self.send_Username_Button_Setting(UserList[0])
-        self.send_Username_Button_Setting(UserList[1])
-        self.send_Username_Button_Setting(UserList[2])
-        self.send_Username_Button_Setting(UserList[3])
-        self.send_Username_Button_Setting(UserList[4])
-        self.send_Username_Button_Setting(UserList[5])
-
+        for i in range(0,6):
+            self.send_Username_Button_Setting(UserList[i]) #각 버튼에 유저의 이름을 새깁니다.
+            
         time.sleep(2)
        
         
-       
-       # 버튼에 유저이름 새기기 이거왜 안되냐 일단 보류
-      #  self.send_Username_Button_Setting(UserList[0])
-       # self.send_Username_Button_Setting(UserList[1]) 
 
         global joblist ## 직업분배하는곳
         global Mafia
         self.send_Enter_message("직업 분배중입니다.","<시스템>")
         time.sleep(3)
         joblist=random.sample(joblist,6)
-        self.send_Job_message(UserList[0]) ## ↓각 유저들에게 직업을 알려줍니다
-        self.send_Job_message(UserList[1])
-        self.send_Job_message(UserList[2])
-        self.send_Job_message(UserList[3])
-        self.send_Job_message(UserList[4])
-        self.send_Job_message(UserList[5])
+        for i in range(0,6):
+            self.send_Job_message(UserList[i])  ## ↓각 유저들에게 직업을 알려줍니다
+        
         
 
         global MafiaList
@@ -173,13 +160,13 @@ class Server(object):
             mafia_kill=""
             police_skill=""
             doctor_skill=""
-            police_choice=1
-            
+            time.sleep(0.5)
             self.send_Enter_message("밤입니다. 활동을 진행해주세요.","<시스템>") # 전체채팅에 밤입니다 라고 알림.
-            time.sleep(1)
+            time.sleep(0.5)
             Date="밤"
             self.send_ChatButton_Setting(Date) #밤에는 채팅못치도록 버튼 세팅코드 보냄
-            self.send_Date_message("밤") ## 각 클라이언트에게 밤을 표시하도록 함.
+            time.sleep(0.5)
+            self.send_Date_message(Date) ## 각 클라이언트에게 밤을 표시하도록 함.
            # self.send_Enter_message("아무런 일이 일어나지 않았습니다.","<시스템>")
             ## 타이머 스레드 생성
             for i in range(0,6):
@@ -190,8 +177,8 @@ class Server(object):
                 Tnight.start()
            
             
-            
-            time.sleep(8) ## + 2초 대기
+            Tnight.join()
+            #time.sleep(6) ## + 2초 대기
         
             
            
@@ -215,6 +202,7 @@ class Server(object):
                             msg="<시스템>:당신은 밤에 습격을 당했습니다."
                             self.clients[Mafia].send(msg.encode()) ## 살해당한 유저에게 죽었다고 보냅니다
                             
+                            
                         else:
                             nickname=mafia_kill
                             joblist[i] = "사망"
@@ -222,11 +210,10 @@ class Server(object):
                             msg="<시스템>:당신은 밤에 습격을 당했습니다."
                             self.clients[mafia_kill].send(msg.encode()) ## 살해당한 유저에게 죽었다고 보냅니다
                             
-
             else:
                 self.send_Enter_message("아무런 일이 일어나지 않았습니다.","<시스템>")
 
-            time.sleep(3)
+            time.sleep(1)
 
             if mafia_su==0 or citizen_su==mafia_su: ## 게임종료조건이 되면 게임을끝냅니다
                 break
@@ -236,44 +223,48 @@ class Server(object):
 
 
             # 2. 아침 ( 대화 시간 ) # 120초
-           
+            
 
             ## 타이머 스레드 생성
-            
+            time.sleep(0.5)
             self.send_Enter_message("아침입니다. 대화를 나눠주세요.","<시스템>") # 전체채팅에 밤입니다 라고 알림.
-            time.sleep(1)
+            time.sleep(0.5)
             Date="아침"
             self.send_ChatButton_Setting(Date) # 아침 채팅 세팅
-            self.send_Date_message("아침") ## 각 클라이언트에게 밤을 표시하도록 함.
+            time.sleep(0.5)
+            self.send_Date_message(Date) ## 각 클라이언트에게 밤을 표시하도록 함.
             
             for i in range(0,6):
                 Tmorning=threading.Thread(target=self.send_Timer_message, args=(UserList[i], 7), daemon=True)
             ## 타이머 스레드 시작
                 Tmorning.start()
             
-
-
-            time.sleep(8)
+            Tmorning.join()
+            
+            #time.sleep(8)
            
             
             
 
             # 3. 투표시간 15초
             Votelist=[0,0,0,0,0,0]
-            FinalVoteUser=""
-            time.sleep(1)
+            time.sleep(0.5)
             self.send_Enter_message("투표시간입니다.","<시스템>") # 전체채팅에 밤입니다 라고 알림.
+            time.sleep(0.5)
             Date="투표시간"
             self.send_ChatButton_Setting(Date) # 투표시간 채팅 세팅
-            self.send_Date_message("투표시간") ## 각 클라이언트에게 밤을 표시하도록 함.
+            time.sleep(0.5)
+            self.send_Date_message(Date) ## 각 클라이언트에게 밤을 표시하도록 함.
+            
+            FinalVoteUser=""
             for i in range(0,6):
                 Tvote=threading.Thread(target=self.send_Timer_message, args=(UserList[i], 7), daemon=True)
                
             
             ## 타이머 스레드 시작
                 Tvote.start()
-         
-            time.sleep(8)
+            Tvote.join()
+            #time.sleep(8)
            
             ## 투표간 상호작용 처리
             for i in range(0,len(UserList)):
@@ -313,11 +304,14 @@ class Server(object):
 
             # 4. 최후의 반론 15초
             if vote_equ_flag==0 and VoteMax!=0:
+                time.sleep(0.5)
                 self.send_Enter_message("최후의반론입니다.","<시스템>") # 전체채팅에 밤입니다 라고 알림.
-                time.sleep(1)
+                time.sleep(0.5)
                 Date="최후의반론"
                 self.send_ChatButton_Setting(Date) # 최후의반론 채팅 세팅
-                self.send_Date_message("최후의반론") ## 각 클라이언트에게 밤을 표시하도록 함.
+                time.sleep(0.5)
+                self.send_Date_message(Date) ## 각 클라이언트에게 밤을 표시하도록 함.
+            
                 for i in range(0,6):
                     Tlast1=threading.Thread(target=self.send_Timer_message, args=(UserList[i], 7), daemon=True)
                    
@@ -325,9 +319,9 @@ class Server(object):
                
                 ## 타이머 스레드 시작
                     Tlast1.start()
-                
+                Tlast1.join()
 
-                time.sleep(8)
+                #time.sleep(8)
                 
              
 
@@ -340,14 +334,14 @@ class Server(object):
 
                 # 5. 최후의 투표 15초
 
-               # self.send_FinalVote_Popup(UserList[0]) #팝업 어캐하노
-               # self.send_FinalVote_Popup(UserList[1])
-               # self.send_FinalVote_Popup(UserList[2])
+                time.sleep(0.5)
                 self.send_Enter_message("최종 투표시간입니다. 입력방법 : /Y or /N 입니다.","<시스템>") # 전체채팅에 밤입니다 라고 알림.
-                time.sleep(1)
+                time.sleep(0.5)
                 Date="최후의투표"
-                self.send_ChatButton_Setting(Date) # 최후의투표 채팅 세팅
-                self.send_Date_message("최종투표") ## 각 클라이언트에게 밤을 표시하도록 함.
+                self.send_ChatButton_Setting(Date) # 최후의투표 채팅 세팅\
+                time.sleep(0.5)
+                self.send_Date_message(Date) ## 각 클라이언트에게 밤을 표시하도록 함.
+            
                 for i in range(0,6):
                     Tlastvote1=threading.Thread(target=self.send_Timer_message, args=(UserList[i], 7), daemon=True)
                
@@ -355,8 +349,8 @@ class Server(object):
                 ## 타이머 스레드 시작
                     Tlastvote1.start()
                 
-
-                time.sleep(8)
+                Tlastvote1.join()
+                #time.sleep(8)
                 
               
                 # 최후의 투표 결과 처리
@@ -417,7 +411,7 @@ class Server(object):
             self.send_Enter_message(MafiaList[0]+" , "+MafiaList[1],"<시스템>: 이번 게임의 마피아")
 
         
-        self.send_Enter_message("게임이 종료되었습니다.","\n\n\n<시스템>")
+        self.send_Enter_message("\t\t    게임이 종료되었습니다.","\n\n\n<시스템>")
 
 
         while True: ## 자유로운 채팅~
@@ -463,14 +457,14 @@ class Server(object):
 
                     for i in range(0,len(UserList)):
                         if UserList[i] == nickname and joblist[i]=="경찰": ## 밤인데 경찰이 지목을했다면?
-                            if police_choice==1:
-                                police_skill=dmsg[0:-2]
+                            police_skill=dmsg[0:-2]
 
-                                for i in range(0,len(UserList)): # 경찰은 지목한사람 직업을 바로보낸다.
-                                    if UserList[i] ==  police_skill:
-                                        dmsg ="\t\t    <시스템>:"+police_skill+"의 직업은"+str(joblist[i])+" 입니다.\n"
-                                        self.clients[nickname].send(dmsg.encode())
-                                police_choice=0
+                            for i in range(0,len(UserList)): # 경찰은 지목한사람 직업을 바로보낸다.
+                                if UserList[i] ==  police_skill:
+                                    dmsg ="\t\t    <시스템>:"+police_skill+"의 직업은"+str(joblist[i])+" 입니다.\n" 
+                                    self.clients[nickname].send(dmsg.encode())
+                                    dmsg = "*$"
+                                    self.clients[nickname].send(dmsg.encode())
                                    
 
                     for i in range(0,len(UserList)):
@@ -521,6 +515,8 @@ class Server(object):
                 for j in range(0,len(UserList)):
                     msg=str(UserList[j])+"*!"
                     self.clients[nickname].send(msg.encode())
+            
+
 
     
     def send_Timer_message(self,nickname,sec): ## 타이머 보내기
@@ -537,14 +533,16 @@ class Server(object):
     def send_Date_message(self,Date): ## 밤,아침,투표시간 등등 보내기
          if len(self.clients) >0:
             for nickname in self.clients:
-                msg = str(Date)+"입니다."+"#@"
+                msg = str(Date)+"#@"
                 self.clients[nickname].send(msg.encode())
+        
 
     def send_Enter_message(self,message,entname): ## 누가 입장했는지 표시
         if len(self.clients) >0:
             for nickname in self.clients:
                 msg = "\t\t    "+entname + ": " + message
                 self.clients[nickname].send(msg.encode())
+
     def send_Mafia_message(self,message,sender): ## 마피아간 밤채팅
         for i in range(0,len(UserList)):
             if UserList[i] != sender and joblist[i]=="마피아" : # 나 아닌 딴놈이 마피아일경우 그놈한테 메시지를전달.
@@ -601,13 +599,12 @@ class Server(object):
             
                         msg = "*%"
                         self.clients[UserList[i]].send(msg.encode())
-                    elif joblist[i] == "사망" or joblist[i] =="시민":
+                    elif joblist[i] == "사망" or joblist[i]=="시민":
                         msg = "*$"
                         self.clients[UserList[i]].send(msg.encode())
                     else:
                         msg ="*@"
                         self.clients[UserList[i]].send(msg.encode())
-
 
         elif Date=="투표시간"  : ##  채팅 X 지목 O
             if len(self.clients) >0:
