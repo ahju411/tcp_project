@@ -90,7 +90,7 @@ class Server(object):
             self.send_ChatButton_Setting(Date)
             
 
-            self.send_Enter_message("님이 입장하셨습니다 .",nickname)
+            self.send_Enter_message("님이 입장하셨습니다.",nickname)
             
             print("[INFO] Connection from {}:{} AKA {}".format(address[0], address[1], nickname))
 
@@ -473,7 +473,7 @@ class Server(object):
 
                 dmsg = msg.decode()
                 print("닉네임 :",nickname,"받은것",dmsg)
-                print(dmsg[-2])
+               
                
                 if Date=="밤" and mafia_su==2:
                     for i in range(0,len(UserList)):

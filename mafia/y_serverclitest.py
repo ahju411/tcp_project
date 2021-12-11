@@ -204,6 +204,7 @@ class Client(object):
         
         else: # 일반 채팅일경우 textbroswer로 모두에게 보여줌
             self.chat_ui.textBrowser.append(message)
+            self.chat_ui.textBrowser.setAlignment(QtCore.Qt.AlignCenter)
 
         
 
@@ -328,8 +329,9 @@ class Client(object):
     def send_message(self):
         message = self.chat_ui.textEdit.text()
         self.chat_ui.textBrowser.append("Me: " + message)
+        self.chat_ui.textBrowser.setAlignment(QtCore.Qt.AlignRight)
 
-        print("sent: " + message)
+        print("sent: " + message) #서버창에서 확인
 
         try:
             self.tcp_client.send(message.encode())
