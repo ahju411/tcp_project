@@ -112,6 +112,8 @@ class Client(object):
                 self.chat_ui.myjob_image.setText("시민")
                 message = message[0:-2]
                 self.chat_ui.textBrowser.append(message)
+            
+        
                 
         
         elif message[-2]=="#": # 타이머,시간은 [-2]== #
@@ -204,7 +206,7 @@ class Client(object):
         
         else: # 일반 채팅일경우 textbroswer로 모두에게 보여줌
             self.chat_ui.textBrowser.append(message)
-            self.chat_ui.textBrowser.setAlignment(QtCore.Qt.AlignCenter)
+            
 
         
 
@@ -328,8 +330,8 @@ class Client(object):
 
     def send_message(self):
         message = self.chat_ui.textEdit.text()
-        self.chat_ui.textBrowser.append("Me: " + message)
-        self.chat_ui.textBrowser.setAlignment(QtCore.Qt.AlignRight)
+        self.chat_ui.textBrowser.append("Me:"+message)
+       
 
         print("sent: " + message) #서버창에서 확인
 
