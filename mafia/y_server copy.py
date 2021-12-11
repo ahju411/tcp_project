@@ -113,8 +113,10 @@ class Server(object):
         global Vote_N
         global VoteMax,vote_equ_flag,max_equ_num
         global FinalVoteUser
+        global police_choice
         vote_equ_flag=0
         VoteMax=-1
+        
         
         FinalVoteUser=""
         mafia_su=2
@@ -171,6 +173,7 @@ class Server(object):
             mafia_kill=""
             police_skill=""
             doctor_skill=""
+            police_choice=1
             
             self.send_Enter_message("밤입니다. 활동을 진행해주세요.","<시스템>") # 전체채팅에 밤입니다 라고 알림.
             time.sleep(1)
@@ -460,12 +463,14 @@ class Server(object):
 
                     for i in range(0,len(UserList)):
                         if UserList[i] == nickname and joblist[i]=="경찰": ## 밤인데 경찰이 지목을했다면?
-                            police_skill=dmsg[0:-2]
+                            if police_choice==1:
+                                police_skill=dmsg[0:-2]
 
-                            for i in range(0,len(UserList)): # 경찰은 지목한사람 직업을 바로보낸다.
-                                if UserList[i] ==  police_skill:
-                                    dmsg ="\t\t    <시스템>:"+police_skill+"의 직업은"+str(joblist[i])+" 입니다.\n"
-                                    self.clients[nickname].send(dmsg.encode())
+                                for i in range(0,len(UserList)): # 경찰은 지목한사람 직업을 바로보낸다.
+                                    if UserList[i] ==  police_skill:
+                                        dmsg ="\t\t    <시스템>:"+police_skill+"의 직업은"+str(joblist[i])+" 입니다.\n"
+                                        self.clients[nickname].send(dmsg.encode())
+                                police_choice=0
                                    
 
                     for i in range(0,len(UserList)):
@@ -590,13 +595,13 @@ class Server(object):
 
     def send_ChatButton_Setting(self,Date): ## 채팅 세팅
         global mafia_su
-        if mafia_su==2 and Date=="밤":
+        if Date=="밤":
             for i in range(0,len(joblist)):##마피아가 밤에 2명있으면 채팅O 지목O
                     if joblist[i]=="마피아":
             
                         msg = "*%"
                         self.clients[UserList[i]].send(msg.encode())
-                    elif joblist[i] == "사망":
+                    elif joblist[i] == "사망" or joblist[i] =="시민":
                         msg = "*$"
                         self.clients[UserList[i]].send(msg.encode())
                     else:
