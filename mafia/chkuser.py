@@ -115,6 +115,7 @@ class Ui_chkuser(QtWidgets.QWidget):
 
             else:
                     QtWidgets.QMessageBox.about(self,"알림","존재하지 않는 정보입니다.")
+                    self.close()
 
 
 

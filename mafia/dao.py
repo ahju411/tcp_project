@@ -1,3 +1,5 @@
+#디비 관련 명령어들 모음
+
 import cx_Oracle
 import os
 

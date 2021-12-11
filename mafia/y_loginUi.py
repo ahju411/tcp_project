@@ -152,7 +152,6 @@ class Ui_Form(QtWidgets.QWidget):
                     self.lineEdit.clear()
                     self.lineEdit_2.clear()
             else:#로그인이 성공하면 대기창으로 들어감
-                     #로그인이 성공하면 대기창으로 들어감
                      from y_serverclitest import Client,ReceiveThread
                      self.join = Client()
                      self.join.btn_connect_clicked(myid)
