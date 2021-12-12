@@ -1,6 +1,6 @@
 from tkinter.constants import N, TRUE, Y
 from PyQt5 import QtCore, QtWidgets
-import y_mafia_homeUI
+import gameUI
 
 
 import sys
@@ -33,7 +33,7 @@ class Client(object):
 
         # add widgets to the application window
         self.chatWidget = QtWidgets.QWidget(self.mainWindow)
-        self.chat_ui = y_mafia_homeUI.Ui_Mafia()
+        self.chat_ui = gameUI.Ui_Mafia()
         self.chat_ui.setupUi(self.chatWidget)
         self.chat_ui.inputbutton.clicked.connect(self.send_message)
         self.chat_ui.textEdit.returnPressed.connect(self.send_message)
