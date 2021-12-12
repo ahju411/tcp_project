@@ -8,7 +8,7 @@ class Ui_Form(QtWidgets.QWidget):
     def __init__(self):
             super(Ui_Form,self).__init__()
             self.openWindow()
-            #self.show()
+            self.show()
     def openWindow(self):
         self.setupUi(self)
         self.pushButton_2.clicked.connect(self.register) # type: ignore
@@ -152,16 +152,13 @@ class Ui_Form(QtWidgets.QWidget):
                     self.lineEdit.clear()
                     self.lineEdit_2.clear()
             else:#로그인이 성공하면 대기창으로 들어감
-                    widgetlog.hide()
-
-                    from y_serverclitest import Client
-                    self.join = Client()
-                    self.join.btn_connect_clicked(myid)
-                    self.join.mainWindow.show()
-                     
-                   
-                     
-
+                     from y_serverclitest import Client,ReceiveThread
+                     self.join = Client()
+                     self.join.btn_connect_clicked(myid)
+                     self.join.mainWindow.show()
+                     self.close()
+                     widgetlog.destroy()
+        
                    
     def register(self): #가입하기 버튼 누르면 실행됨 
         joinui = Ui_registerUi()
@@ -170,7 +167,8 @@ class Ui_Form(QtWidgets.QWidget):
         widgetlog.addWidget(joinui)
         widgetlog.setCurrentIndex(widgetlog.currentIndex()+1) #가입창이 메인 위젯
         
-        
+        #self.join.close()
+        #self.join.show()
     def tologinform(self):
         #다시 로그인 창으로 돌아감 
         widgetlog.setCurrentIndex(widgetlog.currentIndex()-2)
@@ -180,7 +178,7 @@ class Ui_Form(QtWidgets.QWidget):
         self.chk = Ui_chkuser()
         self.chk.show()
         self.this.close()
-   
+
 
 
     def retranslateUi(self, Form):
@@ -203,5 +201,5 @@ if __name__=='__main__':
         widgetlog.setFixedHeight(500)
         widgetlog.setFixedWidth(400)
         widgetlog.show()
-        
+
         sys.exit(app.exec_())

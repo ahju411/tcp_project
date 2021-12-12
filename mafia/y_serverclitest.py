@@ -43,7 +43,8 @@ class Client(object):
         self.chat_ui.to_user4.clicked.connect(self.send_to_user4)
         self.chat_ui.to_user5.clicked.connect(self.send_to_user5)
         self.chat_ui.to_user6.clicked.connect(self.send_to_user6)
-
+        # self.chat_ui.to_user7.clicked.connect(self.send_to_user7)
+        # self.chat_ui.to_user8.clicked.connect(self.send_to_user8)
         self.mainWindow.setGeometry(QtCore.QRect(500, 20,754, 595))
         
 
@@ -52,7 +53,7 @@ class Client(object):
     
     def btn_connect_clicked(self,myid):
         nickname = myid
-        host = "118.217.168.174"
+        host = "118.217.168.174" #localhost
         port = 9090
         try:
             port = int(port)
@@ -90,6 +91,19 @@ class Client(object):
     def show_message(self, message): ## 서버로부터 받은 메시지를 구분하는곳
         global VotePopup
         
+        if self.chat_ui.to_user1.text() == "사망":
+            self.chat_ui.to_user1.setDisabled(True)
+        if self.chat_ui.to_user2.text() == "사망":
+            self.chat_ui.to_user2.setDisabled(True)
+        if self.chat_ui.to_user3.text() == "사망":
+            self.chat_ui.to_user3.setDisabled(True)
+        if self.chat_ui.to_user4.text() == "사망":
+            self.chat_ui.to_user4.setDisabled(True)
+        if self.chat_ui.to_user5.text() == "사망":
+            self.chat_ui.to_user5.setDisabled(True)
+        if self.chat_ui.to_user6.text() == "사망":
+            self.chat_ui.to_user6.setDisabled(True) 
+
         if message[-2]=="!": # 마피아팀은 [-2] == !
             if message[-1]=="@": #마피아1은 [-1] == @
                 self.chat_ui.myjob_image.setText("마피아")
@@ -127,6 +141,7 @@ class Client(object):
             if message[-1]=="!":## 버튼에 각각 유저이름 새기기
 
                 UserBtnList=[]
+               
                 while message!="":
                     findcode = message.find("*!",0,)
                     BtnName=message[0:findcode]
@@ -139,6 +154,29 @@ class Client(object):
                 self.chat_ui.to_user4.setText(UserBtnList[3])
                 self.chat_ui.to_user5.setText(UserBtnList[4])
                 self.chat_ui.to_user6.setText(UserBtnList[5])
+            elif message[-1]=="`":
+                    UserDieList=[]
+                    while message!="":
+                        findcode = message.find("*`",0,)
+                        BtnName=message[0:findcode]
+                        UserDieList.append(BtnName)
+                        print("죽은자명단" + UserDieList[0])
+                        message=message[findcode+2:]
+                    if self.chat_ui.to_user1.text() in UserDieList:
+                        print("1번 소유자" + self.chat_ui.to_user1.text())
+                        self.chat_ui.to_user1.setText("사망")
+                    elif self.chat_ui.to_user2.text() in UserDieList:
+                        self.chat_ui.to_user2.setText("사망")
+                    elif self.chat_ui.to_user3.text() in UserDieList:
+                        self.chat_ui.to_user3.setText("사망")
+                    elif self.chat_ui.to_user4.text() in UserDieList:
+                        self.chat_ui.to_user4.setText("사망")
+                    elif self.chat_ui.to_user5.text() in UserDieList:
+                        self.chat_ui.to_user5.setText("사망")
+                    elif self.chat_ui.to_user6.text() in UserDieList:
+                        self.chat_ui.to_user6.setText("사망")
+
+            
                 
                 
             elif message[-1]=="@": # 특정시간대에 채팅 X  지목 O
@@ -239,7 +277,7 @@ class Client(object):
             error = "Unable to send message '{}'".format(str(e))
             print("[INFO]", error)
             self.show_error("Server Error", error)
-        message = message[0:-2]+" 지목했습니다."
+        message = "["+ message[0:-2]+"] 지목했습니다."
         self.chat_ui.textBrowser.append(message)
         
     def send_to_user2(self):
@@ -251,7 +289,7 @@ class Client(object):
             error = "Unable to send message '{}'".format(str(e))
             print("[INFO]", error)
             self.show_error("Server Error", error)
-        message = message[0:-2]+" 지목했습니다."    
+        message = "["+message[0:-2]+"] 지목했습니다."    
         self.chat_ui.textBrowser.append(message)
     def send_to_user3(self):
         message = self.chat_ui.to_user3.text()
@@ -262,7 +300,7 @@ class Client(object):
             error = "Unable to send message '{}'".format(str(e))
             print("[INFO]", error)
             self.show_error("Server Error", error)
-        message = message[0:-2]+" 지목했습니다."    
+        message = "["+message[0:-2]+"] 지목했습니다."    
         self.chat_ui.textBrowser.append(message)
 
     def send_to_user4(self):
@@ -274,7 +312,7 @@ class Client(object):
             error = "Unable to send message '{}'".format(str(e))
             print("[INFO]", error)
             self.show_error("Server Error", error)
-        message = message[0:-2]+" 지목했습니다."    
+        message = "["+message[0:-2]+"] 지목했습니다."    
         self.chat_ui.textBrowser.append(message)
 
     def send_to_user5(self):
@@ -286,7 +324,7 @@ class Client(object):
             error = "Unable to send message '{}'".format(str(e))
             print("[INFO]", error)
             self.show_error("Server Error", error)
-        message = message[0:-2]+" 지목했습니다."    
+        message = "["+message[0:-2]+"] 지목했습니다."    
         self.chat_ui.textBrowser.append(message)
 
     def send_to_user6(self):
@@ -298,7 +336,7 @@ class Client(object):
             error = "Unable to send message '{}'".format(str(e))
             print("[INFO]", error)
             self.show_error("Server Error", error)
-        message = message[0:-2]+" 지목했습니다."
+        message = "["+message[0:-2]+"] 지목했습니다."
         self.chat_ui.textBrowser.append(message)
 
 
