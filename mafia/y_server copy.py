@@ -91,7 +91,7 @@ class Server(object):
             time.sleep(0.5)
             
 
-            self.send_Enter_message("님이 입장하셨습니다.\n",nickname)
+            self.send_Enter_message("님이 입장하셨습니다.(" + str(currentusernum+1) +"/6)명\n",nickname)
             
             print("[INFO] Connection from {}:{} AKA {}".format(address[0], address[1], nickname))
 
@@ -397,6 +397,7 @@ class Server(object):
         time.sleep(1)
 
         Date="끝"
+        time.sleep(0.5)
         self.send_ChatButton_Setting(Date) ## 자유로운 채팅
         if mafia_su==citizen_su:
             print("마피아팀의승리")
@@ -414,9 +415,7 @@ class Server(object):
         self.send_Enter_message("\t\t    게임이 종료되었습니다.","\n\n\n<시스템>")
 
 
-        while True: ## 자유로운 채팅~
-           
-            Date="끝"
+        chat_server
 
 
 
@@ -497,15 +496,17 @@ class Server(object):
                     self.send_message(msg, nickname)
                     print(nickname + ": " + msg.decode())
             except:
+                del(self.clients[nickname]) #client에서 해당 nickname을 지움
+                UserList.remove(nickname) #유저 리스트에서 해당 nickname을 지움
                 connection.close()
                 currentusernum-=1 # 나가면 현재 유저수를 뺌
 
                 #remove user from users list
-                del(self.clients[nickname])
-
+                
                 break
 
         print(nickname, " disconnected")
+        
 
 
 

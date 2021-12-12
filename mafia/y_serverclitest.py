@@ -43,8 +43,7 @@ class Client(object):
         self.chat_ui.to_user4.clicked.connect(self.send_to_user4)
         self.chat_ui.to_user5.clicked.connect(self.send_to_user5)
         self.chat_ui.to_user6.clicked.connect(self.send_to_user6)
-        # self.chat_ui.to_user7.clicked.connect(self.send_to_user7)
-        # self.chat_ui.to_user8.clicked.connect(self.send_to_user8)
+
         self.mainWindow.setGeometry(QtCore.QRect(500, 20,754, 595))
         
 
