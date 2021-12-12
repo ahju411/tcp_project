@@ -174,7 +174,7 @@ class Server(object):
            # self.send_Enter_message("아무런 일이 일어나지 않았습니다.","<시스템>")
             ## 타이머 스레드 생성
             for i in range(0,6):
-                Tnight=threading.Thread(target=self.send_Timer_message, args=(UserList[i], 7), daemon=True)
+                Tnight=threading.Thread(target=self.send_Timer_message, args=(UserList[i], 31), daemon=True)
                
             
             ## 타이머 스레드 시작
@@ -242,7 +242,7 @@ class Server(object):
             self.send_Date_message(Date) ## 각 클라이언트에게 밤을 표시하도록 함.
             
             for i in range(0,6):
-                Tmorning=threading.Thread(target=self.send_Timer_message, args=(UserList[i], 7), daemon=True)
+                Tmorning=threading.Thread(target=self.send_Timer_message, args=(UserList[i], 31), daemon=True)
             ## 타이머 스레드 시작
                 Tmorning.start()
             
@@ -259,6 +259,9 @@ class Server(object):
             for i in range(0,6):
                 Votelist[i] = 0
                 user_toVote[i] = ""
+            VoteMax=-1
+            vote_equ_flag=0
+            max_equ_num=-1
             time.sleep(0.5)
             self.send_Enter_message("투표시간입니다.","<시스템>") # 전체채팅에 밤입니다 라고 알림.
             time.sleep(0.5)
@@ -269,7 +272,7 @@ class Server(object):
             
             FinalVoteUser=""
             for i in range(0,6):
-                Tvote=threading.Thread(target=self.send_Timer_message, args=(UserList[i], 7), daemon=True)
+                Tvote=threading.Thread(target=self.send_Timer_message, args=(UserList[i], 16), daemon=True)
                
             
             ## 타이머 스레드 시작
@@ -288,9 +291,9 @@ class Server(object):
                 if VoteMax < Votelist[i]:
                     VoteMax = Votelist[i]
                     if max_equ_num < VoteMax:
-                        vote_equ_flag==0
+                        vote_equ_flag=0
                 elif VoteMax == Votelist[i]:
-                    vote_equ_flag==1
+                    vote_equ_flag=1
                     max_equ_num=VoteMax
             
             print("투표현황좀보자 :",user_toVote)
@@ -298,6 +301,7 @@ class Server(object):
             for i in range(0,len(UserList)):
                 if Votelist[i]==VoteMax and vote_equ_flag==1 and VoteMax !=0:
                     self.send_Enter_message("투표 결과 동률입니다.","<시스템>")
+                    break
                 elif Votelist[i]==VoteMax and vote_equ_flag==0 and VoteMax !=0:
                     FinalVoteUser=UserList[i]
                     print("최종투표후보자 : ",FinalVoteUser)
@@ -327,7 +331,7 @@ class Server(object):
                 self.send_Date_message(Date) ## 각 클라이언트에게 밤을 표시하도록 함.
             
                 for i in range(0,6):
-                    Tlast1=threading.Thread(target=self.send_Timer_message, args=(UserList[i], 7), daemon=True)
+                    Tlast1=threading.Thread(target=self.send_Timer_message, args=(UserList[i], 16), daemon=True)
                    
                 
                
@@ -359,7 +363,7 @@ class Server(object):
                 self.send_Date_message(Date) ## 각 클라이언트에게 밤을 표시하도록 함.
             
                 for i in range(0,6):
-                    Tlastvote1=threading.Thread(target=self.send_Timer_message, args=(UserList[i], 7), daemon=True)
+                    Tlastvote1=threading.Thread(target=self.send_Timer_message, args=(UserList[i], 16), daemon=True)
                
                 
                 ## 타이머 스레드 시작
@@ -419,13 +423,13 @@ class Server(object):
             print("마피아팀의승리")
             self.send_Enter_message("\n\n\n\n","")
             self.send_Enter_message("마피아의 승리!!!!\n","<시스템>")
-            self.send_Enter_message(MafiaList[0]+" , "+MafiaList[1],"<시스템>: 이번 게임의 마피아")
+            self.send_Enter_message(MafiaList[0]+" , "+MafiaList[1],"<시스템>:이번 게임의 마피아: ")
 
         else:
             print("시민팀의승리 ")
             self.send_Enter_message("\n\n\n\n","")
             self.send_Enter_message("시민팀의 승리!!!!\n","<시스템>")
-            self.send_Enter_message(MafiaList[0]+" , "+MafiaList[1],"<시스템>: 이번 게임의 마피아")
+            self.send_Enter_message(MafiaList[0]+" , "+MafiaList[1],"<시스템>:이번 게임의 마피아: ")
 
         
         self.send_Enter_message("게임이 종료되었습니다.","\n\n\n<시스템>")

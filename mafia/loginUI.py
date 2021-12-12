@@ -157,7 +157,7 @@ class Ui_Form(QtWidgets.QWidget):
                      self.join.btn_connect_clicked(myid)
                      self.join.mainWindow.show()
                      self.close()
-                     widgetlog.destroy()
+                     widgetlog.hide()
         
                    
     def register(self): #가입하기 버튼 누르면 실행됨 
